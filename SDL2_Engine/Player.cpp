@@ -33,19 +33,13 @@ void GPlayer::Update(float _deltaSeconds)
 		m_mirror.X = false;
 	}
 
-	// set falltime negativ to jump
-	if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) && !m_fallTime)
-		m_fallTime -= 0.6f;
-
-	// if key enter / return pressed
+	// if left mouse button is pressed
 	if (CInput::GetKeyDown(SDL_SCANCODE_RETURN))
 	{
-		// rect to check nearby enemies
-		SRect rect;
-		rect.w = 512;
-		rect.h = 512;
-		rect.x = m_position.X - 256;
-		rect.y = m_position.Y - 256;
+		m_Hitzone.w = 64;
+		m_Hitzone.h = 64;
+		m_Hitzone.x = m_HitzonePosition.X - m_Hitzone.w * 0.5f;
+		m_Hitzone.y = m_HitzonePosition.Y - m_Hitzone.h * 0.5f;
 
 		// check every persistent object
 		for (CObject* pObject : CTM->GetPersistentObjects())
@@ -55,7 +49,7 @@ void GPlayer::Update(float _deltaSeconds)
 				continue;
 
 			// if collision with range rect and current object rect
-			if (RectRectCollision(rect, ((CTexturedObject*)pObject)->GetRect()))
+			if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
 			{
 				// remove object and stop checkig other objects (remove only one enemy per key press)
 				CTM->RemoveObject(pObject);
