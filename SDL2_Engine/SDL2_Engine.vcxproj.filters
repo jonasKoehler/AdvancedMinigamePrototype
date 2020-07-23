@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Game\Scene\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Engine\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Engine\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedObject.cpp">
+      <Filter>Engine\Object\TexturedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentManagement.cpp">
+      <Filter>Engine\Management\Content</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveObject.cpp">
+      <Filter>Engine\Object\MoveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic.cpp">
+      <Filter>Engine\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Engine\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Game\Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Engine\Object\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="TextObject.cpp">
+      <Filter>Engine\Object\TextObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{5a6d50e7-28b5-4c33-8344-ab99790f488c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{73f0a1a3-913f-4316-b4ba-8340ea1a8621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{1482ea51-d143-48f7-9fc3-96c510abb97d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Helper">
+      <UniqueIdentifier>{2d511131-8021-4ae5-80df-8e4dc341ea17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{f72a3a2d-42de-492b-8b71-3a02200dc74e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{0c414b1c-31c4-4418-b093-8844060a81e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Main">
+      <UniqueIdentifier>{0167da9f-ea3b-4727-8d1e-94d8ef32866c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object">
+      <UniqueIdentifier>{0a933882-121d-43ac-9666-0169f75571f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Utility">
+      <UniqueIdentifier>{0f0c9495-81d9-4fd4-bd31-570da9c239c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Texture">
+      <UniqueIdentifier>{485b8535-74a0-486e-84e4-b4eb1d43e0cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderer">
+      <UniqueIdentifier>{f3299035-e091-4a7e-b7e2-2e6179c52a16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{e7b4708a-9d74-45b6-b2c4-63f4dfc69119}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Time">
+      <UniqueIdentifier>{a69eea41-f931-44b5-bcd3-3f103e642007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object">
+      <UniqueIdentifier>{4e360f38-5d71-4cc0-bc01-4724328cb819}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Base">
+      <UniqueIdentifier>{0e35391e-9915-4464-9f75-cc3f4c1ae324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\TexturedObject">
+      <UniqueIdentifier>{9b6b716e-6c4f-457b-a073-80c8c4ec74de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Management">
+      <UniqueIdentifier>{0701bb00-a89f-4273-8def-81fc04a6524c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Management\Content">
+      <UniqueIdentifier>{a484a8fe-9f80-43b9-a689-4e4eeea9c230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Core">
+      <UniqueIdentifier>{04f4fdf8-9b1a-46b0-928e-769c981ff351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\World">
+      <UniqueIdentifier>{64d9b6e9-46c5-48f9-882f-676e434e0296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Config">
+      <UniqueIdentifier>{e629ec38-b6c7-4a33-9256-c77af48c8451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\MoveObject">
+      <UniqueIdentifier>{985848c2-4c87-4d4f-bd24-830e431bd181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Physic">
+      <UniqueIdentifier>{24c1e8d5-ba8e-4523-8841-c18f8c4f9f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Enemy">
+      <UniqueIdentifier>{d8a21be1-5c35-4899-912e-43471f6c1ef6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Player">
+      <UniqueIdentifier>{d9a82bf0-a83c-4feb-86f7-69eac670c0f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Font">
+      <UniqueIdentifier>{655eea77-09ca-4a41-960d-3c115bb8f917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\TextObject">
+      <UniqueIdentifier>{bab142fe-5415-43e6-8e5f-3718a5e5bb6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Menu">
+      <UniqueIdentifier>{3a2fca7d-b9a3-449e-bf71-ad3e81c77d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Mouse">
+      <UniqueIdentifier>{e27fb05d-4ad4-47d4-ba70-084327c13bb1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro.h">
+      <Filter>Engine\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Game\Scene\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>Engine\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Engine\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Engine\Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedObject.h">
+      <Filter>Engine\Object\TexturedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentManagement.h">
+      <Filter>Engine\Management\Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Game\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveObject.h">
+      <Filter>Engine\Object\MoveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic.h">
+      <Filter>Engine\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Engine\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Game\Scene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Engine\Object\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="TextObject.h">
+      <Filter>Engine\Object\TextObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
