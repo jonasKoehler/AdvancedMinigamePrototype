@@ -119,6 +119,7 @@ void LoadWorldFromString()
 			// set speed, collision type, activate gravity and add to content
 			pPlayer->SetSpeed(500.0f);
 			pPlayer->SetColType(ECollisionType::DYNAMIC);
+			pPlayer->SetTag("Player");
 			CTM->AddPersistentObject(pPlayer);
 		}
 
@@ -135,8 +136,8 @@ void LoadWorldFromString()
 			// set speed, collision type, activate gravity, add to content and set tag
 			pEnemy->SetSpeed(250.0f);
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
-			CTM->AddPersistentObject(pEnemy);
 			pEnemy->SetTag("Enemy");
+			CTM->AddSceneObject(pEnemy);
 		}
 
 		// increase width

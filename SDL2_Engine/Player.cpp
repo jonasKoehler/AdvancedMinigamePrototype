@@ -25,12 +25,12 @@ void GPlayer::Update(float _deltaSeconds)
 	if (CInput::GetKey(SDL_SCANCODE_A))
 	{
 		movement.X -= 1;
-		m_mirror.X = true;
+		m_mirror.X = true; // remove when rotation is implemented
 	}
 	if (CInput::GetKey(SDL_SCANCODE_D))
 	{
 		movement.X += 1;
-		m_mirror.X = false;
+		m_mirror.X = false; // remove when rotation is implemented
 	}
 
 	// if left mouse button is pressed

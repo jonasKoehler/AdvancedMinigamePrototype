@@ -42,6 +42,7 @@ public:
 
 #pragma region private variables
 private:
+	int m_Angle = 0; // the angle between the cursor and player position
 	SRect m_Hitzone = SRect(); // rect that determines if an enemy is in attack range
 	SVector2 m_HitzonePosition = m_position; // pivot of the hitzone rect; rotates with the players view direction
 #pragma endregion
