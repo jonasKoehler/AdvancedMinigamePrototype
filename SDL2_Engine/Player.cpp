@@ -35,17 +35,17 @@ void GPlayer::Update(float _deltaSeconds)
 
 	if (m_AttackCooldown < 1.0f)
 	{
-		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond;
+		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
 	}
 
 	// if left mouse button is pressed and attack cooled down
 	if (CInput::GetMouseButton(0) && m_AttackCooldown >= 1.0f)
 	{
-		m_AttackCooldown -= 1.0f;
+		m_AttackCooldown = 0.0f;
 
 		m_HitzonePosition = m_position;
-		m_Hitzone.w = 128;
-		m_Hitzone.h = 128;
+		m_Hitzone.w = m_AttackRange;
+		m_Hitzone.h = m_AttackRange;
 		m_Hitzone.x = m_HitzonePosition.X - m_Hitzone.w * 0.5f;
 		m_Hitzone.y = m_HitzonePosition.Y - m_Hitzone.h * 0.5f;
 
@@ -61,7 +61,7 @@ void GPlayer::Update(float _deltaSeconds)
 			{
 				// remove object and stop checkig other objects (remove only one enemy per key press)
 				CTM->RemoveObject(pObject); // replace with enemy take damage function
-				break;
+				break; // remove when hp system is implemented
 			}
 		}
 	}
