@@ -45,6 +45,8 @@ private:
 	int m_Angle = 0; // the angle between the cursor and player position
 	SRect m_Hitzone = SRect(); // rect that determines if an enemy is in attack range
 	SVector2 m_HitzonePosition = m_position; // pivot of the hitzone rect; rotates with the players view direction
+	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
+	float m_AttackCooldown = 1.0f;
 #pragma endregion
 
 };
