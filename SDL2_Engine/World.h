@@ -64,19 +64,19 @@ void LoadWorldFromString()
 	int width = 0, height = 0;
 
 	// atlas texture of world
-	CTexture* pTexture = new CTexture("Texture/World/T_World.png");
+	CTexture* pGameTilemap = new CTexture("Texture/World/T_World.png");
 
 	// create textured object
-	CTexturedObject* pObj = new CTexturedObject(
+	CTexturedObject* pWorldObject = new CTexturedObject(
 		"",
 		SVector2()
 	);
 
 	// create background and render on screen
-	pObj->SetSrcRect(SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT, 0, 3 * WORLD_BLOCK_SOURCE_HEIGHT));
-	pObj->SetInWorld(false);
-	pObj->SetTexture(pTexture);
-	CTM->AddSceneObject(pObj);
+	pWorldObject->SetSrcRect(SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT, 0, 3 * WORLD_BLOCK_SOURCE_HEIGHT));
+	pWorldObject->SetInWorld(false);
+	pWorldObject->SetTexture(pGameTilemap);
+	CTM->AddSceneObject(pWorldObject);
 
 	// check every char
 	for (int i = 0; i < world.length(); i++)
@@ -85,14 +85,14 @@ void LoadWorldFromString()
 		if (world[i] != '\n' && world[i] != '0' && world[i] != 'S' && world[i] != 'E')
 		{
 			// create textured object
-			CTexturedObject* pObj = new CTexturedObject(
+			CTexturedObject* pWorldObject = new CTexturedObject(
 				"",
 				SVector2(WORLD_BLOCK_WIDTH, WORLD_BLOCK_HEIGHT),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
 			);
 
 			// set atlas texture to textured object texture
-			pObj->SetTexture(pTexture);
+			pWorldObject->SetTexture(pGameTilemap);
 
 			// theme height position in texture
 			int theme = 2;
@@ -104,37 +104,20 @@ void LoadWorldFromString()
 			// switch current char
 			switch (world[i])
 			{
-			// if V (way) set position x to way rect in atlas texture and collision type static
-			case 'V':
+				// if # set position x to way rect in atlas texture and collision type static
+			case '#':
 			{
 				srcRect.x = WORLD_BLOCK_SOURCE_WIDTH;
-				pObj->SetColType(ECollisionType::STATIC);
+				pWorldObject->SetColType(ECollisionType::STATIC);
 				break;
 			}
-
-			// if I (dirt) set position x to dirt rect in atlas texture and collision type static
-			case 'I':
-			{
-				srcRect.x = 5 * WORLD_BLOCK_SOURCE_WIDTH;
-				pObj->SetColType(ECollisionType::STATIC);
-				break;
-			}
-
-			// if X (cloud) set position y and x to cloud rect in atlas texture
-			case 'X':
-			{
-				srcRect.y = 3 * WORLD_BLOCK_SOURCE_HEIGHT;
-				srcRect.x = 9 * WORLD_BLOCK_SOURCE_WIDTH;
-				break;
-			}
-
 			default:
 				break;
 			}
 
 			// set source rect and add textured object to content
-			pObj->SetSrcRect(srcRect);
-			CTM->AddSceneObject(pObj);
+			pWorldObject->SetSrcRect(srcRect);
+			CTM->AddSceneObject(pWorldObject);
 		}
 
 		// if current char is player start
@@ -150,7 +133,6 @@ void LoadWorldFromString()
 			// set speed, collision type, activate gravity and add to content
 			pPlayer->SetSpeed(500.0f);
 			pPlayer->SetColType(ECollisionType::DYNAMIC);
-			pPlayer->ActivateGravity();
 			CTM->AddPersistentObject(pPlayer);
 		}
 
@@ -167,7 +149,6 @@ void LoadWorldFromString()
 			// set speed, collision type, activate gravity, add to content and set tag
 			pEnemy->SetSpeed(250.0f);
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
-			pEnemy->ActivateGravity();
 			CTM->AddPersistentObject(pEnemy);
 			pEnemy->SetTag("Enemy");
 		}
