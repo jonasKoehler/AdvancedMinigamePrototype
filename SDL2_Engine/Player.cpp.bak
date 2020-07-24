@@ -74,9 +74,6 @@ void GPlayer::Update(float _deltaSeconds)
 
 	// set camera position to player position
 	RENDERER->SetCamera(m_position);
-
-	// update current animation
-	m_pCurrentAnim->Update(_deltaSeconds);
 }
 
 // render every frame

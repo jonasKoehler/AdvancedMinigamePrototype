@@ -2,11 +2,6 @@
 
 #pragma region engine include
 #include "MoveObject.h"
-#include "Animation.h"
-#pragma endregion
-
-#pragma region game include
-#include "Config.h"
 #pragma endregion
 
 /// <summary>
@@ -22,10 +17,7 @@ public:
 	/// <param name="_pFileName">texture relative file path</param>
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of player</param>
-	GEnemy(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos)
-	{
-		m_anim.SetAnimationTime(0.5f);
-	}
+	GEnemy(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos) {}
 #pragma endregion
 
 #pragma region destructor
@@ -59,12 +51,5 @@ protected:
 	/// time in movement direction
 	/// </summary>
 	float m_timerInMovement = 1.0f;
-#pragma endregion
-
-#pragma region protected variable
-	/// <summary>
-	/// animation
-	/// </summary>
-	CAnimation m_anim = CAnimation(SVector2(), SVector2(PLAYER_SRC_WALK_WIDTH, PLAYER_SRC_WALK_HEIGHT), 4);
 #pragma endregion
 };

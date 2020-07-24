@@ -18,8 +18,6 @@ void CMouse::Update(float _deltaSeconds)
 // render every frame
 void CMouse::Render()
 {
-	// if visible render mouse
-	if(m_visible)
-		CTexturedObject::Render();
+	CTexturedObject::Render();
 }
 #pragma endregion

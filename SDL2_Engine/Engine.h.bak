@@ -8,11 +8,6 @@ class CTime;
 class CMouse;
 class CContentManagement;
 class CScene;
-class CTexture;
-#pragma endregion
-
-#pragma region project include
-#include "Vector2.h"
 #pragma endregion
 
 #pragma region value macro
@@ -55,7 +50,7 @@ public:
 	/// get engine
 	/// </summary>
 	/// <returns>engine reference</returns>
-	inline static CEngine* Get()
+	static CEngine* Get()
 	{
 		// static local variable is the same static variable as a member variable
 		// it exists only one time
@@ -95,30 +90,6 @@ public:
 	/// </summary>
 	/// <param name="_pScene">new scene reference</param>
 	void ChangeScene(CScene* _pScene);
-
-	/// <summary>
-	/// set mouse visible
-	/// </summary>
-	/// <param name="_visible">visible or not</param>
-	void SetMouseVisible(bool _visible);
-
-	/// <summary>
-	/// set texture of mouse
-	/// </summary>
-	/// <param name="_pTexture">texture to set</param>
-	void SetMouseTexture(CTexture* _pTexture);
-
-	/// <summary>
-	/// set center of mouse
-	/// </summary>
-	/// <param name="_center">center of mouse between zero and 1</param>
-	void SetMouseCenter(SVector2 _center);
-
-	/// <summary>
-	/// set size of mouse texture
-	/// </summary>
-	/// <param name="_size">size to set</param>
-	void SetMouseSize(SVector2 _size);
 #pragma endregion
 
 private:
