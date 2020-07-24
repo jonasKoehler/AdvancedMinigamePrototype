@@ -41,6 +41,11 @@ void GPlayer::Update(float _deltaSeconds)
 
 void GPlayer::Rotate()
 {
+	// winkel zwischen horizontalen vector (1,0)
+	// berechnen des 45° inkrements ((int X/45) * 45)
+	// berechnen der neuen position vom hitzone rect mit sin() und cos()
+	// neue currentAnimation anhand des winkels ermitteln
+	// ermitteln ob die animation geflipt wird
 }
 
 void GPlayer::Move()
@@ -78,17 +83,17 @@ void GPlayer::BasicAttack()
 	m_Hitzone.x = m_HitzonePosition.X - m_Hitzone.w * 0.5f;
 	m_Hitzone.y = m_HitzonePosition.Y - m_Hitzone.h * 0.5f;
 
-	// check every persistent object
+	//check every scene object
 	for (CObject* pObject : CTM->GetSceneObjects())
 	{
-		// if this continue to next object
+		// if its not an enemy continue to next object
 		if (pObject->GetTag() != "Enemy")
 			continue;
 
 		// if collision with range rect and current object rect
 		if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
 		{
-			// remove object and stop checkig other objects (remove only one enemy per key press)
+			// remove object and stop checkig other objects
 			CTM->RemoveObject(pObject); // replace with enemy take damage function
 			break; // remove when hp system is implemented
 		}
