@@ -25,7 +25,14 @@ public:
 	/// <summary>
 	/// destructor
 	/// </summary>
-	virtual ~GPlayer() {}
+	virtual ~GPlayer() 
+	{
+		delete m_pMoveDownRight;
+		delete m_pMoveUpRight;
+		delete m_pMoveRight;
+		delete m_pMoveDownwards;
+		delete m_pMoveUpwards;
+	}
 #pragma endregion
 
 #pragma region public override function
