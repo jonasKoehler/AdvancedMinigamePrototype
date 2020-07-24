@@ -2,6 +2,7 @@
 
 #pragma region engine include
 #include "MoveObject.h"
+#include "Animation.h"
 #pragma endregion
 
 /// <summary>
@@ -54,6 +55,16 @@ private:
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
 	int m_AttackRange = 64; // attack range in pixels
+
+	/*
+	*	Animation Pointer
+	*/
+	CAnimation* m_pCurrentAnimation = nullptr;
+	CAnimation* m_pMoveUpwards = nullptr;
+	CAnimation* m_pMoveDownwards = nullptr;
+	CAnimation* m_pMoveRight = nullptr;
+	CAnimation* m_pMoveUpRight = nullptr;
+	CAnimation* m_pMoveDownRight = nullptr;
 #pragma endregion
 
 };
