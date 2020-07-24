@@ -79,6 +79,10 @@ void GPlayer::Update(float _deltaSeconds)
 	m_pCurrentAnimation->Update(_deltaSeconds);
 }
 
+void GPlayer::Rotate()
+{
+}
+
 // render every frame
 void GPlayer::Render()
 {
@@ -90,8 +94,5 @@ void GPlayer::Render()
 
 	// render parent
 	CTexturedObject::Render();
-}
-void GPlayer::Rotate()
-{
 }
 #pragma endregion
