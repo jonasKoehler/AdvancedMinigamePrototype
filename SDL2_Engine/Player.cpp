@@ -14,6 +14,37 @@
 // update every frame
 void GPlayer::Update(float _deltaSeconds)
 {
+	Rotate();
+
+	Move();
+
+	if (m_AttackCooldown < 1.0f)
+	{
+		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
+	}
+
+	// if left mouse button is pressed and attack cooled down
+	if (CInput::GetMouseButton(0) && m_AttackCooldown >= 1.0f)
+	{
+		BasicAttack();
+	}
+
+	// update parent
+	CMoveObject::Update(_deltaSeconds);
+
+	// set camera position to player position
+	RENDERER->SetCamera(m_position);
+
+	// update current animation
+	m_pCurrentAnimation->Update(_deltaSeconds);
+}
+
+void GPlayer::Rotate()
+{
+}
+
+void GPlayer::Move()
+{
 	// movement base
 	SVector2 movement = SVector2();
 
@@ -33,54 +64,35 @@ void GPlayer::Update(float _deltaSeconds)
 		m_mirror.X = false; // remove when rotation is implemented
 	}
 
-	if (m_AttackCooldown < 1.0f)
-	{
-		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
-	}
-
-	// if left mouse button is pressed and attack cooled down
-	if (CInput::GetMouseButton(0) && m_AttackCooldown >= 1.0f)
-	{
-		m_AttackCooldown = 0.0f;
-
-		m_HitzonePosition = m_position;
-		m_Hitzone.w = m_AttackRange;
-		m_Hitzone.h = m_AttackRange;
-		m_Hitzone.x = m_HitzonePosition.X - m_Hitzone.w * 0.5f;
-		m_Hitzone.y = m_HitzonePosition.Y - m_Hitzone.h * 0.5f;
-
-		// check every persistent object
-		for (CObject* pObject : CTM->GetSceneObjects())
-		{
-			// if this continue to next object
-			if (pObject->GetTag() != "Enemy")
-				continue;
-
-			// if collision with range rect and current object rect
-			if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
-			{
-				// remove object and stop checkig other objects (remove only one enemy per key press)
-				CTM->RemoveObject(pObject); // replace with enemy take damage function
-				break; // remove when hp system is implemented
-			}
-		}
-	}
-
 	// set movement
 	m_movement = movement;
-
-	// update parent
-	CMoveObject::Update(_deltaSeconds);
-
-	// set camera position to player position
-	RENDERER->SetCamera(m_position);
-
-	// update current animation
-	m_pCurrentAnimation->Update(_deltaSeconds);
 }
 
-void GPlayer::Rotate()
+void GPlayer::BasicAttack()
 {
+	m_AttackCooldown = 0.0f;
+
+	m_HitzonePosition = m_position;
+	m_Hitzone.w = m_AttackRange;
+	m_Hitzone.h = m_AttackRange;
+	m_Hitzone.x = m_HitzonePosition.X - m_Hitzone.w * 0.5f;
+	m_Hitzone.y = m_HitzonePosition.Y - m_Hitzone.h * 0.5f;
+
+	// check every persistent object
+	for (CObject* pObject : CTM->GetSceneObjects())
+	{
+		// if this continue to next object
+		if (pObject->GetTag() != "Enemy")
+			continue;
+
+		// if collision with range rect and current object rect
+		if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
+		{
+			// remove object and stop checkig other objects (remove only one enemy per key press)
+			CTM->RemoveObject(pObject); // replace with enemy take damage function
+			break; // remove when hp system is implemented
+		}
+	}
 }
 
 // render every frame

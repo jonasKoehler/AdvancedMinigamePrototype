@@ -66,6 +66,8 @@ public:
 #pragma region private functions
 private:
 	void Rotate();
+	void Move();
+	void BasicAttack();
 #pragma endregion
 
 
