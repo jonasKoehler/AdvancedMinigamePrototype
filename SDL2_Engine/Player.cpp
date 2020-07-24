@@ -76,17 +76,17 @@ void GPlayer::Update(float _deltaSeconds)
 	RENDERER->SetCamera(m_position);
 
 	// update current animation
-	m_pCurrentAnim->Update(_deltaSeconds);
+	m_pCurrentAnimation->Update(_deltaSeconds);
 }
 
 // render every frame
 void GPlayer::Render()
 {
 	// set source rect by current animation
-	m_srcRect.x = m_pCurrentAnim->GetCurrentTexturePosition().X;
-	m_srcRect.y = m_pCurrentAnim->GetCurrentTexturePosition().Y;
-	m_srcRect.w = m_pCurrentAnim->GetSize().X;
-	m_srcRect.h = m_pCurrentAnim->GetSize().Y;
+	m_srcRect.x = m_pCurrentAnimation->GetCurrentTexturePosition().X;
+	m_srcRect.y = m_pCurrentAnimation->GetCurrentTexturePosition().Y;
+	m_srcRect.w = m_pCurrentAnimation->GetSize().X;
+	m_srcRect.h = m_pCurrentAnimation->GetSize().Y;
 
 	// render parent
 	CTexturedObject::Render();

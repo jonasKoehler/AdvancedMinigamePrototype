@@ -18,14 +18,29 @@ public:
 	/// <param name="_pFileName">texture relative file path</param>
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of player</param>
-	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos) {}
+	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos)
+	{
+		SVector2 animationFrameSize = SVector2(64, 64);
+		SVector2 framePositionInTexture = SVector2(0, 0);
+		m_pMoveRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		m_pCurrentAnimation = m_pMoveRight;
+
+		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
+		m_pMoveUpwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+
+		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
+		m_pMoveUpRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+
+		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
+		m_pMoveDownRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+	}
 #pragma endregion
 
 #pragma region destructor
 	/// <summary>
 	/// destructor
 	/// </summary>
-	virtual ~GPlayer() 
+	virtual ~GPlayer()
 	{
 		delete m_pMoveDownRight;
 		delete m_pMoveUpRight;
