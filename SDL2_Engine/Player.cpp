@@ -91,4 +91,7 @@ void GPlayer::Render()
 	// render parent
 	CTexturedObject::Render();
 }
+void GPlayer::Rotate()
+{
+}
 #pragma endregion

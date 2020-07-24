@@ -111,7 +111,7 @@ void LoadWorldFromString()
 		{
 			// create player
 			GPlayer* pPlayer = new GPlayer(
-				"Texture/Character/Mario/T_Mario.png",
+				"Texture/Character/Player/T_Player.png",
 				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
 			);
@@ -128,7 +128,7 @@ void LoadWorldFromString()
 		{
 			// create enemy
 			GEnemy* pEnemy = new GEnemy(
-				"Texture/Character/Mario/T_Mario.png",
+				"Texture/Character/Player/T_Player.png",
 				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
 			);

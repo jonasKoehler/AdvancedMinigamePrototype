@@ -40,6 +40,12 @@ public:
 	virtual	void Render() override;
 #pragma endregion
 
+#pragma region private functions
+private:
+	void Rotate();
+#pragma endregion
+
+
 #pragma region private variables
 private:
 	int m_Angle = 0; // the angle between the cursor and player position
