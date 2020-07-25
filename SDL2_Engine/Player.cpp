@@ -9,11 +9,11 @@
 #pragma region game include
 #include "Player.h"
 #include "Game.h"
+#include "Config.h"
 #pragma endregion
 
 #pragma region std includes
 #include <math.h>
-using namespace std;
 #pragma endregion
 
 
@@ -34,6 +34,8 @@ void GPlayer::Update(float _deltaSeconds)
 	if (CInput::GetMouseButton(0) && m_AttackCooldown >= 1.0f)
 	{
 		BasicAttack();
+		std::cout << m_position.X << " | " << m_position.Y << std::endl;
+		std::cout << m_Hitzone.x << " | " << m_Hitzone.y << std::endl;
 	}
 
 	// update parent
@@ -68,9 +70,14 @@ void GPlayer::Rotate() // Jonas
 
 	// calculating the 45° increment ((int X/45) * 45)
 	angle = round(angle / 45) * 45;
-	LOG(angle);
+	//LOG(angle);
 
 	// berechnen der neuen position vom hitzone rect mit sin() und cos()
+	int hitzonePosX = m_position.X + cos(angle) * (PLAYER_WIDTH * 0.5f + m_Hitzone.w * 0.5f);
+	int hitzonePosY = m_position.Y + sin(angle) * (PLAYER_HEIGHT * 0.5f + m_Hitzone.h * 0.5f);
+
+	m_Hitzone.x = hitzonePosX - m_Hitzone.w * 0.5f;
+	m_Hitzone.y = hitzonePosY - m_Hitzone.h * 0.5f;
 
 	// neue currentAnimation anhand des winkels ermitteln
 	m_mirror.X = false;
@@ -97,7 +104,7 @@ void GPlayer::Rotate() // Jonas
 		break;
 	}
 	case 90:
-	case 270:
+	case 270: // case 270 belongs in own case and set animation to downwards later. y has to be flipped with current tilemap
 	{
 		m_pCurrentAnimation = m_pMoveUpwards;
 		break;
@@ -105,13 +112,14 @@ void GPlayer::Rotate() // Jonas
 	default:
 		break;
 	}
-	// ermitteln ob die animation geflipt wird
+
+	// determine flippping of animation on X axis
 	if (angle > 90 && angle < 270)
 	{
 		m_mirror.X = true;
 	}
 
-	if (angle == 270)
+	if (angle == 270) // remove when final tilemap and dedicated downmove animation
 	{
 		m_mirror.Y = true;
 	}
@@ -139,12 +147,6 @@ void GPlayer::Move() // Jonas
 void GPlayer::BasicAttack() // Jonas
 {
 	m_AttackCooldown = 0.0f;
-
-	m_HitzonePosition = m_position;
-	m_Hitzone.w = m_AttackRange;
-	m_Hitzone.h = m_AttackRange;
-	m_Hitzone.x = m_HitzonePosition.X - m_Hitzone.w * 0.5f;
-	m_Hitzone.y = m_HitzonePosition.Y - m_Hitzone.h * 0.5f;
 
 	//check every scene object
 	for (CObject* pObject : CTM->GetSceneObjects())

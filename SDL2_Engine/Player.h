@@ -20,6 +20,9 @@ public:
 	/// <param name="_pos">position of player</param>
 	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos) // Jonas
 	{
+		m_Hitzone.w = m_AttackRange;
+		m_Hitzone.h = m_AttackRange;
+
 		SVector2 animationFrameSize = SVector2(32, 32);
 		SVector2 framePositionInTexture = SVector2(0, 0);
 		m_pMoveRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
@@ -75,10 +78,9 @@ private:
 private:
 	int m_Angle = 0; // the angle between the cursor and player position
 	SRect m_Hitzone = SRect(); // rect that determines if an enemy is in attack range
-	SVector2 m_HitzonePosition = m_position; // pivot of the hitzone rect; rotates with the players view direction
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
-	int m_AttackRange = 64; // attack range in pixels
+	int m_AttackRange = 20; // attack range in pixels
 
 	/*
 	*	Animation Pointer
