@@ -122,11 +122,6 @@ void GPlayer::Rotate() // Jonas
 	{
 		m_mirror.X = true;
 	}
-
-	if (angle == 270) // remove when final tilemap and dedicated downmove animation
-	{
-		m_mirror.Y = true;
-	}
 }
 
 void GPlayer::Move() // Jonas
