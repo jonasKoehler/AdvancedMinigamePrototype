@@ -3,12 +3,19 @@
 #include "Renderer.h"
 #include "ContentManagement.h"
 #include "Physic.h"
+#include "Macro.h"
 #pragma endregion
 
 #pragma region game include
 #include "Player.h"
 #include "Game.h"
 #pragma endregion
+
+#pragma region std includes
+#include <math.h>
+using namespace std;
+#pragma endregion
+
 
 #pragma region public override function
 // update every frame
@@ -39,16 +46,78 @@ void GPlayer::Update(float _deltaSeconds)
 	m_pCurrentAnimation->Update(_deltaSeconds);
 }
 
-void GPlayer::Rotate()
+void GPlayer::Rotate() // Jonas
 {
-	// winkel zwischen horizontalen vector (1,0)
-	// berechnen des 45° inkrements ((int X/45) * 45)
+	float angle = 0.0f;
+	// calculate cursor world position
+	SVector2 mouseWorldPos = CInput::GetMousePosition();
+	mouseWorldPos.X += RENDERER->GetCamera().X - SCREEN_WIDTH * 0.5f;
+	mouseWorldPos.Y += RENDERER->GetCamera().Y - SCREEN_HEIGHT * 0.5f;
+
+	// angle between player and mouse position using atan2 and radiant to degree constant
+	if (mouseWorldPos.Y < m_position.Y)
+	{
+		angle = atan2(mouseWorldPos.Y - m_position.Y, mouseWorldPos.X - m_position.X) * (180 / M_PI);
+	}
+	else
+	{
+		angle = atan2(m_position.Y - mouseWorldPos.Y, m_position.X - mouseWorldPos.X) * (180 / M_PI);
+		angle -= 180;
+	}
+	angle *= -1;
+
+	// calculating the 45° increment ((int X/45) * 45)
+	angle = round(angle / 45) * 45;
+	LOG(angle);
+
 	// berechnen der neuen position vom hitzone rect mit sin() und cos()
+
 	// neue currentAnimation anhand des winkels ermitteln
+	m_mirror.X = false;
+	m_mirror.Y = false;
+	switch ((int)angle)
+	{
+	case 0:
+	case 360:
+	case 180:
+	{
+		m_pCurrentAnimation = m_pMoveRight;
+		break;
+	}
+	case 45:
+	case 135:
+	{
+		m_pCurrentAnimation = m_pMoveUpRight;
+		break;
+	}
+	case 225:
+	case 315:
+	{
+		m_pCurrentAnimation = m_pMoveDownRight;
+		break;
+	}
+	case 90:
+	case 270:
+	{
+		m_pCurrentAnimation = m_pMoveUpwards;
+		break;
+	}
+	default:
+		break;
+	}
 	// ermitteln ob die animation geflipt wird
+	if (angle > 90 && angle < 270)
+	{
+		m_mirror.X = true;
+	}
+
+	if (angle == 270)
+	{
+		m_mirror.Y = true;
+	}
 }
 
-void GPlayer::Move()
+void GPlayer::Move() // Jonas
 {
 	// movement base
 	SVector2 movement = SVector2();
@@ -59,21 +128,15 @@ void GPlayer::Move()
 	if (CInput::GetKey(SDL_SCANCODE_S))
 		movement.Y += 1;
 	if (CInput::GetKey(SDL_SCANCODE_A))
-	{
 		movement.X -= 1;
-		m_mirror.X = true; // remove when rotation is implemented
-	}
 	if (CInput::GetKey(SDL_SCANCODE_D))
-	{
 		movement.X += 1;
-		m_mirror.X = false; // remove when rotation is implemented
-	}
 
 	// set movement
 	m_movement = movement;
 }
 
-void GPlayer::BasicAttack()
+void GPlayer::BasicAttack() // Jonas
 {
 	m_AttackCooldown = 0.0f;
 
