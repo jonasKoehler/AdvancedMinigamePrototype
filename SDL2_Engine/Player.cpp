@@ -88,29 +88,29 @@ void GPlayer::Rotate() // Jonas
 	case 360:
 	case 180:
 	{
-		m_pCurrentAnimation = m_pMoveRight;
+		m_pCurrentAnimation = m_pLookRight;
 		break;
 	}
 	case 45:
 	case 135:
 	{
-		m_pCurrentAnimation = m_pMoveUpRight;
+		m_pCurrentAnimation = m_pLookUpRight;
 		break;
 	}
 	case 225:
 	case 315:
 	{
-		m_pCurrentAnimation = m_pMoveDownRight;
+		m_pCurrentAnimation = m_pLookDownRight;
 		break;
 	}
 	case 90:
 	{
-		m_pCurrentAnimation = m_pMoveUpwards;
+		m_pCurrentAnimation = m_pLookUpwards;
 		break;
 	}
 	case 270:
 	{
-		m_pCurrentAnimation = m_pMoveDownwards;
+		m_pCurrentAnimation = m_pLookDownwards;
 		break;
 	}
 	default:

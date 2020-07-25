@@ -25,20 +25,20 @@ public:
 
 		SVector2 animationFrameSize = SVector2(32, 32);
 		SVector2 framePositionInTexture = SVector2(0, 0);
-		m_pMoveRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
-		m_pCurrentAnimation = m_pMoveRight;
+		m_pLookRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		m_pCurrentAnimation = m_pLookRight;
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pMoveUpwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		m_pLookUpwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 		
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pMoveDownwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		m_pLookDownwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pMoveUpRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		m_pLookUpRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pMoveDownRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		m_pLookDownRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 	}
 #pragma endregion
 
@@ -48,11 +48,11 @@ public:
 	/// </summary>
 	virtual ~GPlayer()
 	{
-		delete m_pMoveDownRight;
-		delete m_pMoveUpRight;
-		delete m_pMoveRight;
-		delete m_pMoveDownwards;
-		delete m_pMoveUpwards;
+		delete m_pLookDownRight;
+		delete m_pLookUpRight;
+		delete m_pLookRight;
+		delete m_pLookDownwards;
+		delete m_pLookUpwards;
 	}
 #pragma endregion
 
@@ -89,11 +89,11 @@ private:
 	*	Animation Pointer
 	*/
 	CAnimation* m_pCurrentAnimation = nullptr;
-	CAnimation* m_pMoveUpwards = nullptr;
-	CAnimation* m_pMoveDownwards = nullptr;
-	CAnimation* m_pMoveRight = nullptr;
-	CAnimation* m_pMoveUpRight = nullptr;
-	CAnimation* m_pMoveDownRight = nullptr;
+	CAnimation* m_pLookUpwards = nullptr;
+	CAnimation* m_pLookDownwards = nullptr;
+	CAnimation* m_pLookRight = nullptr;
+	CAnimation* m_pLookUpRight = nullptr;
+	CAnimation* m_pLookDownRight = nullptr;
 #pragma endregion
 
 };
