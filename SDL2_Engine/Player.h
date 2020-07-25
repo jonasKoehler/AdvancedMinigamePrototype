@@ -30,6 +30,9 @@ public:
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pMoveUpwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		
+		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
+		m_pMoveDownwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pMoveUpRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);

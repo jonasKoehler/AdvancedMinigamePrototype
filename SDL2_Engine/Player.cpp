@@ -104,9 +104,13 @@ void GPlayer::Rotate() // Jonas
 		break;
 	}
 	case 90:
-	case 270: // case 270 belongs in own case and set animation to downwards later. y has to be flipped with current tilemap
 	{
 		m_pCurrentAnimation = m_pMoveUpwards;
+		break;
+	}
+	case 270:
+	{
+		m_pCurrentAnimation = m_pMoveDownwards;
 		break;
 	}
 	default:
