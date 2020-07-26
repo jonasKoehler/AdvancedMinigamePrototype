@@ -18,7 +18,7 @@ public:
 	/// <param name="_pFileName">texture relative file path</param>
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of player</param>
-	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos) // Jonas
+	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos)
 	{
 		m_Hitzone.w = m_AttackRange;
 		m_Hitzone.h = m_AttackRange;
@@ -45,7 +45,7 @@ public:
 		m_pLookDownRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 		
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pAttack = new CAnimation(framePositionInTexture, animationFrameSize, 1 / m_AttacksPerSecond, 4);
+		m_pAttack = new CAnimation(framePositionInTexture, animationFrameSize, 1 / (m_AttacksPerSecond * 1.5), 4, false);
 	}
 #pragma endregion
 
@@ -79,9 +79,9 @@ public:
 
 #pragma region private functions
 private:
-	void Rotate();
-	void Move();
-	void BasicAttack();
+	void Rotate(); // by Jonas
+	void Move(); // by Jonas
+	void BasicAttack();  // by Jonas
 #pragma endregion
 
 

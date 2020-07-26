@@ -12,28 +12,25 @@
 #include "Config.h"
 #pragma endregion
 
-#pragma region std includes
+#pragma region other includes
 #include <math.h>
 #pragma endregion
 
 
 #pragma region public override function
-// update every frame
 void GPlayer::Update(float _deltaSeconds)
 {
 	Rotate();
 
-	m_pHitzoneTexture->Update(_deltaSeconds);
+	m_pHitzoneTexture->Update(_deltaSeconds); // update hitzone after changes in Rotate()
+	m_pCurrentAnimation->Update(_deltaSeconds); // update current animation after changes in Rotate()
 
 	Move();
 
 	if (m_AttackCooldown < 1.0f)
 	{
 		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
-	}
-	else
-	{
-		m_pAttack->Stop(true);
+		m_pAttack->Update(_deltaSeconds); // update attack animation only when the player actually attacked
 	}
 
 	// if left mouse button is pressed and attack cooled down
@@ -41,20 +38,25 @@ void GPlayer::Update(float _deltaSeconds)
 	{
 		BasicAttack();
 		m_pAttack->Start();
+		// add attack sound
 	}
 
-	// update parent
-	CMoveObject::Update(_deltaSeconds);
-
-	// set camera position to player position
-	RENDERER->SetCamera(m_position);
-
-	// update current animation
-	m_pCurrentAnimation->Update(_deltaSeconds);
-	m_pAttack->Update(_deltaSeconds);
+	RENDERER->SetCamera(m_position); // set camera position to player position
+	CMoveObject::Update(_deltaSeconds); // update parent
 }
 
-void GPlayer::Rotate() // Jonas
+void GPlayer::Render()
+{
+	m_srcRect = m_pCurrentAnimation->GetNewSourceRect(); // set player source rect by current animation
+	m_pHitzoneTexture->SetSrcRect(m_pAttack->GetNewSourceRect()); // set hitzone animation src rect
+
+	m_pHitzoneTexture->Render();
+	CTexturedObject::Render(); // render parent
+}
+#pragma endregion
+
+#pragma region private functions
+void GPlayer::Rotate()
 {
 	float angle = 0.0f;
 	// calculate cursor world position
@@ -132,7 +134,7 @@ void GPlayer::Rotate() // Jonas
 	}
 }
 
-void GPlayer::Move() // Jonas
+void GPlayer::Move()
 {
 	// movement base
 	SVector2 movement = SVector2();
@@ -151,7 +153,7 @@ void GPlayer::Move() // Jonas
 	m_movement = movement;
 }
 
-void GPlayer::BasicAttack() // Jonas
+void GPlayer::BasicAttack()
 {
 	m_AttackCooldown = 0.0f;
 
@@ -170,17 +172,5 @@ void GPlayer::BasicAttack() // Jonas
 			break; // remove when hp system is implemented
 		}
 	}
-}
-
-// render every frame
-void GPlayer::Render()
-{
-	// set player source rect by current animation
-	m_srcRect = m_pCurrentAnimation->GetNewSourceRect();
-	m_pHitzoneTexture->SetSrcRect(m_pAttack->GetNewSourceRect());
-
-	m_pHitzoneTexture->Render();
-	// render parent
-	CTexturedObject::Render();
 }
 #pragma endregion
