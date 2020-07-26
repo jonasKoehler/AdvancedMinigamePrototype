@@ -37,4 +37,8 @@ SVector2 CAnimation::GetCurrentTexturePosition()
 	// return position
 	return v;
 }
+SRect CAnimation::GetNewSourceRect()
+{
+	return SRect(GetSize(), GetCurrentTexturePosition());
+}
 #pragma endregion

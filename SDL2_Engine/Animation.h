@@ -1,7 +1,7 @@
 #pragma once
 
 #pragma region project include
-#include "Vector2.h"
+#include "Rect.h"
 #pragma endregion
 
 /// <summary>
@@ -54,6 +54,12 @@ public:
 	/// </summary>
 	/// <returns>current position of the animation in the texture</returns>
 	SVector2 GetCurrentTexturePosition();
+
+	/// <summary>
+	/// get the new sourcerect
+	/// </summary>
+	/// <returns>current rect of the animation frame</returns>
+	SRect GetNewSourceRect();
 #pragma endregion
 
 protected:

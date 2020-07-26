@@ -36,8 +36,6 @@ void GPlayer::Update(float _deltaSeconds)
 	if (CInput::GetMouseButton(0) && m_AttackCooldown >= 1.0f)
 	{
 		BasicAttack();
-		std::cout << m_position.X << " | " << m_position.Y << std::endl;
-		std::cout << m_Hitzone.x << " | " << m_Hitzone.y << std::endl;
 	}
 
 	// update parent
@@ -72,7 +70,6 @@ void GPlayer::Rotate() // Jonas
 
 	// calculating the 45° increment ((int X/45) * 45)
 	angle = round(angle / 45) * 45;
-	LOG(angle);
 
 	// calculate new hitzone rect position sin() und cos(), pi/180 = degree to radiant conversion since cos & sin use radiants in c++
 	int hitzonePosX = m_position.X + (cos(angle * M_PI / 180) * (PLAYER_WIDTH * 0.5 + m_Hitzone.w * 0.5));
@@ -172,11 +169,8 @@ void GPlayer::BasicAttack() // Jonas
 // render every frame
 void GPlayer::Render()
 {
-	// set source rect by current animation
-	m_srcRect.x = m_pCurrentAnimation->GetCurrentTexturePosition().X;
-	m_srcRect.y = m_pCurrentAnimation->GetCurrentTexturePosition().Y;
-	m_srcRect.w = m_pCurrentAnimation->GetSize().X;
-	m_srcRect.h = m_pCurrentAnimation->GetSize().Y;
+	// set player source rect by current animation
+	m_srcRect = m_pCurrentAnimation->GetNewSourceRect();
 
 	m_pHitzoneTexture->Render();
 	// render parent
