@@ -1,7 +1,7 @@
 #pragma once
 
 #pragma region project include
-#include "Vector2.h"
+#include "Rect.h"
 #pragma endregion
 
 /// <summary>
@@ -18,13 +18,16 @@ public:
 	/// <param name="_size">size of a single animation frame</param>
 	/// <param name="_animationTime">complete length of animation in seconds</param>
 	/// <param name="_count">number of frames, default 1</param>
-	CAnimation(SVector2 _startPos, SVector2 _size, float _animationTime ,int _count = 1)
+	/// <param name="_loop">should animation be looped. if false, has to be started manually</param>
+	CAnimation(SVector2 _startPos, SVector2 _size, float _animationTime, int _count = 1, bool _loop = true)
 	{
 		// set values
 		m_startPos = _startPos;
 		m_size = _size;
 		m_count = _count;
 		m_animationTime = _animationTime;
+		m_loop = _loop;
+		m_isStopped = !_loop; // prevent animation from playing if looping is disabled
 	}
 #pragma endregion
 
@@ -54,6 +57,23 @@ public:
 	/// </summary>
 	/// <returns>current position of the animation in the texture</returns>
 	SVector2 GetCurrentTexturePosition();
+
+	/// <summary>
+	/// get the new sourcerect
+	/// </summary>
+	/// <returns>current rect of the animation frame</returns>
+	SRect GetNewSourceRect();
+
+	/// <summary>
+	/// Stops the animation
+	/// </summary>
+	/// <param name="_reset"> resets the timers and current frame to 0 if true</param>
+	void Stop(bool _reset = false);
+
+	/// <summary>
+	/// unpauses the animation
+	/// </summary>
+	inline void Start() { m_isStopped = false; }
 #pragma endregion
 
 protected:
@@ -77,6 +97,16 @@ protected:
 	/// time in current animation frame
 	/// </summary>
 	float m_timer = 0.0f;
+
+	/// <summary>
+	/// bool to start/stop the animation. animation is unpaused by default
+	/// </summary>
+	bool m_isStopped = false;
+
+	/// <summary>
+	/// should the animation be looped infinitely
+	/// </summary>
+	bool m_loop = true;
 #pragma endregion
 
 #pragma region protected variable

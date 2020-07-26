@@ -12,45 +12,51 @@
 #include "Config.h"
 #pragma endregion
 
-#pragma region std includes
+#pragma region other includes
 #include <math.h>
 #pragma endregion
 
 
 #pragma region public override function
-// update every frame
 void GPlayer::Update(float _deltaSeconds)
 {
 	Rotate();
 
-	m_pHitzoneTexture->Update(_deltaSeconds);
+	m_pHitzoneTexture->Update(_deltaSeconds); // update hitzone after changes in Rotate()
+	m_pCurrentAnimation->Update(_deltaSeconds); // update current animation after changes in Rotate()
 
 	Move();
 
 	if (m_AttackCooldown < 1.0f)
 	{
 		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
+		m_pAttack->Update(_deltaSeconds); // update attack animation only when the player actually attacked
 	}
 
 	// if left mouse button is pressed and attack cooled down
 	if (CInput::GetMouseButton(0) && m_AttackCooldown >= 1.0f)
 	{
 		BasicAttack();
-		std::cout << m_position.X << " | " << m_position.Y << std::endl;
-		std::cout << m_Hitzone.x << " | " << m_Hitzone.y << std::endl;
+		m_pAttack->Start();
+		// add attack sound
 	}
 
-	// update parent
-	CMoveObject::Update(_deltaSeconds);
-
-	// set camera position to player position
-	RENDERER->SetCamera(m_position);
-
-	// update current animation
-	m_pCurrentAnimation->Update(_deltaSeconds);
+	RENDERER->SetCamera(m_position); // set camera position to player position
+	CMoveObject::Update(_deltaSeconds); // update parent
 }
 
-void GPlayer::Rotate() // Jonas
+void GPlayer::Render()
+{
+	m_srcRect = m_pCurrentAnimation->GetNewSourceRect(); // set player source rect by current animation
+	m_pHitzoneTexture->SetSrcRect(m_pAttack->GetNewSourceRect()); // set hitzone animation src rect
+
+	m_pHitzoneTexture->Render();
+	CTexturedObject::Render(); // render parent
+}
+#pragma endregion
+
+#pragma region private functions
+void GPlayer::Rotate()
 {
 	float angle = 0.0f;
 	// calculate cursor world position
@@ -72,7 +78,6 @@ void GPlayer::Rotate() // Jonas
 
 	// calculating the 45° increment ((int X/45) * 45)
 	angle = round(angle / 45) * 45;
-	LOG(angle);
 
 	// calculate new hitzone rect position sin() und cos(), pi/180 = degree to radiant conversion since cos & sin use radiants in c++
 	int hitzonePosX = m_position.X + (cos(angle * M_PI / 180) * (PLAYER_WIDTH * 0.5 + m_Hitzone.w * 0.5));
@@ -129,7 +134,7 @@ void GPlayer::Rotate() // Jonas
 	}
 }
 
-void GPlayer::Move() // Jonas
+void GPlayer::Move()
 {
 	// movement base
 	SVector2 movement = SVector2();
@@ -148,7 +153,7 @@ void GPlayer::Move() // Jonas
 	m_movement = movement;
 }
 
-void GPlayer::BasicAttack() // Jonas
+void GPlayer::BasicAttack()
 {
 	m_AttackCooldown = 0.0f;
 
@@ -167,19 +172,5 @@ void GPlayer::BasicAttack() // Jonas
 			break; // remove when hp system is implemented
 		}
 	}
-}
-
-// render every frame
-void GPlayer::Render()
-{
-	// set source rect by current animation
-	m_srcRect.x = m_pCurrentAnimation->GetCurrentTexturePosition().X;
-	m_srcRect.y = m_pCurrentAnimation->GetCurrentTexturePosition().Y;
-	m_srcRect.w = m_pCurrentAnimation->GetSize().X;
-	m_srcRect.h = m_pCurrentAnimation->GetSize().Y;
-
-	m_pHitzoneTexture->Render();
-	// render parent
-	CTexturedObject::Render();
 }
 #pragma endregion
