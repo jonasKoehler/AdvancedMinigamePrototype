@@ -31,11 +31,16 @@ void GPlayer::Update(float _deltaSeconds)
 	{
 		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
 	}
+	else
+	{
+		m_pAttack->Stop(true);
+	}
 
 	// if left mouse button is pressed and attack cooled down
 	if (CInput::GetMouseButton(0) && m_AttackCooldown >= 1.0f)
 	{
 		BasicAttack();
+		m_pAttack->Start();
 	}
 
 	// update parent
@@ -46,6 +51,7 @@ void GPlayer::Update(float _deltaSeconds)
 
 	// update current animation
 	m_pCurrentAnimation->Update(_deltaSeconds);
+	m_pAttack->Update(_deltaSeconds);
 }
 
 void GPlayer::Rotate() // Jonas
@@ -171,6 +177,7 @@ void GPlayer::Render()
 {
 	// set player source rect by current animation
 	m_srcRect = m_pCurrentAnimation->GetNewSourceRect();
+	m_pHitzoneTexture->SetSrcRect(m_pAttack->GetNewSourceRect());
 
 	m_pHitzoneTexture->Render();
 	// render parent

@@ -43,6 +43,9 @@ public:
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pLookDownRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		
+		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
+		m_pAttack = new CAnimation(framePositionInTexture, animationFrameSize, 1 / m_AttacksPerSecond, 4);
 	}
 #pragma endregion
 
@@ -100,6 +103,7 @@ private:
 	CAnimation* m_pLookRight = nullptr;
 	CAnimation* m_pLookUpRight = nullptr;
 	CAnimation* m_pLookDownRight = nullptr;
+	CAnimation* m_pAttack = nullptr;
 #pragma endregion
 
 };
