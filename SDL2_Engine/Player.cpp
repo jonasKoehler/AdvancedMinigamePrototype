@@ -23,6 +23,8 @@ void GPlayer::Update(float _deltaSeconds)
 {
 	Rotate();
 
+	m_pHitzoneTexture->Update(_deltaSeconds);
+
 	Move();
 
 	if (m_AttackCooldown < 1.0f)
@@ -70,14 +72,17 @@ void GPlayer::Rotate() // Jonas
 
 	// calculating the 45° increment ((int X/45) * 45)
 	angle = round(angle / 45) * 45;
-	//LOG(angle);
+	LOG(angle);
 
-	// berechnen der neuen position vom hitzone rect mit sin() und cos()
-	int hitzonePosX = m_position.X + cos(angle) * (PLAYER_WIDTH * 0.5f + m_Hitzone.w * 0.5f);
-	int hitzonePosY = m_position.Y + sin(angle) * (PLAYER_HEIGHT * 0.5f + m_Hitzone.h * 0.5f);
+	// calculate new hitzone rect position sin() und cos(), pi/180 = degree to radiant conversion since cos & sin use radiants in c++
+	int hitzonePosX = m_position.X + (cos(angle * M_PI / 180) * (PLAYER_WIDTH * 0.5 + m_Hitzone.w * 0.5));
+	int hitzonePosY = m_position.Y - (sin(angle * M_PI / 180) * (PLAYER_HEIGHT * 0.5 + m_Hitzone.h * 0.5));
 
 	m_Hitzone.x = hitzonePosX - m_Hitzone.w * 0.5f;
 	m_Hitzone.y = hitzonePosY - m_Hitzone.h * 0.5f;
+
+	m_pHitzoneTexture->SetPosition(SVector2(hitzonePosX, hitzonePosY));
+	m_pHitzoneTexture->SetAngle(angle);
 
 	// neue currentAnimation anhand des winkels ermitteln
 	m_mirror.X = false;
@@ -173,6 +178,7 @@ void GPlayer::Render()
 	m_srcRect.w = m_pCurrentAnimation->GetSize().X;
 	m_srcRect.h = m_pCurrentAnimation->GetSize().Y;
 
+	m_pHitzoneTexture->Render();
 	// render parent
 	CTexturedObject::Render();
 }

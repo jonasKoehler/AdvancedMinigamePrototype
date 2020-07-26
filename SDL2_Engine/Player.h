@@ -23,6 +23,10 @@ public:
 		m_Hitzone.w = m_AttackRange;
 		m_Hitzone.h = m_AttackRange;
 
+		m_pHitzoneTexture = new CTexturedObject(_pFile, SVector2(), SVector2());
+		m_pHitzoneTexture->SetRect(m_Hitzone);
+		m_pHitzoneTexture->SetSrcRect(SRect(32, 32, 32, 160));
+
 		SVector2 animationFrameSize = SVector2(32, 32);
 		SVector2 framePositionInTexture = SVector2(0, 0);
 		m_pLookRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
@@ -53,6 +57,7 @@ public:
 		delete m_pLookRight;
 		delete m_pLookDownwards;
 		delete m_pLookUpwards;
+		delete m_pHitzoneTexture;
 	}
 #pragma endregion
 
@@ -85,6 +90,7 @@ private:
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
 	int m_AttackRange = 20; // attack range in pixels
 
+	CTexturedObject* m_pHitzoneTexture = nullptr;
 	/*
 	*	Animation Pointer
 	*/
