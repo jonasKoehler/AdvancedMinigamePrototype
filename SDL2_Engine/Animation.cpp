@@ -6,6 +6,12 @@
 // update every frame
 void CAnimation::Update(float _deltaSeconds)
 {
+	// skip following logic if paused
+	if (m_isStopped)
+	{
+		return;
+	}
+
 	// increase timer
 	m_timer += _deltaSeconds;
 
@@ -37,8 +43,20 @@ SVector2 CAnimation::GetCurrentTexturePosition()
 	// return position
 	return v;
 }
+
 SRect CAnimation::GetNewSourceRect()
 {
 	return SRect(GetSize(), GetCurrentTexturePosition());
+}
+
+void CAnimation::Stop(bool _reset)
+{
+	m_isStopped = true;
+
+	if (_reset)
+	{
+		m_timer = 0.0f;
+		m_current = 0;
+	}
 }
 #pragma endregion

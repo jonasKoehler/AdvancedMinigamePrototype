@@ -60,6 +60,17 @@ public:
 	/// </summary>
 	/// <returns>current rect of the animation frame</returns>
 	SRect GetNewSourceRect();
+
+	/// <summary>
+	/// Stops the animation
+	/// </summary>
+	/// <param name="_reset"> resets the timers and current frame to 0 if true</param>
+	void Stop(bool _reset = false);
+
+	/// <summary>
+	/// unpauses the animation
+	/// </summary>
+	inline void Start() { m_isStopped = false; }
 #pragma endregion
 
 protected:
@@ -83,6 +94,11 @@ protected:
 	/// time in current animation frame
 	/// </summary>
 	float m_timer = 0.0f;
+
+	/// <summary>
+	/// bool to start/stop the animation. animation is unpaused by default
+	/// </summary>
+	bool m_isStopped = false;
 #pragma endregion
 
 #pragma region protected variable
