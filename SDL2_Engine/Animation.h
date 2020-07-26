@@ -16,13 +16,15 @@ public:
 	/// </summary>
 	/// <param name="_startPos">start position of animation in texture</param>
 	/// <param name="_size">size of a single animation frame</param>
-	/// <param name="_count">number of frames</param>
-	CAnimation(SVector2 _startPos, SVector2 _size, int _count)
+	/// <param name="_animationTime">complete length of animation in seconds</param>
+	/// <param name="_count">number of frames, default 1</param>
+	CAnimation(SVector2 _startPos, SVector2 _size, float _animationTime ,int _count = 1)
 	{
 		// set values
 		m_startPos = _startPos;
 		m_size = _size;
 		m_count = _count;
+		m_animationTime = _animationTime;
 	}
 #pragma endregion
 
