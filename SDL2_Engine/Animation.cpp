@@ -23,7 +23,13 @@ void CAnimation::Update(float _deltaSeconds)
 
 		// if frame index higher than count reset current
 		if (m_current > m_count - 1)
+		{
 			m_current = 0;
+			if (!m_loop)
+			{
+				m_isStopped = true;
+			}
+		}
 
 		// reset timer
 		m_timer = 0.0f;
