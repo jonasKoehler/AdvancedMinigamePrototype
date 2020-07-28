@@ -56,6 +56,12 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Engine\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="Exitzone.cpp">
+      <Filter>Game\Object\ExitZone</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>Game\Scene\Win</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -148,6 +154,12 @@
     <Filter Include="Engine\Animation">
       <UniqueIdentifier>{2e249ee0-3cbb-4dc2-b6b4-eceee5ea7910}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Object\ExitZone">
+      <UniqueIdentifier>{7f25cee3-7d28-4dc3-b2ec-c8982573c34f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Win">
+      <UniqueIdentifier>{55ad3f68-3bb8-4709-9a11-e1aeb7312b7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -233,6 +245,12 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Exitzone.h">
+      <Filter>Game\Object\ExitZone</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScene.h">
+      <Filter>Game\Scene\Win</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

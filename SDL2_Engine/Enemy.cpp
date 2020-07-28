@@ -7,7 +7,7 @@
 void GEnemy::Update(float _deltaSeconds)
 {
 	// set movement depending on movement right
-	if (m_movementRight)
+	if (m_movetoPlayer)
 	{
 		m_movement.X = 1.0f;
 		m_mirror.X = false;
@@ -25,7 +25,7 @@ void GEnemy::Update(float _deltaSeconds)
 	if (m_timerInMovement >= 1.0f)
 	{
 		// change movement direction and reset timer
-		m_movementRight = !m_movementRight;
+		m_movetoPlayer = !m_movetoPlayer;
 		m_timerInMovement = 0.0f;
 	}
 
