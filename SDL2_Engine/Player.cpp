@@ -4,12 +4,14 @@
 #include "ContentManagement.h"
 #include "Physic.h"
 #include "Macro.h"
+#include "Exitzone.h"
 #pragma endregion
 
 #pragma region game include
 #include "Player.h"
 #include "Game.h"
 #include "Config.h"
+#include "WinScene.h"
 #pragma endregion
 
 #pragma region other includes
@@ -40,7 +42,16 @@ void GPlayer::Update(float _deltaSeconds)
 		m_pAttack->Start();
 		// add attack sound
 	}
-
+	for (CObject* pObject : CTM->GetSceneObjects())
+	{
+		if (pObject->GetTag() == "Exit")
+		{
+			if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
+			{
+				ReachExit();
+			}
+		}
+	}
 	RENDERER->SetCamera(m_position); // set camera position to player position
 	CMoveObject::Update(_deltaSeconds); // update parent
 }
@@ -172,5 +183,10 @@ void GPlayer::BasicAttack()
 			break; // remove when hp system is implemented
 		}
 	}
+}
+
+void GPlayer::ReachExit()
+{
+		ENGINE->ChangeScene(new GWinScene());	
 }
 #pragma endregion

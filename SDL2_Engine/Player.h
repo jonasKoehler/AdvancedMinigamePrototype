@@ -82,6 +82,7 @@ private:
 	void Rotate(); // by Jonas
 	void Move(); // by Jonas
 	void BasicAttack();  // by Jonas
+	void ReachExit(); // by Lukas
 #pragma endregion
 
 
