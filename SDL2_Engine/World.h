@@ -14,7 +14,6 @@
 #include "Config.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Exitzone.h"
 #pragma endregion
 
 #pragma region using
@@ -34,14 +33,13 @@ void LoadWorldFromString()
 	// I = collectible
 	// S = player start
 	// E = enemy
-	// X = exitzone by Lukas
 	// \n = delimiter
 	world += "#########################################################################\n";
 	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
 	world += "#000000000000000000000000000000000000000000000000000000E0000000000000000#\n";
 	world += "#00000000000000000000000000000E00000000000000000000000000000000E00000000#\n";
 	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000000S0000000000000000000000000000000000000000000000000000X#\n";
+	world += "#00000000000000000S00000000000000000000000000000000000000000000000000000#\n";
 	world += "#0000000000000000000000000000000000000000000000E00000000000E000000000000#\n";
 	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
 	world += "#00000000000000000000000000000000000000000000000000000E00000000000000000#\n";
@@ -70,7 +68,7 @@ void LoadWorldFromString()
 	for (int i = 0; i < world.length(); i++)
 	{
 		// if current char not new line, player and enemy start
-		if (world[i] != '\n' && world[i] != '0' && world[i] != 'S' && world[i] != 'E' && world[i] != 'X')
+		if (world[i] != '\n' && world[i] != '0' && world[i] != 'S' && world[i] != 'E')
 		{
 			// create textured object
 			CTexturedObject* pWorldObject = new CTexturedObject(
@@ -140,20 +138,6 @@ void LoadWorldFromString()
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
 			pEnemy->SetTag("Enemy");
 			CTM->AddSceneObject(pEnemy);
-		}
-
-		// if current char is exit
-		else if (world[i] == 'X')
-		{
-			// create Exitzone
-			GExitzone* pExitzone = new GExitzone(
-				"Texture/Exit/T_Exit.png",
-				SVector2(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT),
-				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
-				);
-			pExitzone->SetColType(ECollisionType::STATIC);
-			pExitzone->SetTag("Exit");
-			CTM->AddSceneObject(pExitzone);			
 		}
 
 		// increase width

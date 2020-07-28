@@ -53,7 +53,7 @@ protected:
 	/// <summary>
 	/// movement is right
 	/// </summary>
-	bool m_movetoPlayer = true;
+	bool m_movementRight = true;
 
 	/// <summary>
 	/// time in movement direction
