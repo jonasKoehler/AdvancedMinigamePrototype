@@ -80,7 +80,7 @@ public:
 #pragma region private functions
 private:
 	void Rotate(); // by Jonas
-	void Move(); // by Jonas
+	void Move(float _deltaSeconds); // by Jonas
 	void BasicAttack();  // by Jonas
 	void ReachExit(); // by Lukas
 #pragma endregion
@@ -93,6 +93,9 @@ private:
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
 	int m_AttackRange = 20; // attack range in pixels
+
+	float m_AccelerationRate = 2.0f; // increases acceleration per sec (multiply with deltaTime)
+	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)
 
 	CTexturedObject* m_pHitzoneTexture = nullptr;
 	/*
