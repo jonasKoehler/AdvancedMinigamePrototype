@@ -65,6 +65,8 @@ public:
 	}
 #pragma endregion
 
+	void TakeDamage(float m_damage);
+	void GetHealth(float m_health);
 #pragma region public override function
 	/// <summary>
 	/// update every frame

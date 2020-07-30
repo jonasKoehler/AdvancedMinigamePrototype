@@ -46,6 +46,10 @@ public:
 	/// render every frame
 	/// </summary>
 	virtual	void Render() override;
+	
+
+	void TakeDamage(float m_damage);
+	void GetHealth(float m_health);
 #pragma endregion
 
 protected:
@@ -60,7 +64,7 @@ protected:
 	/// time in movement direction
 	/// </summary>
 	float m_timerInMovement = 1.0f;
-
+	float m_health();
 	SVector2 m_playerpos;
 #pragma endregion
 
