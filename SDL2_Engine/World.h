@@ -55,13 +55,10 @@ void LoadWorldFromString()
 	CTexture* pGameTilemap = new CTexture("Texture/World/T_World.png");
 
 	// create textured object
-	CTexturedObject* pWorldObject = new CTexturedObject(
-		"",
-		SVector2()
-	);
+	CTexturedObject* pWorldObject = new CTexturedObject("", SVector2());
 
 	// create background and render on screen
-	pWorldObject->SetSrcRect(SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT, 0, 3 * WORLD_BLOCK_SOURCE_HEIGHT));
+	pWorldObject->SetSrcRect(SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT, WORLD_BLOCK_SOURCE_WIDTH, 0));
 	pWorldObject->SetInWorld(false);
 	pWorldObject->SetTexture(pGameTilemap);
 	CTM->AddSceneObject(pWorldObject);
@@ -73,7 +70,8 @@ void LoadWorldFromString()
 		if (world[i] != '\n' && world[i] != '0' && world[i] != 'S' && world[i] != 'E' && world[i] != 'X')
 		{
 			// create textured object
-			CTexturedObject* pWorldObject = new CTexturedObject(
+			CTexturedObject* pWorldObject = new CTexturedObject
+			(
 				"",
 				SVector2(WORLD_BLOCK_WIDTH, WORLD_BLOCK_HEIGHT),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
@@ -82,12 +80,8 @@ void LoadWorldFromString()
 			// set atlas texture to textured object texture
 			pWorldObject->SetTexture(pGameTilemap);
 
-			// theme height position in texture
-			int theme = 2;
-
 			// source rect by config values
 			SRect srcRect = SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT);
-			srcRect.y = theme * WORLD_BLOCK_SOURCE_HEIGHT;
 
 			// switch current char
 			switch (world[i])
@@ -95,7 +89,8 @@ void LoadWorldFromString()
 				// if # set position x to way rect in atlas texture and collision type static
 			case '#':
 			{
-				srcRect.x = WORLD_BLOCK_SOURCE_WIDTH;
+				srcRect.x = 0;
+				srcRect.y = 0;
 				pWorldObject->SetColType(ECollisionType::STATIC);
 				break;
 			}
@@ -150,10 +145,10 @@ void LoadWorldFromString()
 				"Texture/Exit/T_Exit.png",
 				SVector2(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
-				);
+			);
 			pExitzone->SetColType(ECollisionType::STATIC);
 			pExitzone->SetTag("Exit");
-			CTM->AddSceneObject(pExitzone);			
+			CTM->AddSceneObject(pExitzone);
 		}
 
 		// increase width
