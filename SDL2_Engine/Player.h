@@ -3,6 +3,9 @@
 #pragma region engine include
 #include "MoveObject.h"
 #include "Animation.h"
+
+
+
 #pragma endregion
 
 /// <summary>
@@ -11,6 +14,7 @@
 class GPlayer : public CMoveObject
 {
 public:
+
 #pragma region constructor
 	/// <summary>
 	/// constructor
@@ -18,6 +22,7 @@ public:
 	/// <param name="_pFileName">texture relative file path</param>
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of player</param>
+
 	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos)
 	{
 		m_Hitzone.w = m_AttackRange;
@@ -75,6 +80,12 @@ public:
 	/// render every frame
 	/// </summary>
 	virtual	void Render() override;
+
+
+ void GetHealth(float _health);
+
+ void SetHealth(float _health);
+
 #pragma endregion
 
 #pragma region private functions
@@ -93,6 +104,7 @@ private:
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
 	int m_AttackRange = 20; // attack range in pixels
+	float m_health  = 100;
 
 	CTexturedObject* m_pHitzoneTexture = nullptr;
 	/*

@@ -3,6 +3,8 @@
 #pragma region engine include
 #include "MoveObject.h"
 #include "Animation.h"
+
+
 #pragma endregion
 
 #pragma region game include
@@ -46,6 +48,13 @@ public:
 	/// render every frame
 	/// </summary>
 	virtual	void Render() override;
+
+
+	void Damage(float _damage);
+
+	void TakeDamage(GPlayer* _defender);
+
+
 #pragma endregion
 
 protected:
@@ -59,6 +68,12 @@ protected:
 	/// time in movement direction
 	/// </summary>
 	float m_timerInMovement = 1.0f;
+
+
+
+	float m_damage = 20;
+
+	float m_health;
 #pragma endregion
 
 #pragma region protected variable

@@ -130,8 +130,8 @@ void LoadWorldFromString()
 		{
 			// create enemy
 			GEnemy* pEnemy = new GEnemy(
-				"Texture/Character/Player/T_Player.png",
-				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
+				"Texture/Character/Enemy/T_Enemy.png",
+				SVector2(60, 60),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
 			);
 
@@ -148,7 +148,7 @@ void LoadWorldFromString()
 			// create Exitzone
 			GExitzone* pExitzone = new GExitzone(
 				"Texture/Exit/T_Exit.png",
-				SVector2(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT),
+				SVector2(60, 60),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
 				);
 			pExitzone->SetColType(ECollisionType::STATIC);

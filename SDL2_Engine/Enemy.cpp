@@ -1,22 +1,28 @@
 #pragma region game include
 #include "Enemy.h"
+#include "Physic.h"
+#include "ContentManagement.h"
+
+
+class GPlayer;
 #pragma endregion
 
 #pragma region public override function
 // update every frame
 void GEnemy::Update(float _deltaSeconds)
 {
-	// set movement depending on movement right
-	if (m_movetoPlayer)
+	
+	if(m_movetoPlayer)
 	{
-		m_movement.X = 1.0f;
-		m_mirror.X = false;
-	}
+			m_movement.X = 1.0f;
+			m_mirror.X = false;
+		}
 	else
 	{
 		m_movement.X = -1.0f;
 		m_mirror.X = true;
 	}
+
 
 	// increase time in movement direction
 	m_timerInMovement += _deltaSeconds;
@@ -38,14 +44,27 @@ void GEnemy::Update(float _deltaSeconds)
 
 // render every frame
 void GEnemy::Render()
-{
-	// set source rect by current animation
-	m_srcRect.x = m_anim.GetCurrentTexturePosition().X;
-	m_srcRect.y = m_anim.GetCurrentTexturePosition().Y;
-	m_srcRect.w = m_anim.GetSize().X;
-	m_srcRect.h = m_anim.GetSize().Y;
-
+{	
 	// render parent
 	CMoveObject::Render();
+}
+
+
+void GEnemy::Damage(float _damage)
+{
+	if (_damage < 0)
+		return;
+
+	m_health -= _damage;
+	if (m_health < 0)
+	{
+		m_health = 0;
+	}
+}
+
+
+void GEnemy::TakeDamage(GPlayer* _defender)
+{
+
 }
 #pragma endregion

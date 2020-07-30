@@ -9,6 +9,7 @@
 
 #pragma region game include
 #include "Player.h"
+#include "Enemy.h"
 #include "Game.h"
 #include "Config.h"
 #include "WinScene.h"
@@ -178,6 +179,7 @@ void GPlayer::BasicAttack()
 		// if collision with range rect and current object rect
 		if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
 		{
+			
 			// remove object and stop checkig other objects
 			CTM->RemoveObject(pObject); // replace with enemy take damage function
 			break; // remove when hp system is implemented
@@ -188,5 +190,16 @@ void GPlayer::BasicAttack()
 void GPlayer::ReachExit()
 {
 		ENGINE->ChangeScene(new GWinScene());	
+}
+
+void GPlayer::GetHealth(float _health)
+{
+	m_health = _health;
+}
+
+
+void GPlayer::SetHealth(float _health)
+{
+	m_health = _health;
 }
 #pragma endregion

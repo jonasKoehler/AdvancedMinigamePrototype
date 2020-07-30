@@ -69,6 +69,7 @@ public:
 	virtual void Render() = 0;
 #pragma endregion
 
+	SVector2 m_position = SVector2();
 protected:
 #pragma region protected primitive variable
 	/// <summary>
@@ -81,6 +82,5 @@ protected:
 	/// <summary>
 	/// position of object
 	/// </summary>
-	SVector2 m_position = SVector2();
 #pragma endregion
 };
