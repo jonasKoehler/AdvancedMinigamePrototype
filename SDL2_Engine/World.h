@@ -130,7 +130,7 @@ void LoadWorldFromString()
 		{
 			// create enemy
 			GEnemy* pEnemy = new GEnemy(
-				"Texture/Character/Player/T_Player.png",
+				"Texture/Character/Enemy/T_Enemy.png",
 				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
 			);

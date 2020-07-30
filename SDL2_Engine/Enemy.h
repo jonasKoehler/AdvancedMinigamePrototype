@@ -53,12 +53,15 @@ protected:
 	/// <summary>
 	/// movement is right
 	/// </summary>
-	bool m_movetoPlayer = true;
 
+
+	void MoveToPlayer();
 	/// <summary>
 	/// time in movement direction
 	/// </summary>
 	float m_timerInMovement = 1.0f;
+
+	SVector2 m_playerpos;
 #pragma endregion
 
 #pragma region protected variable

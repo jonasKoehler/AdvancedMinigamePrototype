@@ -11,6 +11,7 @@
 class GPlayer : public CMoveObject
 {
 public:
+	float m_Health;
 #pragma region constructor
 	/// <summary>
 	/// constructor
@@ -93,6 +94,7 @@ private:
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
 	int m_AttackRange = 20; // attack range in pixels
+	
 
 	CTexturedObject* m_pHitzoneTexture = nullptr;
 	/*
