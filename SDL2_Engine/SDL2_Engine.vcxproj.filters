@@ -62,6 +62,9 @@
     <ClCompile Include="WinScene.cpp">
       <Filter>Game\Scene\Win</Filter>
     </ClCompile>
+    <ClCompile Include="LoseScene.cpp">
+      <Filter>Game\Scene\Lose</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -160,6 +163,9 @@
     <Filter Include="Game\Scene\Win">
       <UniqueIdentifier>{55ad3f68-3bb8-4709-9a11-e1aeb7312b7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene\Lose">
+      <UniqueIdentifier>{996cce9c-a444-451b-98e0-5f6add49771d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -251,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="WinScene.h">
       <Filter>Game\Scene\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseScene.h">
+      <Filter>Game\Scene\Lose</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

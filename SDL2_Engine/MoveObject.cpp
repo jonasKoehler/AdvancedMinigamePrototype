@@ -54,7 +54,10 @@ void CMoveObject::Update(float _deltaSeconds)
 
 			// if not moveable stop checking coming objects
 			if (!moveable)
+			{
+				OnCollisionEnter(pObject);
 				break;
+			}
 		}
 
 		// if still moveable
@@ -79,7 +82,10 @@ void CMoveObject::Update(float _deltaSeconds)
 
 				// if not moveable stop checking coming objects
 				if (!moveable)
+				{
+					OnCollisionEnter(pObject);
 					break;
+				}
 			}
 		}
 
@@ -133,7 +139,10 @@ void CMoveObject::Update(float _deltaSeconds)
 
 		// if not moveable stop checking coming objects
 		if (!moveable)
+		{
+			OnCollisionEnter(pObject);
 			break;
+		}
 	}
 
 	// if still moveable
@@ -158,7 +167,10 @@ void CMoveObject::Update(float _deltaSeconds)
 
 			// if not moveable stop checking coming objects
 			if (!moveable)
+			{
+				OnCollisionEnter(pObject);
 				break;
+			}
 		}
 	}
 

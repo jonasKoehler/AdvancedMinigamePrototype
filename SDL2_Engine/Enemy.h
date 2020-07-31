@@ -7,6 +7,8 @@
 
 #pragma region game include
 #include "Config.h"
+class GPlayer;
+
 #pragma endregion
 
 /// <summary>
@@ -35,7 +37,7 @@ public:
 	virtual ~GEnemy() {}
 #pragma endregion
 
-#pragma region public override function
+#pragma region public  function
 	/// <summary>
 	/// update every frame
 	/// </summary>
@@ -46,6 +48,19 @@ public:
 	/// render every frame
 	/// </summary>
 	virtual	void Render() override;
+
+	float GetHealth() { return m_health; }
+	void SetHealth(float _health);
+
+
+
+protected:
+
+	void CheckIfDead();
+	void MoveToPlayer();
+	void OnCollisionEnter(CObject* pObject) override;
+	void TakeDamage(float _damage, GPlayer* _player);
+
 #pragma endregion
 
 protected:
@@ -54,14 +69,9 @@ protected:
 	/// movement is right
 	/// </summary>
 
-
-	void MoveToPlayer();
-	/// <summary>
-	/// time in movement direction
-	/// </summary>
-	float m_timerInMovement = 1.0f;
-
-	SVector2 m_playerpos;
+	float m_health = 100;
+	float m_damage = 1; //damage of the entity
+	SVector2 m_playerpos; //position of the player
 #pragma endregion
 
 #pragma region protected variable

@@ -136,7 +136,7 @@ void LoadWorldFromString()
 			);
 
 			// set speed, collision type, activate gravity, add to content and set tag
-			pEnemy->SetSpeed(250.0f);
+			pEnemy->SetSpeed(150.0f);
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
 			pEnemy->SetTag("Enemy");
 			CTM->AddSceneObject(pEnemy);
