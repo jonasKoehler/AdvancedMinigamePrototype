@@ -9,8 +9,10 @@
 
 #pragma region game include
 #include "Player.h"
+#include "Enemy.h"
 #include "Game.h"
 #include "Config.h"
+#include "LoseScene.h"
 #include "WinScene.h"
 #pragma endregion
 
@@ -52,6 +54,7 @@ void GPlayer::Update(float _deltaSeconds)
 			}
 		}
 	}
+	CheckIfDead();
 	RENDERER->SetCamera(m_position); // set camera position to player position
 	CMoveObject::Update(_deltaSeconds); // update parent
 }
@@ -64,6 +67,12 @@ void GPlayer::Render()
 	m_pHitzoneTexture->Render();
 	CTexturedObject::Render(); // render parent
 }
+
+void GPlayer::SetHealth(float _health)
+{
+	m_health = _health;
+}
+
 #pragma endregion
 
 #pragma region private functions
@@ -216,15 +225,39 @@ void GPlayer::BasicAttack()
 		// if collision with range rect and current object rect
 		if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
 		{
-			// remove object and stop checkig other objects
-			CTM->RemoveObject(pObject); // replace with enemy take damage function
-			break; // remove when hp system is implemented
+			//if collision enter, the take Damage funktion is running			
+			GEnemy* enemy = (GEnemy*)pObject;
+			TakeDamage(m_damage, enemy);
+			break;
 		}
 	}
 }
 
+void GPlayer::TakeDamage(float _damage, GEnemy* _enemy)
+{
+	float enemyhealth = _enemy->GetHealth();
+
+	enemyhealth -= _damage;
+
+	_enemy->SetHealth(enemyhealth);
+}
+
 void GPlayer::ReachExit()
 {
+<<<<<<< HEAD
+	CTM->RemoveObject(this);
 	ENGINE->ChangeScene(new GWinScene());
+}
+
+void GPlayer::CheckIfDead()
+{
+	if (m_health <= 0)
+	{
+		CTM->RemoveObject(this);
+		ENGINE->ChangeScene(new GLoseScene());
+	}
+=======
+	ENGINE->ChangeScene(new GWinScene());
+>>>>>>> 2a4eadddae4fad851cf4dacb02cf597829609b12
 }
 #pragma endregion

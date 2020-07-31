@@ -15,6 +15,8 @@ public:
 	/// constructor
 	/// </summary>
 	CObject() {}
+
+
 #pragma endregion
 
 #pragma region destructor
@@ -54,6 +56,9 @@ public:
 	/// </summary>
 	/// <param name="_pos">position to add to object</param>
 	inline void AddPosition(SVector2 _pos) { m_position += _pos; }
+
+
+
 #pragma endregion
 
 #pragma region public function
@@ -67,7 +72,10 @@ public:
 	/// render every frame
 	/// </summary>
 	virtual void Render() = 0;
-#pragma endregion
+
+	virtual void OnCollisionEnter(CObject* pObject) {};
+
+#pragma endregion= 0
 
 protected:
 #pragma region protected primitive variable
@@ -81,6 +89,7 @@ protected:
 	/// <summary>
 	/// position of object
 	/// </summary>
+	
 	SVector2 m_position = SVector2();
 #pragma endregion
 };

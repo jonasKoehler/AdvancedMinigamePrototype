@@ -108,7 +108,11 @@ void LoadWorldFromString()
 			GEnemy* pEnemy = new GEnemy
 			(
 				"Texture/Character/Player/T_Player.png",
+<<<<<<< HEAD
 >>>>>>> d0cdd48ec69a52f8255da008034d403cad06c3d6
+=======
+>>>>>>> 2a4eadddae4fad851cf4dacb02cf597829609b12
+>>>>>>> EnemyAi
 				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
 			);
@@ -118,7 +122,11 @@ void LoadWorldFromString()
 			pEnemy->SetSpeed(150.0f);
 =======
 			pEnemy->SetSpeed(250.0f);
+<<<<<<< HEAD
 >>>>>>> d0cdd48ec69a52f8255da008034d403cad06c3d6
+=======
+>>>>>>> 2a4eadddae4fad851cf4dacb02cf597829609b12
+>>>>>>> EnemyAi
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
 			pEnemy->SetTag("Enemy");
 

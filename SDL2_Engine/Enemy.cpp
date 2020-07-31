@@ -1,19 +1,25 @@
 #pragma region game include
 #include "Enemy.h"
-#include "Player.h"
 #include "ContentManagement.h"
+#include "Player.h"
 #pragma endregion
 
 #pragma region public override function
 // update every frame
 void GEnemy::Update(float _deltaSeconds)
 {
+<<<<<<< HEAD
 		MoveToPlayer(); // Lukas
 	
 		
 		CMoveObject::Update(_deltaSeconds);
 
 		
+=======
+		MoveToPlayer();
+		CheckIfDead();
+		CMoveObject::Update(_deltaSeconds);	
+>>>>>>> EnemyAi
 }
 
 // render every frame
@@ -24,7 +30,24 @@ void GEnemy::Render()
 	CMoveObject::Render();
 }
 
+<<<<<<< HEAD
 //Search for the Position and then Move to Player
+=======
+
+void GEnemy::SetHealth(float _health)
+{
+	m_health = _health;
+}
+
+void GEnemy::CheckIfDead()
+{
+	if (m_health <= 0)
+	{
+		CTM->RemoveObject(this);
+	}
+}
+
+>>>>>>> EnemyAi
 void GEnemy::MoveToPlayer()
 {
 
@@ -74,4 +97,27 @@ void GEnemy::MoveToPlayer()
 
 	
 }
+
+void GEnemy::OnCollisionEnter(CObject* pObject) 
+{
+	if (pObject->GetTag() == "Player")
+	{
+	GPlayer* player = (GPlayer*)pObject;
+
+	
+	TakeDamage(m_damage, player);
+
+
+	}
+}
+
+void GEnemy::TakeDamage(float _damage, GPlayer* _player)
+{
+	float playerhealth = _player->GetHealth();
+
+	playerhealth -= _damage;
+
+	_player->SetHealth(playerhealth);
+}
+
 #pragma endregion
