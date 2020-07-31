@@ -204,6 +204,7 @@ void GPlayer::Move(float _deltaSeconds)
 void GPlayer::BasicAttack()
 {
 	m_AttackCooldown = 0.0f;
+	m_pBasicAttackSound->Play();
 
 	//check every scene object
 	for (CObject* pObject : CTM->GetSceneObjects())

@@ -3,6 +3,7 @@
 #pragma region engine include
 #include "MoveObject.h"
 #include "Animation.h"
+#include "Sound.h"
 #pragma endregion
 
 /// <summary>
@@ -34,7 +35,7 @@ public:
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pLookUpwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
-		
+
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pLookDownwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 
@@ -43,9 +44,11 @@ public:
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pLookDownRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
-		
+
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pAttack = new CAnimation(framePositionInTexture, animationFrameSize, 1 / (m_AttacksPerSecond * 1.5), 4, false);
+
+		m_pBasicAttackSound = new CSound("Sound/Effects/spray.wav");
 	}
 #pragma endregion
 
@@ -108,6 +111,10 @@ private:
 	CAnimation* m_pLookUpRight = nullptr;
 	CAnimation* m_pLookDownRight = nullptr;
 	CAnimation* m_pAttack = nullptr;
+	/*
+	*	Sound Pointer
+	*/
+	CSound* m_pBasicAttackSound = nullptr;
 #pragma endregion
 
 };
