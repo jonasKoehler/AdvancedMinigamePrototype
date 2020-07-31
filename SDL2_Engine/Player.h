@@ -93,7 +93,7 @@ public:
 #pragma region private functions
 private:
 	void Rotate(); // by Jonas
-	void Move(); // by Jonas
+	void Move(float _deltaSeconds); // by Jonas
 	void BasicAttack();  // by Jonas
 	void ReachExit(); // by Lukas
 	void TakeDamage(float _damage, GEnemy* _enemy); //by Lukas
@@ -113,6 +113,9 @@ private:
 	float m_damage = 20; // the damage of the attack
 	float m_health = 300; // the health of the entitiy
 	
+
+	float m_AccelerationRate = 2.0f; // increases acceleration per sec (multiply with deltaTime)
+	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)
 
 	CTexturedObject* m_pHitzoneTexture = nullptr;
 	/*

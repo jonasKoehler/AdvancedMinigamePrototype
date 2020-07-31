@@ -29,7 +29,7 @@ void GPlayer::Update(float _deltaSeconds)
 	m_pHitzoneTexture->Update(_deltaSeconds); // update hitzone after changes in Rotate()
 	m_pCurrentAnimation->Update(_deltaSeconds); // update current animation after changes in Rotate()
 
-	Move();
+	Move(_deltaSeconds);
 
 	if (m_AttackCooldown < 1.0f)
 	{
@@ -154,23 +154,60 @@ void GPlayer::Rotate()
 	}
 }
 
-void GPlayer::Move()
+void GPlayer::Move(float _deltaSeconds)
 {
-	// movement base
-	SVector2 movement = SVector2();
-
 	// move player by input
 	if (CInput::GetKey(SDL_SCANCODE_W))
-		movement.Y -= 1;
-	if (CInput::GetKey(SDL_SCANCODE_S))
-		movement.Y += 1;
-	if (CInput::GetKey(SDL_SCANCODE_A))
-		movement.X -= 1;
-	if (CInput::GetKey(SDL_SCANCODE_D))
-		movement.X += 1;
+	{
+		if (m_movement.Y > 0) // invert acceleration on 180° switch
+			m_movement.Y *= -0.5;
+		m_movement.Y -= m_AccelerationRate * _deltaSeconds; // subtract to move up on screen
+		m_movement.Y = std::fmax(m_movement.Y, -1.0f); // cannot exceed highest acceleration of -1 for y up
+	}
+	else if(m_movement.Y < 0) // enter if player was accelerated upwards
+	{
+		m_movement.Y += m_DecelerationRate * _deltaSeconds; // decelerate
+		m_movement.Y = std::fmin(m_movement.Y, 0.0f); // until 0 is reached
+	}
 
-	// set movement
-	m_movement = movement;
+	if (CInput::GetKey(SDL_SCANCODE_S))
+	{
+		if (m_movement.Y < 0)
+			m_movement.Y *= -0.5;
+		m_movement.Y += m_AccelerationRate * _deltaSeconds; // add to move down on screen
+		m_movement.Y = std::fmin(m_movement.Y, 1.0f); // cannot exceed highest acceleration of 1 for y down
+	}
+	else if (m_movement.Y > 0) // enter if player was accelerated downwards
+	{
+		m_movement.Y -= m_DecelerationRate * _deltaSeconds;
+		m_movement.Y = std::fmax(m_movement.Y, 0.0f);
+	}
+
+	if (CInput::GetKey(SDL_SCANCODE_A))
+	{
+		if (m_movement.X > 0)
+			m_movement.X *= -0.5;
+		m_movement.X -= m_AccelerationRate * _deltaSeconds; // subtract to move left on screen
+		m_movement.X = std::fmax(m_movement.X, -1.0f); // cannot exceed highest acceleration of -1 for x left
+	}
+	else if (m_movement.X < 0) // enter if player was accelerated left
+	{
+		m_movement.X += m_DecelerationRate * _deltaSeconds; // decelerate
+		m_movement.X = std::fmin(m_movement.X, 0.0f); // until 0 is reached
+	}
+
+	if (CInput::GetKey(SDL_SCANCODE_D))
+	{
+		if (m_movement.X < 0)
+			m_movement.X *= -0.5;
+		m_movement.X += m_AccelerationRate * _deltaSeconds; // add to move right on screen
+		m_movement.X = std::fmin(m_movement.X, 1.0f); // cannot exceed highest acceleration of 1 for x right
+	}
+	else if (m_movement.X > 0) // enter if player was accelerated right
+	{
+		m_movement.X -= m_DecelerationRate * _deltaSeconds;
+		m_movement.X = std::fmax(m_movement.X, 0.0f);
+	}
 }
 
 void GPlayer::BasicAttack()
@@ -206,6 +243,7 @@ void GPlayer::TakeDamage(float _damage, GEnemy* _enemy)
 
 void GPlayer::ReachExit()
 {
+<<<<<<< HEAD
 	CTM->RemoveObject(this);
 	ENGINE->ChangeScene(new GWinScene());
 }
@@ -217,5 +255,8 @@ void GPlayer::CheckIfDead()
 		CTM->RemoveObject(this);
 		ENGINE->ChangeScene(new GLoseScene());
 	}
+=======
+	ENGINE->ChangeScene(new GWinScene());
+>>>>>>> 2a4eadddae4fad851cf4dacb02cf597829609b12
 }
 #pragma endregion
