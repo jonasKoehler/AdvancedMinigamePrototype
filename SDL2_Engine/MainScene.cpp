@@ -15,6 +15,8 @@ void GMainScene::Init()
 {
 	// load world
 	LoadWorldFromString();
+	p_Music = new CMusic("Sound/Music/music.wav");
+	p_Music->Play(true);
 }
 
 // update every frame
@@ -34,6 +36,6 @@ void GMainScene::Render()
 // clean up scene
 void GMainScene::Clean()
 {
-	
+	delete p_Music;
 }
 #pragma endregion

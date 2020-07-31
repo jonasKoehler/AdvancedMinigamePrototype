@@ -160,6 +160,12 @@
     <Filter Include="Game\Scene\Win">
       <UniqueIdentifier>{55ad3f68-3bb8-4709-9a11-e1aeb7312b7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Music">
+      <UniqueIdentifier>{43bab685-8ffe-409c-8ad1-2de5b2618d67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Sound">
+      <UniqueIdentifier>{9e3b06d4-3e52-492f-b569-711489a9e2e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -251,6 +257,12 @@
     </ClInclude>
     <ClInclude Include="WinScene.h">
       <Filter>Game\Scene\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Music.h">
+      <Filter>Engine\Music</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Engine\Sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

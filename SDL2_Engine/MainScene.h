@@ -2,6 +2,7 @@
 
 #pragma region engine include
 #include "Scene.h"
+#include "Music.h"
 #pragma endregion
 
 /// <summary>
@@ -39,4 +40,5 @@ public:
 	/// </summary>
 	virtual void Clean() override;
 #pragma endregion
+	CMusic* p_Music = nullptr;
 };

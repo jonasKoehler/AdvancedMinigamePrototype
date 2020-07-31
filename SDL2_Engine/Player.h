@@ -3,6 +3,7 @@
 #pragma region engine include
 #include "MoveObject.h"
 #include "Animation.h"
+#include "Sound.h"
 #pragma endregion
 
 /// <summary>
@@ -35,7 +36,7 @@ public:
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pLookUpwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
-		
+
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pLookDownwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 
@@ -44,9 +45,11 @@ public:
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pLookDownRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
-		
+
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pAttack = new CAnimation(framePositionInTexture, animationFrameSize, 1 / (m_AttacksPerSecond * 1.5), 4, false);
+
+		m_pBasicAttackSound = new CSound("Sound/Effects/spray.wav");
 	}
 #pragma endregion
 
@@ -83,7 +86,7 @@ public:
 #pragma region private functions
 private:
 	void Rotate(); // by Jonas
-	void Move(); // by Jonas
+	void Move(float _deltaSeconds); // by Jonas
 	void BasicAttack();  // by Jonas
 	void ReachExit(); // by Lukas
 #pragma endregion
@@ -98,6 +101,9 @@ private:
 	int m_AttackRange = 20; // attack range in pixels
 	
 
+	float m_AccelerationRate = 2.0f; // increases acceleration per sec (multiply with deltaTime)
+	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)
+
 	CTexturedObject* m_pHitzoneTexture = nullptr;
 	/*
 	*	Animation Pointer
@@ -109,6 +115,10 @@ private:
 	CAnimation* m_pLookUpRight = nullptr;
 	CAnimation* m_pLookDownRight = nullptr;
 	CAnimation* m_pAttack = nullptr;
+	/*
+	*	Sound Pointer
+	*/
+	CSound* m_pBasicAttackSound = nullptr;
 #pragma endregion
 
 };
