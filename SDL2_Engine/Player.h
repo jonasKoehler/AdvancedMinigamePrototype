@@ -3,14 +3,10 @@
 #pragma region engine include
 #include "MoveObject.h"
 #include "Animation.h"
-<<<<<<< HEAD
 #include "Sound.h"
-=======
-
 
 class GEnemy;
 
->>>>>>> EnemyAi
 #pragma endregion
 
 /// <summary>
@@ -56,11 +52,9 @@ public:
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pAttack = new CAnimation(framePositionInTexture, animationFrameSize, 1 / (m_AttacksPerSecond * 1.5), 4, false);
 
-<<<<<<< HEAD
+
 		m_pBasicAttackSound = new CSound("Sound/Effects/spray.wav");
-=======
-		
->>>>>>> EnemyAi
+
 	}
 #pragma endregion
 
@@ -79,13 +73,7 @@ public:
 	}
 #pragma endregion
 
-<<<<<<< HEAD
-	void TakeDamage(float m_damage);
-	void GetHealth(float m_health);
 #pragma region public override function
-=======
-#pragma region public function
->>>>>>> EnemyAi
 	/// <summary>
 	/// update every frame
 	/// </summary>
@@ -100,10 +88,6 @@ public:
 	float GetHealth() { return m_health; }
 
 	void SetHealth(float _health);
-
-
-#pragma endregion
-
 #pragma region private functions
 private:
 	void Rotate(); // by Jonas
@@ -124,11 +108,11 @@ private:
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
 	int m_AttackRange = 20; // attack range in pixels
-	float m_damage = 20; // the damage of the attack
+	float m_damage = 50; // the damage of the attack
 	float m_health = 300; // the health of the entitiy
 	
 
-	float m_AccelerationRate = 2.0f; // increases acceleration per sec (multiply with deltaTime)
+	float m_AccelerationRate = 5.0f; // increases acceleration per sec (multiply with deltaTime)
 	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)
 
 	CTexturedObject* m_pHitzoneTexture = nullptr;

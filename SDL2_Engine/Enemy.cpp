@@ -8,18 +8,15 @@
 // update every frame
 void GEnemy::Update(float _deltaSeconds)
 {
-<<<<<<< HEAD
 		MoveToPlayer(); // Lukas
 	
 		
 		CMoveObject::Update(_deltaSeconds);
 
 		
-=======
 		MoveToPlayer();
 		CheckIfDead();
 		CMoveObject::Update(_deltaSeconds);	
->>>>>>> EnemyAi
 }
 
 // render every frame
@@ -30,10 +27,7 @@ void GEnemy::Render()
 	CMoveObject::Render();
 }
 
-<<<<<<< HEAD
 //Search for the Position and then Move to Player
-=======
-
 void GEnemy::SetHealth(float _health)
 {
 	m_health = _health;
@@ -47,7 +41,6 @@ void GEnemy::CheckIfDead()
 	}
 }
 
->>>>>>> EnemyAi
 void GEnemy::MoveToPlayer()
 {
 

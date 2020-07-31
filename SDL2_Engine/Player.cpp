@@ -244,7 +244,6 @@ void GPlayer::TakeDamage(float _damage, GEnemy* _enemy)
 
 void GPlayer::ReachExit()
 {
-<<<<<<< HEAD
 	CTM->RemoveObject(this);
 	ENGINE->ChangeScene(new GWinScene());
 }
@@ -256,8 +255,5 @@ void GPlayer::CheckIfDead()
 		CTM->RemoveObject(this);
 		ENGINE->ChangeScene(new GLoseScene());
 	}
-=======
-	ENGINE->ChangeScene(new GWinScene());
->>>>>>> 2a4eadddae4fad851cf4dacb02cf597829609b12
 }
 #pragma endregion

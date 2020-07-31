@@ -41,8 +41,8 @@ void LoadWorldFromString()
 	world += "#000E00000000000000000000000000000000000000000000000000E0000000000000000#\n";
 	world += "#00000000000000000000000000000E00000000000000000000000000000000E00000000#\n";
 	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000000S0000000000000000000000000000000000000000000000000000X#\n";
-	world += "#0000000000000000000000000000000000000000000000E00000000000E000000000000#\n";
+	world += "#00000000000000000S00000000000000000000000000000000000000000000000000000#\n";
+	world += "#0000000000000000000000000000000000000000000000E00000000000E00000000000X#\n";
 	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
 	world += "#00000000000000000000000000000000000000000000000000000E00000000000000000#\n";
 	world += "#000E0000000000000000000E00000000000000000000000000000000000000000000000#\n";
@@ -101,32 +101,15 @@ void LoadWorldFromString()
 		if (world[i] == 'E') // if char indicates an enemy
 		{
 			// create enemy
-<<<<<<< HEAD
+
 			GEnemy* pEnemy = new GEnemy(
 				"Texture/Character/Enemy/T_Enemy.png",
-=======
-			GEnemy* pEnemy = new GEnemy
-			(
-				"Texture/Character/Player/T_Player.png",
-<<<<<<< HEAD
->>>>>>> d0cdd48ec69a52f8255da008034d403cad06c3d6
-=======
->>>>>>> 2a4eadddae4fad851cf4dacb02cf597829609b12
->>>>>>> EnemyAi
 				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
 				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
 			);
 
-<<<<<<< HEAD
 			// set speed, collision type, activate gravity, add to content and set tag
-			pEnemy->SetSpeed(150.0f);
-=======
-			pEnemy->SetSpeed(250.0f);
-<<<<<<< HEAD
->>>>>>> d0cdd48ec69a52f8255da008034d403cad06c3d6
-=======
->>>>>>> 2a4eadddae4fad851cf4dacb02cf597829609b12
->>>>>>> EnemyAi
+			pEnemy->SetSpeed(50.0f);
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
 			pEnemy->SetTag("Enemy");
 
