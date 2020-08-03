@@ -1,0 +1,8 @@
+WorldBlockWidth:48
+WorldBlockHeight:48
+WorldBlockSourceWidth:16
+WorldBlockSourceHeight:16
+PlayerWidth:48
+PlayerHeight:64
+PlayerSrcWalkWidth:16
+PlayerSrcWalkHeight:24

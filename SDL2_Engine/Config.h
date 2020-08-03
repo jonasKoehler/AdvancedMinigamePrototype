@@ -1,12 +1,26 @@
 #pragma once
 
-#pragma region value macro
-#define WORLD_BLOCK_WIDTH 48
-#define WORLD_BLOCK_HEIGHT 48
-#define WORLD_BLOCK_SOURCE_WIDTH 64
-#define WORLD_BLOCK_SOURCE_HEIGHT 64
-#define PLAYER_WIDTH 32
-#define PLAYER_HEIGHT 32
-#define PLAYER_SRC_WALK_WIDTH 32
-#define PLAYER_SRC_WALK_HEIGHT 32
+/// <summary>
+/// class with config variables
+/// </summary>
+class GConfig
+{
+public:
+#pragma region public function
+	/// <summary>
+	/// load config variables from file
+	/// </summary>
+	static void LoadConfig();
 #pragma endregion
+
+#pragma region public primitive variable
+	static int s_WorldBlockWidth;
+	static int s_WorldBlockHeight;
+	static int s_WorldBlockSourceWidth;
+	static int s_WorldBlockSourceHeight;
+	static int s_PlayerWidth;
+	static int s_PlayerHeight;
+	static int s_PlayerSrcWalkWidth;
+	static int s_PlayerSrcWalkHeight;
+#pragma endregion
+};

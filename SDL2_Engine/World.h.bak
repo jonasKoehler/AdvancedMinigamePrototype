@@ -2,8 +2,6 @@
 
 #pragma region system include
 #include <string>
-#include <fstream>
-#include <SDL_image.h>
 #pragma endregion
 
 #pragma region engine include
@@ -24,91 +22,6 @@ using namespace std;
 #pragma endregion
 
 #pragma region function
-/// <summary>
-/// load world string from txt file
-/// </summary>
-/// <param name="_pFile">file to load from</param>
-/// <returns>world as string</returns>
-string LoadWorldStringFromFile(const char* _pFile)
-{
-	// open file and if not opened return empty string
-	ifstream file;
-	file.open(_pFile);
-	if (!file.is_open())
-	{
-		file.close();
-		return "";
-	}
-
-	// text to return
-	string text = "";
-
-	// single line of file
-	string line;
-
-	// get every line from file and append to text
-	while (getline(file, line))
-	{
-		text.append(line);
-		text.append("\n");
-	}
-
-	// close file and return text
-	file.close();
-	return text;
-}
-
-/// <summary>
-/// load world string from image file
-/// </summary>
-/// <param name="_pFile">image file to load from</param>
-/// <returns>world as string</returns>
-string LoadWorldStringFromImage(const char* _pFile)
-{
-	// text to return
-	string text;
-
-	// load surface from file
-	SDL_Surface* pWorld = IMG_Load(_pFile);
-
-	// get first pixel pointer
-	char* pPixel = (char*)pWorld->pixels;
-
-	// check every pixel
-	for (int i = 0; i < pWorld->w * pWorld->h; i++)
-	{
-		// get rgb values from pixel
-		uint8_t r = pPixel[0];
-		uint8_t g = pPixel[1];
-		uint8_t b = pPixel[2];
-
-		// check values and add depending char
-		if (r == 0 && g == 0 && b == 0)
-			text += '0';
-		else if (r == 255 && g == 255 && b == 255)
-			text += 'X';
-		else if (r == 0 && g == 0 && b == 255)
-			text += 'V';
-		else if (r == 0 && g == 255 && b == 0)
-			text += 'I';
-		else if (r == 255 && g == 255 && b == 0)
-			text += 'S';
-		else if (r == 255 && g == 0 && b == 0)
-			text += 'E';
-
-		// increase pixel by format
-		pPixel += pWorld->format->BytesPerPixel;
-
-		// if end of line add new line char
-		if ((i + 1) % pWorld->w == 0)
-			text += '\n';
-	}
-
-	// free surface and return text
-	SDL_FreeSurface(pWorld);
-	return text;
-}
-
 /// <summary>
 /// load world from string
 /// </summary>

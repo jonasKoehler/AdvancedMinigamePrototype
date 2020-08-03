@@ -8,6 +8,7 @@
 
 #pragma region game include
 #include "MenuScene.h"
+#include "Config.h"
 #pragma endregion
 
 #pragma region value macro
@@ -46,6 +47,9 @@ public:
 	/// </summary>
 	inline void Init()
 	{
+		// load config
+		GConfig::LoadConfig();
+
 		// create mario font
 		m_pMarioFont = new CFont("Font/F_Mario.ttf", 72);
 

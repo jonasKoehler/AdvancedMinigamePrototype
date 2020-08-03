@@ -3,6 +3,7 @@
 #pragma region engine include
 #include "Engine.h"
 #include "Font.h"
+#include "Texture.h"
 #pragma endregion
 
 #pragma region game include
@@ -45,8 +46,14 @@ public:
 	/// </summary>
 	inline void Init()
 	{
-		// create mario font and load menu scene
+		// create mario font
 		m_pMarioFont = new CFont("Font/F_Mario.ttf", 72);
+
+		// set mouse texture and default visible
+		ENGINE->SetMouseTexture(new CTexture("Texture/Mouse/T_Mouse.png"));
+		ENGINE->SetMouseVisible(true);
+
+		// load menu scene
 		ENGINE->ChangeScene(new GMenuScene());
 	}
 
