@@ -65,6 +65,9 @@
     <ClCompile Include="WinScene.cpp">
       <Filter>Game\Scene\WinScene</Filter>
     </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Game\Config</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">

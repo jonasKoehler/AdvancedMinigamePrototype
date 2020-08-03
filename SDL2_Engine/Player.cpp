@@ -11,7 +11,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Game.h"
-#include "Config.h"
 #include "LoseScene.h"
 #include "WinScene.h"
 #pragma endregion
@@ -100,8 +99,8 @@ void GPlayer::Rotate()
 	angle = round(angle / 45) * 45;
 
 	// calculate new hitzone rect position sin() und cos(), pi/180 = degree to radiant conversion since cos & sin use radiants in c++
-	int hitzonePosX = m_position.X + (cos(angle * M_PI / 180) * (PLAYER_WIDTH * 0.5 + m_Hitzone.w * 0.5));
-	int hitzonePosY = m_position.Y - (sin(angle * M_PI / 180) * (PLAYER_HEIGHT * 0.5 + m_Hitzone.h * 0.5));
+	int hitzonePosX = m_position.X + (cos(angle * M_PI / 180) * (GConfig::s_PlayerWidth * 0.5 + m_Hitzone.w * 0.5));
+	int hitzonePosY = m_position.Y - (sin(angle * M_PI / 180) * (GConfig::s_PlayerHeight * 0.5 + m_Hitzone.h * 0.5));
 
 	m_Hitzone.x = hitzonePosX - m_Hitzone.w * 0.5f;
 	m_Hitzone.y = hitzonePosY - m_Hitzone.h * 0.5f;
@@ -228,7 +227,6 @@ void GPlayer::BasicAttack()
 			//if collision enter, the take Damage funktion is running			
 			GEnemy* enemy = (GEnemy*)pObject;
 			TakeDamage(m_damage, enemy);
-			break;
 		}
 	}
 }

@@ -25,9 +25,7 @@ public:
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of player</param>
 	GEnemy(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos)
-	{
-		m_anim.SetAnimationTime(0.5f);
-	}
+	{}
 #pragma endregion
 
 #pragma region destructor
@@ -72,12 +70,5 @@ protected:
 	float m_health = 100;
 	float m_damage = 1; //damage of the entity
 	SVector2 m_playerpos; //position of the player
-#pragma endregion
-
-#pragma region protected variable
-	/// <summary>
-	/// animation
-	/// </summary>
-	CAnimation m_anim = CAnimation(SVector2(), SVector2(PLAYER_SRC_WALK_WIDTH, PLAYER_SRC_WALK_HEIGHT), 4);
 #pragma endregion
 };

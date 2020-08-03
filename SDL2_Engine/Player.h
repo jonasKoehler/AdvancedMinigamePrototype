@@ -4,10 +4,11 @@
 #include "MoveObject.h"
 #include "Animation.h"
 #include "Sound.h"
+#pragma endregion
+
+#include "Config.h"
 
 class GEnemy;
-
-#pragma endregion
 
 /// <summary>
 /// player class
@@ -32,7 +33,7 @@ public:
 		m_pHitzoneTexture->SetRect(m_Hitzone);
 		m_pHitzoneTexture->SetSrcRect(SRect(32, 32, 32, 160));
 
-		SVector2 animationFrameSize = SVector2(32, 32);
+		SVector2 animationFrameSize = SVector2(GConfig::s_PlayerSrcWidth, GConfig::s_PlayerSrcHeight);
 		SVector2 framePositionInTexture = SVector2(0, 0);
 		m_pLookRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
 		m_pCurrentAnimation = m_pLookRight;
@@ -107,7 +108,7 @@ private:
 	SRect m_Hitzone = SRect(); // rect that determines if an enemy is in attack range
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
-	int m_AttackRange = 20; // attack range in pixels
+	int m_AttackRange = 30; // attack range in pixels
 	float m_damage = 50; // the damage of the attack
 	float m_health = 300; // the health of the entitiy
 	

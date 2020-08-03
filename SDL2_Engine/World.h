@@ -2,6 +2,8 @@
 
 #pragma region system include
 #include <string>
+#include <fstream>
+#include <SDL_image.h>
 #pragma endregion
 
 #pragma region engine include
@@ -23,6 +25,91 @@ using namespace std;
 
 #pragma region function
 /// <summary>
+/// load world string from txt file
+/// </summary>
+/// <param name="_pFile">file to load from</param>
+/// <returns>world as string</returns>
+string LoadWorldStringFromFile(const char* _pFile)
+{
+	// open file and if not opened return empty string
+	ifstream file;
+	file.open(_pFile);
+	if (!file.is_open())
+	{
+		file.close();
+		return "";
+	}
+
+	// text to return
+	string text = "";
+
+	// single line of file
+	string line;
+
+	// get every line from file and append to text
+	while (getline(file, line))
+	{
+		text.append(line);
+		text.append("\n");
+	}
+
+	// close file and return text
+	file.close();
+	return text;
+}
+
+/// <summary>
+/// load world string from image file
+/// </summary>
+/// <param name="_pFile">image file to load from</param>
+/// <returns>world as string</returns>
+string LoadWorldStringFromImage(const char* _pFile)
+{
+	// text to return
+	string text;
+
+	// load surface from file
+	SDL_Surface* pWorld = IMG_Load(_pFile);
+
+	// get first pixel pointer
+	char* pPixel = (char*)pWorld->pixels;
+
+	// check every pixel
+	for (int i = 0; i < pWorld->w * pWorld->h; i++)
+	{
+		// get rgb values from pixel
+		uint8_t r = pPixel[0];
+		uint8_t g = pPixel[1];
+		uint8_t b = pPixel[2];
+
+		// check values and add depending char
+		if (r == 0 && g == 0 && b == 0)
+			text += '0';
+		else if (r == 255 && g == 255 && b == 255)
+			text += 'X';
+		else if (r == 0 && g == 0 && b == 255)
+			text += 'V';
+		else if (r == 0 && g == 255 && b == 0)
+			text += 'I';
+		else if (r == 255 && g == 255 && b == 0)
+			text += 'S';
+		else if (r == 255 && g == 0 && b == 0)
+			text += 'E';
+
+		// increase pixel by format
+		pPixel += pWorld->format->BytesPerPixel;
+
+		// if end of line add new line char
+		if ((i + 1) % pWorld->w == 0)
+			text += '\n';
+	}
+
+	// free surface and return text
+	SDL_FreeSurface(pWorld);
+	return text;
+}
+
+/// <summary>
 /// load world from string
 /// </summary>
 void LoadWorldFromString()
@@ -38,14 +125,14 @@ void LoadWorldFromString()
 	// \n = delimiter
 	world += "#########################################################################\n";
 	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#000E00000000000000000000000000000000000000000000000000E0000000000000000#\n";
-	world += "#00000000000000000000000000000E00000000000000000000000000000000E00000000#\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000000S00000000000000000000000000000000000000000000000000000#\n";
-	world += "#0000000000000000000000000000000000000000000000E00000000000E00000000000X#\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000000000000000000000000000000000000000000E00000000000000000#\n";
-	world += "#000E0000000000000000000E00000000000000000000000000000000000000000000000#\n";
+	world += "#000E0000000000000000000000000000000000E000000000000000E0000000000E00000#\n";
+	world += "#00000000000000000000000000000E000000000000000000000000E0000000E00000000#\n";
+	world += "#000000000E0000000000000000000000000000000000000E000EE000000000E00000000#\n";
+	world += "#S0000000000000000000000000000000000000000000000000000000000E000000000X0#\n";
+	world += "#000000000000000000000000000000E0000000000000E0E00000E00000E000000000000#\n";
+	world += "#000000000000000000000000000000000000000000000000000000000000000E000EE00#\n";
+	world += "#00000000000000000000000000000000000000000000000EE0000E0000000E000000000#\n";
+	world += "#00000000000000000000000E00000000000000E0000000000000000000000000000E000#\n";
 	world += "#########################################################################";
 
 	// width and height counter
@@ -58,7 +145,7 @@ void LoadWorldFromString()
 	CTexturedObject* pWorldObject = new CTexturedObject("", SVector2());
 
 	// create background and render on screen
-	pWorldObject->SetSrcRect(SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT, WORLD_BLOCK_SOURCE_WIDTH, 0));
+	pWorldObject->SetSrcRect(SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight, GConfig::s_WorldBlockSourceWidth, 0));
 	pWorldObject->SetInWorld(false);
 	pWorldObject->SetTexture(pGameTilemap);
 	CTM->AddSceneObject(pWorldObject);
@@ -86,11 +173,11 @@ void LoadWorldFromString()
 			GPlayer* pPlayer = new GPlayer
 			(
 				"Texture/Character/Player/T_Player.png",
-				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
-				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
+				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
+				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 
-			pPlayer->SetSpeed(500.0f);
+			pPlayer->SetSpeed(150.0f);
 			pPlayer->SetColType(ECollisionType::DYNAMIC);
 			pPlayer->SetTag("Player");
 
@@ -104,12 +191,12 @@ void LoadWorldFromString()
 
 			GEnemy* pEnemy = new GEnemy(
 				"Texture/Character/Enemy/T_Enemy.png",
-				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
-				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
+				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
+				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 
 			// set speed, collision type, activate gravity, add to content and set tag
-			pEnemy->SetSpeed(50.0f);
+			pEnemy->SetSpeed(100.0f);
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
 			pEnemy->SetTag("Enemy");
 
@@ -122,8 +209,8 @@ void LoadWorldFromString()
 			// create Exitzone
 			GExitzone* pExitzone = new GExitzone(
 				"Texture/Exit/T_Exit.png",
-				SVector2(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT),
-				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
+				SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
+				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 			pExitzone->SetColType(ECollisionType::STATIC);
 			pExitzone->SetTag("Exit");
@@ -137,14 +224,14 @@ void LoadWorldFromString()
 		CTexturedObject* pNewWorldTile = new CTexturedObject
 		(
 			"",
-			SVector2(WORLD_BLOCK_WIDTH, WORLD_BLOCK_HEIGHT),
-			SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
+			SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
+			SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 		);
 
 		pNewWorldTile->SetTexture(pGameTilemap); // set tilemap as texture
 		pNewWorldTile->SetColType(ECollisionType::NONE); // world tiles have no collision by default
 
-		SRect srcRect = SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT); // source rect by config values
+		SRect srcRect = SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight); // source rect by config values
 
 		// switch current char
 		switch (world[i])
