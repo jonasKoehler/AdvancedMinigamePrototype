@@ -227,7 +227,6 @@ void GPlayer::BasicAttack()
 			//if collision enter, the take Damage funktion is running			
 			GEnemy* enemy = (GEnemy*)pObject;
 			TakeDamage(m_damage, enemy);
-			break;
 		}
 	}
 }

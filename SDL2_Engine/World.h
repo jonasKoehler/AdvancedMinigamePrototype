@@ -125,14 +125,14 @@ void LoadWorldFromString()
 	// \n = delimiter
 	world += "#########################################################################\n";
 	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#000E00000000000000000000000000000000000000000000000000E0000000000000000#\n";
-	world += "#00000000000000000000000000000E00000000000000000000000000000000E00000000#\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000000S00000000000000000000000000000000000000000000000000000#\n";
-	world += "#0000000000000000000000000000000000000000000000E00000000000E00000000000X#\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000000000000000000000000000000000000000000E00000000000000000#\n";
-	world += "#000E0000000000000000000E00000000000000000000000000000000000000000000000#\n";
+	world += "#000E0000000000000000000000000000000000E000000000000000E0000000000E00000#\n";
+	world += "#00000000000000000000000000000E000000000000000000000000E0000000E00000000#\n";
+	world += "#000000000E0000000000000000000000000000000000000E000EE000000000E00000000#\n";
+	world += "#S0000000000000000000000000000000000000000000000000000000000E000000000X0#\n";
+	world += "#000000000000000000000000000000E0000000000000E0E00000E00000E000000000000#\n";
+	world += "#000000000000000000000000000000000000000000000000000000000000000E000EE00#\n";
+	world += "#00000000000000000000000000000000000000000000000EE0000E0000000E000000000#\n";
+	world += "#00000000000000000000000E00000000000000E0000000000000000000000000000E000#\n";
 	world += "#########################################################################";
 
 	// width and height counter
@@ -177,7 +177,7 @@ void LoadWorldFromString()
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 
-			pPlayer->SetSpeed(500.0f);
+			pPlayer->SetSpeed(150.0f);
 			pPlayer->SetColType(ECollisionType::DYNAMIC);
 			pPlayer->SetTag("Player");
 
@@ -196,7 +196,7 @@ void LoadWorldFromString()
 			);
 
 			// set speed, collision type, activate gravity, add to content and set tag
-			pEnemy->SetSpeed(50.0f);
+			pEnemy->SetSpeed(100.0f);
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
 			pEnemy->SetTag("Enemy");
 
@@ -209,7 +209,7 @@ void LoadWorldFromString()
 			// create Exitzone
 			GExitzone* pExitzone = new GExitzone(
 				"Texture/Exit/T_Exit.png",
-				SVector2(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight),
+				SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 			pExitzone->SetColType(ECollisionType::STATIC);

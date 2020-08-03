@@ -108,7 +108,7 @@ private:
 	SRect m_Hitzone = SRect(); // rect that determines if an enemy is in attack range
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
-	int m_AttackRange = 20; // attack range in pixels
+	int m_AttackRange = 30; // attack range in pixels
 	float m_damage = 50; // the damage of the attack
 	float m_health = 300; // the health of the entitiy
 	
