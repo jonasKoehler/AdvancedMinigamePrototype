@@ -224,7 +224,7 @@ void LoadWorldFromString()
 		CTexturedObject* pNewWorldTile = new CTexturedObject
 		(
 			"",
-			SVector2(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight),
+			SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
 			SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 		);
 
