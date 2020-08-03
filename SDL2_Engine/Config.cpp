@@ -22,8 +22,8 @@ int GConfig::s_WorldBlockSourceWidth = 0;
 int GConfig::s_WorldBlockSourceHeight = 0;
 int GConfig::s_PlayerWidth = 0;
 int GConfig::s_PlayerHeight = 0;
-int GConfig::s_PlayerSrcWalkWidth = 0;
-int GConfig::s_PlayerSrcWalkHeight = 0;
+int GConfig::s_PlayerSrcWidth = 0;
+int GConfig::s_PlayerSrcHeight = 0;
 #pragma endregion
 
 #pragma region public function
@@ -77,10 +77,10 @@ void GConfig::LoadConfig()
 			s_PlayerWidth = atoi(value.c_str());
 		else if (name == "PlayerHeight")
 			s_PlayerHeight = atoi(value.c_str());
-		else if (name == "PlayerSrcWalkWidth")
-			s_PlayerSrcWalkWidth = atoi(value.c_str());
-		else if (name == "PlayerSrcWalkHeight")
-			s_PlayerSrcWalkHeight = atoi(value.c_str());
+		else if (name == "PlayerSrcWidth")
+			s_PlayerSrcWidth = atoi(value.c_str());
+		else if (name == "PlayerSrcHeight")
+			s_PlayerSrcHeight = atoi(value.c_str());
 	}
 }
 #pragma endregion
