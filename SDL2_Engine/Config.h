@@ -20,7 +20,7 @@ public:
 	static int s_WorldBlockSourceHeight;
 	static int s_PlayerWidth;
 	static int s_PlayerHeight;
-	static int s_PlayerSrcWalkWidth;
-	static int s_PlayerSrcWalkHeight;
+	static int s_PlayerSrcWidth;
+	static int s_PlayerSrcHeight;
 #pragma endregion
 };

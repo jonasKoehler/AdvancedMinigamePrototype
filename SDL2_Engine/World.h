@@ -145,7 +145,7 @@ void LoadWorldFromString()
 	CTexturedObject* pWorldObject = new CTexturedObject("", SVector2());
 
 	// create background and render on screen
-	pWorldObject->SetSrcRect(SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT, WORLD_BLOCK_SOURCE_WIDTH, 0));
+	pWorldObject->SetSrcRect(SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight, GConfig::s_WorldBlockSourceWidth, 0));
 	pWorldObject->SetInWorld(false);
 	pWorldObject->SetTexture(pGameTilemap);
 	CTM->AddSceneObject(pWorldObject);
@@ -173,8 +173,8 @@ void LoadWorldFromString()
 			GPlayer* pPlayer = new GPlayer
 			(
 				"Texture/Character/Player/T_Player.png",
-				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
-				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
+				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
+				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 
 			pPlayer->SetSpeed(500.0f);
@@ -191,8 +191,8 @@ void LoadWorldFromString()
 
 			GEnemy* pEnemy = new GEnemy(
 				"Texture/Character/Enemy/T_Enemy.png",
-				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT),
-				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
+				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
+				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 
 			// set speed, collision type, activate gravity, add to content and set tag
@@ -209,8 +209,8 @@ void LoadWorldFromString()
 			// create Exitzone
 			GExitzone* pExitzone = new GExitzone(
 				"Texture/Exit/T_Exit.png",
-				SVector2(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT),
-				SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
+				SVector2(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight),
+				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 			pExitzone->SetColType(ECollisionType::STATIC);
 			pExitzone->SetTag("Exit");
@@ -224,14 +224,14 @@ void LoadWorldFromString()
 		CTexturedObject* pNewWorldTile = new CTexturedObject
 		(
 			"",
-			SVector2(WORLD_BLOCK_WIDTH, WORLD_BLOCK_HEIGHT),
-			SVector2(width * WORLD_BLOCK_WIDTH, height * WORLD_BLOCK_HEIGHT)
+			SVector2(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight),
+			SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 		);
 
 		pNewWorldTile->SetTexture(pGameTilemap); // set tilemap as texture
 		pNewWorldTile->SetColType(ECollisionType::NONE); // world tiles have no collision by default
 
-		SRect srcRect = SRect(WORLD_BLOCK_SOURCE_WIDTH, WORLD_BLOCK_SOURCE_HEIGHT); // source rect by config values
+		SRect srcRect = SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight); // source rect by config values
 
 		// switch current char
 		switch (world[i])

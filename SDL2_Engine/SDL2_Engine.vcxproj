@@ -184,6 +184,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="ContentManagement.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Exitzone.cpp" />
