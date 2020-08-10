@@ -10,7 +10,6 @@
 
 #pragma region forward decleration
 class CObject;
-class CMoveObject;
 #pragma endregion
 
 #pragma region using
@@ -46,7 +45,7 @@ public:
 	/// add object to scene list
 	/// </summary>
 	/// <param name="_pObject">object reference to add</param>
-	inline void AddSceneObject(CObject* _pObject) { AddObject(_pObject, &m_sceneObjects); }
+	inline void AddSceneObject(CObject* _pObject) { m_sceneObjects.push_back(_pObject); }
 
 	/// <summary>
 	/// get all scene objects
@@ -70,13 +69,13 @@ public:
 	/// add object to persistent list
 	/// </summary>
 	/// <param name="_pObject">object reference to add</param>
-	inline void AddPersistentObject(CObject* _pObject) { AddObject(_pObject, &m_persistentObjects); }
+	inline void AddPersistentObject(CObject* _pObject) { m_persistentObjects.push_back(_pObject); }
 
 	/// <summary>
 	/// add object to ui list
 	/// </summary>
 	/// <param name="_pObject">object reference to add</param>
-	inline void AddUiObject(CObject* _pObject) { AddObject(_pObject, &m_uiObjects); }
+	inline void AddUiObject(CObject* _pObject) { m_uiObjects.push_back(_pObject); }
 
 	/// <summary>
 	/// remove object
@@ -111,22 +110,9 @@ public:
 	/// delete all ui objects
 	/// </summary>
 	void CleanUiObjects();
-
-	/// <summary>
-	/// sort objects
-	/// </summary>
-	/// <param name="_pObject">object reference to sort into</param>
-	void SortObjects(CObject* _pObject);
 #pragma endregion
 
 private:
-#pragma region private primitive variable
-	/// <summary>
-	/// time until collision object set by move objects
-	/// </summary>
-	float m_colTimer = 0.0f;
-#pragma endregion
-
 #pragma region private variable
 	/// <summary>
 	/// all scene objects list
@@ -144,22 +130,8 @@ private:
 	list<CObject*> m_uiObjects;
 
 	/// <summary>
-	/// all move objects
-	/// </summary>
-	list<CMoveObject*> m_moveObjects;
-
-	/// <summary>
 	/// all objects to remove
 	/// </summary>
 	list<CObject*> m_removeObjects;
-#pragma endregion
-
-#pragma region private function
-	/// <summary>
-	/// add object to list
-	/// </summary>
-	/// <param name="_pObject">object reference</param>
-	/// <param name="_pList">list reference</param>
-	void AddObject(CObject* _pObject, list<CObject*>* _pList);
 #pragma endregion
 };

@@ -39,18 +39,6 @@ public:
 
 #pragma region public inline function
 	/// <summary>
-	/// get zoom
-	/// </summary>
-	/// <returns>zoom value</returns>
-	inline float GetZoom() { return m_zoom; }
-
-	/// <summary>
-	/// set zoom
-	/// </summary>
-	/// <param name="_zoom">zoom value to set</param>
-	inline void SetZoom(float _zoom) { m_zoom = _zoom; }
-
-	/// <summary>
 	/// get camera position
 	/// </summary>
 	/// <returns>camera world position</returns>
@@ -94,13 +82,6 @@ public:
 #pragma endregion
 
 private:
-#pragma region private primitive variable
-	/// <summary>
-	/// zoom value
-	/// </summary>
-	float m_zoom = 1.0f;
-#pragma endregion
-
 #pragma region private variable
 	/// <summary>
 	/// camera world position

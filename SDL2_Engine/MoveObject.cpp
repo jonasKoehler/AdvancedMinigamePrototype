@@ -35,59 +35,8 @@ void CMoveObject::Update(float _deltaSeconds)
 		// calculate rect position y with gravity and falltime
 		nextRect.y += (GRAVITY * PIXEL_IN_METER) * m_fallTime * _deltaSeconds;
 
-		// check every scene object
-		for (CObject* pObject : CTM->GetSceneObjects())
-		{
-			// try to get textured object from current object
-			CTexturedObject* pTexObj = dynamic_cast<CTexturedObject*>(pObject);
-
-			// if no textured object or this continue to next object
-			if (!pTexObj || pTexObj == this)
-				continue;
-
-			// if current object has no collision type continue to next object
-			if (pTexObj->GetColType() == ECollisionType::NONE)
-				continue;
-
-			// set movable by check collision with other rect
-			moveable = !RectRectCollision(nextRect, pTexObj->GetRect());
-
-			// if not moveable stop checking coming objects
-			if (!moveable)
-			{
-				OnCollisionEnter(pObject);
-				break;
-			}
-		}
-
-		// if still moveable
-		if (moveable)
-		{
-			// check every persistent object
-			for (CObject* pObject : CTM->GetPersistentObjects())
-			{
-				// try to get textured object from current object
-				CTexturedObject* pTexObj = dynamic_cast<CTexturedObject*>(pObject);
-
-				// if no textured object or this continue to next object
-				if (!pTexObj || pTexObj == this)
-					continue;
-
-				// if current object has no collision type continue to next object
-				if (pTexObj->GetColType() == ECollisionType::NONE)
-					continue;
-
-				// set movable by check collision with other rect
-				moveable = !RectRectCollision(nextRect, pTexObj->GetRect());
-
-				// if not moveable stop checking coming objects
-				if (!moveable)
-				{
-					OnCollisionEnter(pObject);
-					break;
-				}
-			}
-		}
+		// check collision with objects in range
+		moveable = !CheckCollision(nextRect);
 
 		// if still moveable
 		if (moveable)
@@ -120,59 +69,8 @@ void CMoveObject::Update(float _deltaSeconds)
 	nextRect.x += m_movement.X * m_speed * _deltaSeconds;
 	nextRect.y += m_movement.Y * m_speed * _deltaSeconds;
 
-	// check every scene object
-	for (CObject* pObject : CTM->GetSceneObjects())
-	{
-		// try to get textured object from current object
-		CTexturedObject* pTexObj = dynamic_cast<CTexturedObject*>(pObject);
-
-		// if no textured object or this continue to next object
-		if (!pTexObj || pTexObj == this)
-			continue;
-
-		// if current object has no collision type continue to next object
-		if (pTexObj->GetColType() == ECollisionType::NONE)
-			continue;
-
-		// set movable by check collision with other rect
-		moveable = !RectRectCollision(nextRect, pTexObj->GetRect());
-
-		// if not moveable stop checking coming objects
-		if (!moveable)
-		{
-			OnCollisionEnter(pObject);
-			break;
-		}
-	}
-
-	// if still moveable
-	if (moveable)
-	{
-		// check every persistent object
-		for (CObject* pObject : CTM->GetPersistentObjects())
-		{
-			// try to get textured object from current object
-			CTexturedObject* pTexObj = dynamic_cast<CTexturedObject*>(pObject);
-
-			// if no textured object or this continue to next object
-			if (!pTexObj || pTexObj == this)
-				continue;
-
-			// if current object has no collision type continue to next object
-			if (pTexObj->GetColType() == ECollisionType::NONE)
-				continue;
-
-			// set movable by check collision with other rect
-			moveable = !RectRectCollision(nextRect, pTexObj->GetRect());
-
-			// if not moveable stop checking coming objects
-			if (!moveable)
-			{
-				OnCollisionEnter(pObject);
-				break;
-			}
-		}
-	}
+	// check collision with objects in range
+	moveable = !CheckCollision(nextRect);
 
 	// if still moveable
 	if (moveable)
@@ -188,5 +86,84 @@ void CMoveObject::Render()
 {
 	// render parent
 	CTexturedObject::Render();
+}
+#pragma endregion
+
+#pragma region public function
+// set collision objects in move range
+void CMoveObject::SetColObjects()
+{
+	// collision rect around object
+	SRect colRect;
+	colRect.x = m_position.X - m_speed - m_rect.w;
+	colRect.y = m_position.Y - m_speed - m_rect.h;
+	colRect.w = m_speed * 2.0f + 2.0f * m_rect.w;
+	colRect.h = m_speed * 2.0f + 2.0f * m_rect.h;
+
+	// if gravity enabled
+	if (m_gravity)
+	{
+		// calculate collision rect y and h by absolute fall time
+		float falltime = m_fallTime < 0.0f ? -m_fallTime : m_fallTime;
+		colRect.y = m_position.Y - PIXEL_IN_METER * GRAVITY * (falltime + 1.0f) - m_rect.h;
+		colRect.h = 2.0f * PIXEL_IN_METER * GRAVITY * (falltime + 1.0f) + 2.0f * m_rect.h;
+	}
+
+	// clear all collision objects
+	m_colObject.clear();
+
+	// check every scene object
+	for (CObject* pObject : CTM->GetSceneObjects())
+	{
+		// try to get textured object from current object
+		CTexturedObject* pTexObj = dynamic_cast<CTexturedObject*>(pObject);
+
+		// if no textured object or this continue to next object
+		if (!pTexObj || pTexObj == this)
+			continue;
+
+		// if current object has no collision type continue to next object
+		if (pTexObj->GetColType() == ECollisionType::NONE)
+			continue;
+
+		// if collision add current object to collision object list
+		if (RectRectCollision(colRect, pTexObj->GetRect()))
+			m_colObject.push_front(pTexObj);
+	}
+
+	// check every scene object
+	for (CObject* pObject : CTM->GetPersistentObjects())
+	{
+		// try to get textured object from current object
+		CTexturedObject* pTexObj = dynamic_cast<CTexturedObject*>(pObject);
+
+		// if no textured object or this continue to next object
+		if (!pTexObj || pTexObj == this)
+			continue;
+
+		// if current object has no collision type continue to next object
+		if (pTexObj->GetColType() == ECollisionType::NONE)
+			continue;
+
+		// if collision add current object to collision object list
+		if (RectRectCollision(colRect, pTexObj->GetRect()))
+			m_colObject.push_front(pTexObj);
+	}
+}
+#pragma endregion
+
+#pragma region private function
+// check collision with possible objects
+bool CMoveObject::CheckCollision(SRect _nextRect)
+{
+	// check every collision object
+	for (CTexturedObject* pObject : m_colObject)
+		// check collision with current object
+		if (RectRectCollision(_nextRect, pObject->GetRect()))
+			// if collision return true
+			return true;
+
+	// if no collision with any object return false
+	return false;
 }
 #pragma endregion

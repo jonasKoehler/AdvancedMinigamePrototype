@@ -7,6 +7,7 @@ class CRenderer;
 class CTime;
 class CMouse;
 class CContentManagement;
+class CTextureManagement;
 class CScene;
 class CTexture;
 #pragma endregion
@@ -34,6 +35,18 @@ public:
 
 #pragma region public inline function
 	/// <summary>
+	/// get width of screen
+	/// </summary>
+	/// <returns>width of screen</returns>
+	inline int GetWidth() { return m_width; }
+
+	/// <summary>
+	/// get height of screen
+	/// </summary>
+	/// <returns>height of screen</returns>
+	inline int GetHeight() { return m_height; }
+
+	/// <summary>
 	/// get sdl window
 	/// </summary>
 	/// <returns>sdl window reference</returns>
@@ -50,6 +63,12 @@ public:
 	/// </summary>
 	/// <returns>content management reference</returns>
 	inline CContentManagement* GetCTM() { return m_pCTM; }
+
+	/// <summary>
+	/// get texture management
+	/// </summary>
+	/// <returns>texture management reference</returns>
+	inline CTextureManagement* GetTTM() { return m_pTTM; }
 
 	/// <summary>
 	/// get engine
@@ -91,6 +110,12 @@ public:
 	void Clean();
 
 	/// <summary>
+	/// set loading screen texture
+	/// </summary>
+	/// <param name="_pTexture">texture reference</param>
+	void SetLoadingScreen(CTexture* _pTexture);
+
+	/// <summary>
 	/// change active scene
 	/// </summary>
 	/// <param name="_pScene">new scene reference</param>
@@ -127,6 +152,21 @@ private:
 	/// engine is running
 	/// </summary>
 	bool m_isRunning = false;
+
+	/// <summary>
+	/// resolution should change at begin of next frame
+	/// </summary>
+	bool m_changeResolution = false;
+	
+	/// <summary>
+	/// width of screen
+	/// </summary>
+	int m_width = 0;
+
+	/// <summary>
+	/// height of screen
+	/// </summary>
+	int m_height = 0;
 #pragma endregion
 
 #pragma region private pointer
@@ -161,9 +201,24 @@ private:
 	CContentManagement* m_pCTM = nullptr;
 
 	/// <summary>
+	/// texture management
+	/// </summary>
+	CTextureManagement* m_pTTM = nullptr;
+
+	/// <summary>
 	/// current active scene
 	/// </summary>
 	CScene* m_pScene = nullptr;
+
+	/// <summary>
+	/// loading screen screen
+	/// </summary>
+	CTexture* m_pLoadingScreen = nullptr;
+
+	/// <summary>
+	/// new scene to load at begin of next frame
+	/// </summary>
+	CScene* m_pChangeScene = nullptr;
 #pragma endregion
 
 #pragma region private function

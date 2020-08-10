@@ -2,7 +2,6 @@
 
 #pragma region project include
 #include "Vector2.h"
-#include "ContentManagement.h"
 #pragma endregion
 
 /// <summary>
@@ -39,23 +38,6 @@ public:
 	/// </summary>
 	/// <param name="_pTag">tag to set</param>
 	inline void SetTag(const char* _pTag) { m_pTag = _pTag; }
-
-	/// <summary>
-	/// get layer
-	/// </summary>
-	/// <returns>rendering layer</returns>
-	inline int GetLayer() { return m_layer; }
-
-	/// <summary>
-	/// set rendering layer
-	/// </summary>
-	/// <param name="_layer">layer to set</param>
-	inline void SetLayer(int _layer) 
-	{
-		// set layer and sort object
-		m_layer = _layer;
-		CTM->SortObjects(this);
-	}
 
 	/// <summary>
 	/// get position
@@ -101,12 +83,6 @@ protected:
 	/// tag of object
 	/// </summary>
 	const char* m_pTag = "";
-
-	/// <summary>
-	/// rendering layer
-	/// higher values are closer to the camera
-	/// </summary>
-	int m_layer = 0;
 #pragma endregion
 
 #pragma region protected variable

@@ -35,7 +35,7 @@ public:
 	/// <summary>
 	/// destructor
 	/// </summary>
-	virtual ~CTexturedObject() {}
+	virtual ~CTexturedObject();
 #pragma endregion
 
 #pragma region public override function

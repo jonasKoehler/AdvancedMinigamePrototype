@@ -189,6 +189,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Exitzone.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LoseScene.cpp" />
     <ClCompile Include="MenuScene.cpp" />
@@ -204,6 +205,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturedObject.cpp" />
+    <ClCompile Include="TextureManagement.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="WinScene.cpp" />
   </ItemGroup>
@@ -237,6 +239,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturedObject.h" />
+    <ClInclude Include="TextureManagement.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="WinScene.h" />
