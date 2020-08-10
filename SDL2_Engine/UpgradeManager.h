@@ -1,7 +1,9 @@
+#include "PlayerStats.h"
+
 #pragma once
 class GUpgradeManager
 {
-	GUpgradeManager(){}
+	GUpgradeManager() { Init(); }
 
 	~GUpgradeManager(){}
 
@@ -13,10 +15,15 @@ class GUpgradeManager
 	}
 #pragma endregion
 
+private:
+	void Init();
 
 #pragma region public functions
+public:
 
 #pragma endregion
 
+private:
+	GPlayerStats m_PlayerStats = GPlayerStats();
 };
 
