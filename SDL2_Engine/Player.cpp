@@ -43,7 +43,7 @@ void GPlayer::Update(float _deltaSeconds)
 		m_pAttack->Start();
 		// add attack sound
 	}
-	for (CObject* pObject : CTM->GetSceneObjects())
+	for (CObject* pObject : m_colObject)
 	{
 		if (pObject->GetTag() == "Exit")
 		{

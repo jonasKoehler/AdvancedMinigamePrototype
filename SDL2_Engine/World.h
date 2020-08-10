@@ -9,6 +9,7 @@
 #pragma region engine include
 #include "Texture.h"
 #include "ContentManagement.h"
+#include "TextureManagement.h"
 #include "Macro.h"
 #pragma endregion
 
@@ -128,7 +129,7 @@ void LoadWorldFromString()
 	world += "#000E0000000000000000000000000000000000E000000000000000E0000000000E00000#\n";
 	world += "#00000000000000000000000000000E000000000000000000000000E0000000E00000000#\n";
 	world += "#000000000E0000000000000000000000000000000000000E000EE000000000E00000000#\n";
-	world += "#S0000000000000000000000000000000000000000000000000000000000E000000000X0#\n";
+	world += "#0S000000000000000000000000000000000000000000000000000000000E000000000X0#\n";
 	world += "#000000000000000000000000000000E0000000000000E0E00000E00000E000000000000#\n";
 	world += "#000000000000000000000000000000000000000000000000000000000000000E000EE00#\n";
 	world += "#00000000000000000000000000000000000000000000000EE0000E0000000E000000000#\n";
@@ -139,7 +140,7 @@ void LoadWorldFromString()
 	int width = -1, height = 0;
 
 	// atlas texture of world
-	CTexture* pGameTilemap = new CTexture("Texture/World/T_World.png");
+	CTexture* pGameTilemap = TTM->GetTexture("Texture/World/T_World.png");
 
 	// create textured object
 	CTexturedObject* pWorldObject = new CTexturedObject("", SVector2());
@@ -199,6 +200,7 @@ void LoadWorldFromString()
 			pEnemy->SetSpeed(100.0f);
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
 			pEnemy->SetTag("Enemy");
+			pEnemy->SetLayer(5);
 
 			CTM->AddSceneObject(pEnemy);
 			continue; // check next char
