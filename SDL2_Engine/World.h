@@ -177,7 +177,7 @@ void LoadWorldFromString()
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
 
-			pPlayer->SetSpeed(150.0f);
+			pPlayer->SetSpeed(200.0f);
 			pPlayer->SetColType(ECollisionType::DYNAMIC);
 			pPlayer->SetTag("Player");
 			pPlayer->SetDamage(50);
