@@ -21,10 +21,6 @@ void GEnemy::Render()
 }
 
 //Search for the Position and then Move to Player
-void GEnemy::SetHealth(float _health)
-{
-	m_health = _health;
-}
 
 void GEnemy::CheckIfDead()
 {
@@ -81,16 +77,9 @@ void GEnemy::OnCollisionEnter(CObject* pObject)
 {
 	if (pObject->GetTag() == "Player")
 	{
-		GPlayer* player = (GPlayer*)pObject;
-		TakeDamage(m_damage, player);
+		TakeDamage(m_damage, (GPlayer*)pObject);
 	}
 }
 
-void GEnemy::TakeDamage(float _damage, GPlayer* _player)
-{
-	float playerhealth = _player->GetHealth();
-	playerhealth -= _damage;
-	_player->SetHealth(playerhealth);
-}
 
 #pragma endregion

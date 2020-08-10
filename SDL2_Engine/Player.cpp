@@ -67,10 +67,6 @@ void GPlayer::Render()
 	CTexturedObject::Render(); // render parent
 }
 
-void GPlayer::SetHealth(float _health)
-{
-	m_health = _health;
-}
 
 #pragma endregion
 
@@ -225,20 +221,11 @@ void GPlayer::BasicAttack()
 		if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
 		{
 			//if collision enter, the take Damage funktion is running			
-			GEnemy* enemy = (GEnemy*)pObject;
-			TakeDamage(m_damage, enemy);
+			TakeDamage(m_damage, (GEnemy*)pObject);
 		}
 	}
 }
 
-void GPlayer::TakeDamage(float _damage, GEnemy* _enemy)
-{
-	float enemyhealth = _enemy->GetHealth();
-
-	enemyhealth -= _damage;
-
-	_enemy->SetHealth(enemyhealth);
-}
 
 void GPlayer::ReachExit()
 {

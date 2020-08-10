@@ -1,7 +1,7 @@
 #pragma once
 
 #pragma region engine include
-#include "MoveObject.h"
+#include "Entity.h"
 #include "Animation.h"
 #include "Sound.h"
 #pragma endregion
@@ -13,7 +13,7 @@ class GEnemy;
 /// <summary>
 /// player class
 /// </summary>
-class GPlayer : public CMoveObject
+class GPlayer : public GEntity
 {
 public:
 
@@ -24,7 +24,7 @@ public:
 	/// <param name="_pFileName">texture relative file path</param>
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of player</param>
-	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos)
+	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : GEntity(_pFile, _size, _pos)
 	{
 		m_Hitzone.w = m_AttackRange;
 		m_Hitzone.h = m_AttackRange;
@@ -86,17 +86,13 @@ public:
 	/// </summary>
 	virtual	void Render() override;
 
-	float GetHealth() { return m_health; }
-
-	void SetHealth(float _health);
 #pragma region private functions
 private:
 	void Rotate(); // by Jonas
 	void Move(float _deltaSeconds); // by Jonas
 	void BasicAttack();  // by Jonas
 	void ReachExit(); // by Lukas
-	void TakeDamage(float _damage, GEnemy* _enemy); //by Lukas
-	void CheckIfDead(); //by Lukas
+	void CheckIfDead() override; //by Lukas
 	
 
 #pragma endregion
@@ -109,8 +105,6 @@ private:
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown
 	int m_AttackRange = 30; // attack range in pixels
-	float m_damage = 50; // the damage of the attack
-	float m_health = 300; // the health of the entitiy
 	
 
 	float m_AccelerationRate = 5.0f; // increases acceleration per sec (multiply with deltaTime)

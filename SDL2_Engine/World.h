@@ -180,6 +180,7 @@ void LoadWorldFromString()
 			pPlayer->SetSpeed(150.0f);
 			pPlayer->SetColType(ECollisionType::DYNAMIC);
 			pPlayer->SetTag("Player");
+			pPlayer->SetDamage(50);
 
 			CTM->AddPersistentObject(pPlayer);
 			continue; // check next char
@@ -199,6 +200,7 @@ void LoadWorldFromString()
 			pEnemy->SetSpeed(100.0f);
 			pEnemy->SetColType(ECollisionType::DYNAMIC);
 			pEnemy->SetTag("Enemy");
+			pEnemy->SetDamage(0.1);
 
 			CTM->AddSceneObject(pEnemy);
 			continue; // check next char

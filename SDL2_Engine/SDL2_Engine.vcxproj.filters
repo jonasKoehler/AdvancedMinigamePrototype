@@ -15,7 +15,7 @@
       <Filter>Engine\Font</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Game\Object\Enemy</Filter>
+      <Filter>Game\Object\Entity\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Exitzone.cpp">
       <Filter>Game\Object\ExitZone</Filter>
@@ -42,7 +42,7 @@
       <Filter>Engine\Object\MoveObject</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Game\Object\Player</Filter>
+      <Filter>Game\Object\Entity\Player</Filter>
     </ClCompile>
     <ClCompile Include="Physic.cpp">
       <Filter>Engine\Physic</Filter>
@@ -68,6 +68,9 @@
     <ClCompile Include="Config.cpp">
       <Filter>Game\Config</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Game\Object\Entity\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -92,7 +95,7 @@
       <Filter>Engine\Font</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Game\Object\Enemy</Filter>
+      <Filter>Game\Object\Entity\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Exitzone.h">
       <Filter>Game\Object\ExitZone</Filter>
@@ -128,7 +131,7 @@
       <Filter>Engine\Object\Base</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Game\Object\Player</Filter>
+      <Filter>Game\Object\Entity\Player</Filter>
     </ClInclude>
     <ClInclude Include="Music.h">
       <Filter>Engine\Music</Filter>
@@ -168,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Game\Object\Entity\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -264,14 +270,20 @@
     <Filter Include="Game\World">
       <UniqueIdentifier>{ef29b39d-db20-4f35-9eaa-ef7ce0b43f65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Object\Player">
-      <UniqueIdentifier>{a11298ab-62d5-48cd-bd95-98d926adcf7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Object\Enemy">
-      <UniqueIdentifier>{3f514c83-161d-4cbd-9faa-32640410a6b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Object\ExitZone">
       <UniqueIdentifier>{85dff7f1-96b0-4b2e-bb95-f0686ceb1074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Entity">
+      <UniqueIdentifier>{ee50c42e-8bda-426c-82ee-6f8757775024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Entity\Enemy">
+      <UniqueIdentifier>{3f514c83-161d-4cbd-9faa-32640410a6b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Entity\Player">
+      <UniqueIdentifier>{a11298ab-62d5-48cd-bd95-98d926adcf7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Entity\Base">
+      <UniqueIdentifier>{f0c32c86-8cb4-4a73-91f8-b05266cba2ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

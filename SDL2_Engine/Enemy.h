@@ -1,7 +1,7 @@
 #pragma once
 
 #pragma region engine include
-#include "MoveObject.h"
+#include "Entity.h"
 #include "Animation.h"
 #pragma endregion
 
@@ -14,7 +14,7 @@ class GPlayer;
 /// <summary>
 /// class for enemy behaviour
 /// </summary>
-class GEnemy : public CMoveObject
+class GEnemy : public GEntity
 {
 public:
 #pragma region constructor
@@ -24,8 +24,7 @@ public:
 	/// <param name="_pFileName">texture relative file path</param>
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of player</param>
-	GEnemy(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CMoveObject(_pFile, _size, _pos)
-	{}
+	GEnemy(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : GEntity(_pFile, _size, _pos) {};
 #pragma endregion
 
 #pragma region destructor
@@ -47,17 +46,13 @@ public:
 	/// </summary>
 	virtual	void Render() override;
 	
-	inline float GetHealth() { return m_health; }
-	void SetHealth(float _health);
-
-
 
 protected:
 
-	void CheckIfDead();
+	void CheckIfDead() override;
 	void MoveToPlayer();
 	void OnCollisionEnter(CObject* pObject) override;
-	void TakeDamage(float _damage, GPlayer* _player);
+
 
 #pragma endregion
 
@@ -67,8 +62,7 @@ protected:
 	/// time in movement direction
 	/// </summary>
 	float m_timerInMovement = 1.0f;
-	float m_health = 100;
-	float m_damage = 1; //damage of the entity
+	//damage of the entity
 	SVector2 m_playerpos; //position of the player
 #pragma endregion
 };
