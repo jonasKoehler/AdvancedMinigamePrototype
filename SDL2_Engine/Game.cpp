@@ -20,7 +20,7 @@ void GGame::Init()
 
 	// set mouse texture and default visible
 	ENGINE->SetMouseVisible(true);
-
+	
 	// load menu scene
 	ENGINE->ChangeScene(new GMenuScene());
 }
