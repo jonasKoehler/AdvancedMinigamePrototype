@@ -47,6 +47,41 @@ public:
 	virtual void Render() override;
 #pragma endregion
 
+#pragma region public inline function
+	/// <summary>
+	/// set text
+	/// </summary>
+	/// <param name="_pText">text to set</param>
+	inline void SetText(const char* _pText)
+	{
+		// set and load text
+		m_pText = _pText;
+		Load();
+	}
+
+	/// <summary>
+	/// set color
+	/// </summary>
+	/// <param name="_color">color to set</param>
+	inline void SetColor(SColor _color)
+	{
+		// set color and load text
+		m_color = _color;
+		Load();
+	}
+
+	/// <summary>
+	/// set font
+	/// </summary>
+	/// <param name="_pFont">font reference to set</param>
+	inline void SetFont(CFont* _pFont)
+	{
+		// set font and load text
+		m_pFont = _pFont;
+		Load();
+	}
+#pragma endregion
+
 protected:
 #pragma region protected primitive variable
 	/// <summary>

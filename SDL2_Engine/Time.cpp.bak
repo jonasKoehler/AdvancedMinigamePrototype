@@ -20,11 +20,6 @@ void CTime::Update()
 	// set delta seconds to difference
 	s_deltaSeconds = diff / (float)CLOCKS_PER_SEC;
 
-	// if delta seconds to high
-	if(s_deltaSeconds > 0.1f)
-		// set delta seconds low
-		s_deltaSeconds = 0.1f;
-
 	// set last update to now
 	m_lastUpdate = now;
 

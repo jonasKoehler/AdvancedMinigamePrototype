@@ -3,6 +3,7 @@
 #pragma region project include
 #include "TexturedObject.h"
 #include "Color.h"
+#include "Texture.h"
 #pragma endregion
 
 #pragma region forward decleration
@@ -31,7 +32,11 @@ public:
 	/// <summary>
 	/// destructor
 	/// </summary>
-	virtual ~CTextObject() {}
+	virtual ~CTextObject()
+	{
+		// delete texture
+		delete m_pTexture;
+	}
 #pragma endregion
 
 #pragma region public override function

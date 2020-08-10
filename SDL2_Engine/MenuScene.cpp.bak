@@ -1,18 +1,10 @@
-#pragma region engine include
-#include "ContentManagement.h"
-#include "TextureManagement.h"
+#include "MenuScene.h"
 #include "TextObject.h"
-#include "Music.h"
+#include "Game.h"
+#include "ContentManagement.h"
 #include "Input.h"
 #include "Physic.h"
-#pragma endregion
-
-#pragma region game include
-#include "Game.h"
 #include "MainScene.h"
-#include "MenuScene.h"
-#pragma endregion
-
 
 #pragma region pulic override function
 // initialize scene
@@ -32,13 +24,6 @@ void GMenuScene::Init()
 	pQuit->SetInWorld(false);
 	pQuit->SetTag("Quit");
 	CTM->AddUiObject(pQuit);
-
-	// set mouse and loading screen texture
-	ENGINE->SetMouseTexture(TTM->GetTexture("Texture/Mouse/T_Mouse.png"));
-	ENGINE->SetLoadingScreen(TTM->GetTexture("Texture/Loading/T_Loading.png"));
-
-	// show mouse
-	ENGINE->SetMouseVisible(true);
 }
 
 // update every frame

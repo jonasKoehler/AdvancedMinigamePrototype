@@ -11,6 +11,7 @@
 #include "Time.h"
 #include "Mouse.h"
 #include "ContentManagement.h"
+#include "TextureManagement.h"
 #include "Scene.h"
 #include "Input.h"
 #pragma endregion
@@ -113,6 +114,20 @@ int CEngine::Init()
 		return -103;
 	}
 
+	// create texture management
+	m_pTTM = new CTextureManagement();
+
+	// if ttm not created log error
+	if (!m_pTTM)
+	{
+		LOG("Texture Management not created");
+		return -104;
+	}
+
+	// save width and height
+	m_width = SCREEN_WIDTH;
+	m_height = SCREEN_HEIGHT;
+
 	// set engine running and return no error
 	m_isRunning = true;
 	return 0;
@@ -142,6 +157,9 @@ void CEngine::Clean()
 	// chane scene to nullptr
 	ChangeScene(nullptr);
 
+	// delete textures
+	delete m_pTTM;
+
 	// delete content
 	delete m_pCTM;
 
@@ -162,6 +180,23 @@ void CEngine::Clean()
 	SDL_Quit();
 }
 
+// set loading screen texture
+void CEngine::SetLoadingScreen(CTexture* _pTexture)
+{
+	// if loading screen exists and not given texture
+	if (m_pLoadingScreen && m_pLoadingScreen != _pTexture)
+	{
+		// delete loading screen
+		delete m_pLoadingScreen;
+		m_pLoadingScreen = nullptr;
+	}
+
+	// if new texture valid
+	if (_pTexture)
+		// set loading screen
+		m_pLoadingScreen = _pTexture;
+}
+
 // change active scene
 void CEngine::ChangeScene(CScene* _pScene)
 {
@@ -180,9 +215,25 @@ void CEngine::ChangeScene(CScene* _pScene)
 	// set active scene
 	m_pScene = _pScene;
 
-	// if active scene valid initialize scene
+	// if active scene valid
 	if (m_pScene)
+	{
+		// if loading screen valid
+		if (m_pLoadingScreen)
+		{
+			// clear screen
+			m_pRenderer->ClearScreen();
+
+			// render loading screen
+			m_pRenderer->RenderTexture(m_pLoadingScreen, nullptr);
+
+			// present rendered images
+			m_pRenderer->Present();
+		}
+
+		// initialize scene
 		m_pScene->Init();
+	}
 }
 
 // set mouse visible

@@ -1,15 +1,7 @@
 #pragma once
 
-#pragma region system include
-#include <list>
-#pragma endregion
-
 #pragma region project include
 #include "TexturedObject.h"
-#pragma endregion
-
-#pragma region using
-using namespace std;
 #pragma endregion
 
 /// <summary>
@@ -84,13 +76,6 @@ public:
 	inline void SetMovement(SVector2 _movement) { m_movement = _movement; }
 #pragma endregion
 
-#pragma region public function
-	/// <summary>
-	/// set collision objects in move range
-	/// </summary>
-	void SetColObjects();
-#pragma endregion
-
 protected:
 #pragma region protected primitive variable
 	/// <summary>
@@ -114,23 +99,5 @@ protected:
 	/// movement vertical and horizontal
 	/// </summary>
 	SVector2 m_movement = SVector2();
-#pragma endregion
-
-protected:
-#pragma region protected variable
-	/// <summary>
-	/// list with all possible objects to collide with in range
-	/// </summary>
-	list<CTexturedObject*> m_colObject;
-#pragma endregion
-
-private:
-#pragma region private function
-	/// <summary>
-	/// check collision with possible objects
-	/// </summary>
-	/// <param name="_nextRect">rect next frame</param>
-	/// <returns>if collision with any object</returns>
-	bool CheckCollision(SRect _nextRect);
 #pragma endregion
 };
