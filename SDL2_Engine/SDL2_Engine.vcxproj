@@ -186,12 +186,12 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ContentManagement.cpp" />
+    <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Exitzone.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="LoseScene.cpp" />
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MoveObject.cpp" />
@@ -206,13 +206,13 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturedObject.cpp" />
     <ClCompile Include="Time.cpp" />
-    <ClCompile Include="WinScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ContentManagement.h" />
+    <ClInclude Include="EndScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
@@ -222,7 +222,6 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClInclude Include="Game.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="LoseScene.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="MenuScene.h" />
@@ -241,7 +240,6 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClInclude Include="TexturedObject.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
-    <ClInclude Include="WinScene.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -11,8 +11,8 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Game.h"
-#include "LoseScene.h"
-#include "WinScene.h"
+#include "EndScene.h"
+
 #pragma endregion
 
 #pragma region other includes
@@ -229,16 +229,19 @@ void GPlayer::BasicAttack()
 
 void GPlayer::ReachExit()
 {
+	GAME->m_Won = true;
 	CTM->RemoveObject(this);
-	ENGINE->ChangeScene(new GWinScene());
+	ENGINE->ChangeScene(new GEndScene());
 }
 
 void GPlayer::CheckIfDead()
 {
 	if (m_health <= 0)
 	{
+		GAME->m_Won = false;
 		CTM->RemoveObject(this);
-		ENGINE->ChangeScene(new GLoseScene());
+		ENGINE->ChangeScene(new GEndScene());
+
 	}
 }
 #pragma endregion
