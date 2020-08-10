@@ -26,9 +26,6 @@
     <ClCompile Include="Input.cpp">
       <Filter>Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="LoseScene.cpp">
-      <Filter>Game\Scene\GameOverScene</Filter>
-    </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>Game\Scene\MainScene</Filter>
     </ClCompile>
@@ -62,14 +59,14 @@
     <ClCompile Include="Time.cpp">
       <Filter>Engine\Time</Filter>
     </ClCompile>
-    <ClCompile Include="WinScene.cpp">
-      <Filter>Game\Scene\WinScene</Filter>
-    </ClCompile>
     <ClCompile Include="Config.cpp">
       <Filter>Game\Config</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Game\Object\Entity\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="EndScene.cpp">
+      <Filter>Game\Scene\EndScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +105,6 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="LoseScene.h">
-      <Filter>Game\Scene\GameOverScene</Filter>
     </ClInclude>
     <ClInclude Include="MainScene.h">
       <Filter>Game\Scene\MainScene</Filter>
@@ -166,14 +160,14 @@
     <ClInclude Include="Time.h">
       <Filter>Engine\Time</Filter>
     </ClInclude>
-    <ClInclude Include="WinScene.h">
-      <Filter>Game\Scene\WinScene</Filter>
-    </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Game\Object\Entity\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="EndScene.h">
+      <Filter>Game\Scene\EndScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -255,17 +249,11 @@
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{d132d26a-bfa7-4211-82a5-fe5652b1a512}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Scene\WinScene">
-      <UniqueIdentifier>{5135ce26-a07b-4872-a797-3347965363f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Scene\MainScene">
       <UniqueIdentifier>{af0f769b-2e4c-4766-a314-50b2b2064176}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Scene\MenuScene">
       <UniqueIdentifier>{094c87b3-2be2-4c37-aa59-7b19ac2c4538}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\GameOverScene">
-      <UniqueIdentifier>{bbf8c7f1-ef6b-4386-a98b-2b1660795603}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\World">
       <UniqueIdentifier>{ef29b39d-db20-4f35-9eaa-ef7ce0b43f65}</UniqueIdentifier>
@@ -284,6 +272,9 @@
     </Filter>
     <Filter Include="Game\Object\Entity\Base">
       <UniqueIdentifier>{f0c32c86-8cb4-4a73-91f8-b05266cba2ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\EndScene">
+      <UniqueIdentifier>{5135ce26-a07b-4872-a797-3347965363f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

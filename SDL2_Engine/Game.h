@@ -27,7 +27,7 @@ public:
 	/// </summary>
 	GGame() {}
 #pragma endregion
-
+	bool m_Won = false;
 #pragma region public inline function
 	/// <summary>
 	/// get game

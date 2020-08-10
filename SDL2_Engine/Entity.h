@@ -16,7 +16,7 @@ public:
 	//Protected Vars
 protected:
 	float m_health = 100;
-	float m_damage;
+	float m_damage = 1;
 
 
 
