@@ -161,7 +161,6 @@ bool CMoveObject::CheckCollision(SRect _nextRect)
 		// check collision with current object
 		if (RectRectCollision(_nextRect, pObject->GetRect()))
 			// if collision return true
-			OnCollisionEnter(pObject);
 			return true;
 
 	// if no collision with any object return false
