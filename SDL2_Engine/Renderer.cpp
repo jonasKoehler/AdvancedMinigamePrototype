@@ -107,9 +107,9 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, float _angl
 
 		// render debug rect (remove if not wanted)
 #if _DEBUG
-		SDL_SetRenderDrawColor(m_pSdlRenderer, 255, 0, 255, 255);
+		/*SDL_SetRenderDrawColor(m_pSdlRenderer, 255, 0, 255, 255);
 		SDL_RenderDrawRect(m_pSdlRenderer, &dstRect);
-		SDL_SetRenderDrawColor(m_pSdlRenderer, 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(m_pSdlRenderer, 0, 0, 0, 255);*/
 #endif
 	}
 
