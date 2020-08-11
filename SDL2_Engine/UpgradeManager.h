@@ -1,14 +1,17 @@
-#include "PlayerStats.h"
+#include "EUpgrades.h"
+#include <map>
+
+using namespace std;
 
 #pragma once
-class GUpgradeManager
+class GUpgradeManager // by Jonas
 {
 	GUpgradeManager() { Init(); }
 
-	~GUpgradeManager(){}
+	~GUpgradeManager() {}
 
 #pragma region static singleton reference
-	inline static GUpgradeManager* GetInstance() 
+	inline static GUpgradeManager* GetInstance()
 	{
 		static GUpgradeManager* pUpgradeManager = new GUpgradeManager();
 		return pUpgradeManager;
@@ -16,14 +19,35 @@ class GUpgradeManager
 #pragma endregion
 
 private:
+	// initialices the Upgrademanager and sets up the maps
 	void Init();
 
 #pragma region public functions
 public:
+	// returns the map containing the player stats
+	inline map<EUpgrades, float> GetPlayerStats() { return m_PlayerStats; }
 
+	// returns the price in Upgrade points for a given upgrade
+	inline int GetUpgradePrice(EUpgrades _upgrade) { return m_UpgradePrice[_upgrade]; }
+
+	// returns the level of a given upgrade type
+	inline int GetUpgradeLevel(EUpgrades _upgrade) { return m_UpgradeLevel[_upgrade]; }
+
+	// return the number of collected upgrade points
+	inline int GetUpgradePointCount() { return m_UpgradePointCount; }
+
+	void BuyUpgrade(EUpgrades _upgrade);
 #pragma endregion
 
+#pragma region private variables
 private:
-	GPlayerStats m_PlayerStats = GPlayerStats();
+	map<EUpgrades, float> m_PlayerStats;
+	map<EUpgrades, int> m_UpgradePrice;
+	map<EUpgrades, int> m_UpgradeLevel;
+	map<EUpgrades, int> m_UpgradeMaxLevel;
+
+	int m_UpgradePointCount = 0;
+#pragma endregion
+
 };
 
