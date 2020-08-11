@@ -21,20 +21,17 @@ void GMenuScene::Init()
 	CTextObject* pTitle = new CTextObject("Covid Operations", GAME->GetMarioFont(), SVector2(428.0f, 32.0f), SVector2(512.0f, 56.0f), SColor(255, 0, 0));
 	pTitle->SetInWorld(false);
 	CTM->AddUiObject(pTitle);
-	canvas.AddObject(pTitle);
 	// create start text
 	CTextObject* pStart = new CTextObject("Start Game", GAME->GetMarioFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(255, 0, 0));
 	pStart->SetInWorld(false);
 	pStart->SetTag("Start");
 	CTM->AddUiObject(pStart);
-	canvas.AddObject(pStart);
 
 	// create quit text
 	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetMarioFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 480.0f), SColor(255, 0, 0));
 	pQuit->SetInWorld(false);
 	pQuit->SetTag("Quit");
 	CTM->AddUiObject(pQuit);
-	canvas.AddObject(pQuit);
 
 	// set mouse and loading screen texture
 	ENGINE->SetMouseTexture(TTM->GetTexture("Texture/Mouse/T_Mouse.png"));
@@ -57,10 +54,9 @@ void GMenuScene::Update(float _deltaSeconds)
 				// check collision with current object rect and mouse position as 1x1 rect
 				if (RectRectCollision(((CTexturedObject*)(pObject))->GetRect(), SRect(1, 1, CInput::GetMousePosition().X, CInput::GetMousePosition().Y)))
 				{
+					// breakout when the object is not visible, thus inactive
 					if (!pObject->GetRenderingIndicator())
-					{
 						break;
-					}
 					// if hit object has start tag change scene to main scene
 					if (pObject->GetTag() == "Start")
 						ENGINE->ChangeScene(new GMainScene());
