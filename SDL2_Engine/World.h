@@ -8,6 +8,7 @@
 
 #pragma region engine include
 #include "Texture.h"
+#include "TextureManagement.h"
 #include "ContentManagement.h"
 #include "Macro.h"
 #pragma endregion
@@ -114,29 +115,35 @@ string LoadWorldStringFromImage(const char* _pFile)
 /// </summary>
 void LoadWorldFromString()
 {
-	string world = "";
-
-	// 0 = air
-	// # = wall
-	// I = collectible
-	// S = player start
-	// E = enemy
-	// X = exitzone by Lukas
-	// \n = delimiter
-	world += "#########################################################################\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#000E0000000000000000000000000000000000E000000000000000E0000000000E00000#\n";
-	world += "#00000000000000000000000000000E000000000000000000000000E0000000E00000000#\n";
-	world += "#000000000E0000000000000000000000000000000000000E000EE000000000E00000000#\n";
-	world += "#0S000000000000000000000000000000000000000000000000000000000E000000000X0#\n";
-	world += "#000000000000000000000000000000E0000000000000E0E00000E00000E000000000000#\n";
-	world += "#000000000000000000000000000000000000000000000000000000000000000E000EE00#\n";
-	world += "#00000000000000000000000000000000000000000000000EE0000E0000000E000000000#\n";
-	world += "#00000000000000000000000E00000000000000E0000000000000000000000000000E000#\n";
-	world += "#########################################################################";
+	
+	// 100 x 25
+		// 0 / black = background
+		// X / white = clouds
+		// V / blue = way
+		// I / green = dirt
+		// S / yellow = player start
+		// E / red = enemy
+		//string world = LoadWorldStringFromFile(GetAssetPath("Config/World.txt").c_str());
+	string world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
 
 	// width and height counter
-	int width = -1, height = 0;
+	int width = 0, height = 0;
+
+	// atlas texture of world
+	CTexture* pTexture = TTM->GetTexture("Texture/World/T_World.png");
+
+	// create textured object
+	CTexturedObject* pObj = new CTexturedObject(
+		"",
+		SVector2()
+	);
+
+	// create background and render on screen
+	pObj->SetSrcRect(SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight, 0, 3 * GConfig::s_WorldBlockSourceHeight));
+	pObj->SetInWorld(false);
+	pObj->SetTexture(pTexture);
+	CTM->AddSceneObject(pObj);
+
 
 	// atlas texture of world
 	CTexture* pGameTilemap = new CTexture("Texture/World/T_World.png");
