@@ -52,12 +52,17 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, float _angl
 		_pSrcRect = nullptr;
 
 	// destination rect
-	SRect dstRect = *_pDstRect;
+	SRect dstRect = SRect();
 
 	// if destination rect valid and width or height zero
 	if (_pDstRect && (!_pDstRect->w || !_pDstRect->h))
 		// set destination rect to nullptr to use whole screen
 		_pDstRect = nullptr;
+
+	// if destination rect valid
+	if (_pDstRect)
+		// set destination rect values
+		dstRect = *_pDstRect;
 
 	// if rect is valid
 	if (_pDstRect)
@@ -85,9 +90,15 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, float _angl
 		// if rendered in world space
 		if (_inWorld)
 		{
+			// change destination rect values by zoom
+			dstRect.x *= m_zoom;
+			dstRect.y *= m_zoom;
+			dstRect.w *= m_zoom;
+			dstRect.h *= m_zoom;
+
 			// move rect by screen size and camera position
-			dstRect.x += SCREEN_WIDTH * 0.5f - m_camera.X;
-			dstRect.y += SCREEN_HEIGHT * 0.5f - m_camera.Y;
+			dstRect.x += ENGINE->GetWidth() * 0.5f - m_camera.X * m_zoom;
+			dstRect.y += ENGINE->GetHeight() * 0.5f - m_camera.Y * m_zoom;
 
 			// increase width and height because of float
 			dstRect.w += 1;
@@ -105,12 +116,13 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, float _angl
 			flip						// flip flag
 		);
 
-		// render debug rect (remove if not wanted)
-#if _DEBUG
-		/*SDL_SetRenderDrawColor(m_pSdlRenderer, 255, 0, 255, 255);
-		SDL_RenderDrawRect(m_pSdlRenderer, &dstRect);
-		SDL_SetRenderDrawColor(m_pSdlRenderer, 0, 0, 0, 255);*/
-#endif
+		// render debug rect
+		if (DRAW_DEBUG)
+		{
+			SDL_SetRenderDrawColor(m_pSdlRenderer, 255, 0, 255, 255);
+			SDL_RenderDrawRect(m_pSdlRenderer, &dstRect);
+			SDL_SetRenderDrawColor(m_pSdlRenderer, 0, 0, 0, 255);
+		}
 	}
 
 	// if rect not valid

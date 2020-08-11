@@ -208,6 +208,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClCompile Include="TexturedObject.cpp" />
     <ClCompile Include="TextureManagement.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="UpgradeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -233,6 +234,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClInclude Include="Object.h" />
     <ClInclude Include="Physic.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="EUpgrades.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
@@ -242,6 +244,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClInclude Include="TexturedObject.h" />
     <ClInclude Include="TextureManagement.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="UpgradeManager.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

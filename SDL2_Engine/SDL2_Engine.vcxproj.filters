@@ -74,6 +74,9 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game\Core</Filter>
     </ClCompile>
+    <ClCompile Include="UpgradeManager.cpp">
+      <Filter>Game\UpgradeManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -177,6 +180,12 @@
     </ClInclude>
     <ClInclude Include="TextureManagement.h">
       <Filter>Engine\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeManager.h">
+      <Filter>Game\UpgradeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EUpgrades.h">
+      <Filter>Game\UpgradeManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +293,9 @@
     </Filter>
     <Filter Include="Game\Scene\EndScene">
       <UniqueIdentifier>{5135ce26-a07b-4872-a797-3347965363f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UpgradeManager">
+      <UniqueIdentifier>{b6ab21e8-06f5-4c0c-902c-c5928d3dee1b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
