@@ -65,17 +65,17 @@ void CMoveObject::Update(float _deltaSeconds)
 		moveable = true;
 	}
 
-	// calculate next rect position by movement and speed
-	nextRect.x += m_movement.X * m_speed * _deltaSeconds;
+	nextRect = m_rect;
+	nextRect.x += m_movement.X * m_speed * _deltaSeconds; // calculate next X position by movement and speed
+	moveable = !CheckCollision(nextRect); // check collision with objects in range
+	if (moveable) // if still moveable
+		m_position.X += m_movement.X * m_speed * _deltaSeconds; // add position by movement and speed
+
+	nextRect = m_rect;
 	nextRect.y += m_movement.Y * m_speed * _deltaSeconds;
-
-	// check collision with objects in range
 	moveable = !CheckCollision(nextRect);
-
-	// if still moveable
 	if (moveable)
-		// add position by movement and speed
-		m_position += m_movement * m_speed * _deltaSeconds;
+		m_position.Y += m_movement.Y * m_speed * _deltaSeconds;
 
 	// update parent
 	CTexturedObject::Update(_deltaSeconds);
@@ -129,12 +129,6 @@ void CMoveObject::SetColObjects()
 		// if collision add current object to collision object list
 		if (RectRectCollision(colRect, pTexObj->GetRect()))
 			m_colObject.push_front(pTexObj);
-		else
-		{
-			OnCollisionEnter(pObject);
-		}
-		
-
 	}
 
 	// check every scene object
@@ -154,10 +148,6 @@ void CMoveObject::SetColObjects()
 		// if collision add current object to collision object list
 		if (RectRectCollision(colRect, pTexObj->GetRect()))
 			m_colObject.push_front(pTexObj);
-		else
-		{
-			OnCollisionEnter(pObject);
-		}
 	}
 }
 #pragma endregion
@@ -170,14 +160,11 @@ bool CMoveObject::CheckCollision(SRect _nextRect)
 	for (CTexturedObject* pObject : m_colObject)
 		// check collision with current object
 		if (RectRectCollision(_nextRect, pObject->GetRect()))
-			// if collision return true
-			return true;
-
-		 else
 		{
+			// if collision return true
 			OnCollisionEnter(pObject);
+			return true;
 		}
-
 	// if no collision with any object return false
 	return false;
 }
