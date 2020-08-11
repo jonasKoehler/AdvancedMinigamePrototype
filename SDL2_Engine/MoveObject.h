@@ -132,5 +132,6 @@ private:
 	/// <param name="_nextRect">rect next frame</param>
 	/// <returns>if collision with any object</returns>
 	bool CheckCollision(SRect _nextRect);
+
 #pragma endregion
 };

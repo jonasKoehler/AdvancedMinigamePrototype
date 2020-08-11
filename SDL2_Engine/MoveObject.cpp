@@ -129,6 +129,12 @@ void CMoveObject::SetColObjects()
 		// if collision add current object to collision object list
 		if (RectRectCollision(colRect, pTexObj->GetRect()))
 			m_colObject.push_front(pTexObj);
+		else
+		{
+			OnCollisionEnter(pObject);
+		}
+		
+
 	}
 
 	// check every scene object
@@ -148,6 +154,10 @@ void CMoveObject::SetColObjects()
 		// if collision add current object to collision object list
 		if (RectRectCollision(colRect, pTexObj->GetRect()))
 			m_colObject.push_front(pTexObj);
+		else
+		{
+			OnCollisionEnter(pObject);
+		}
 	}
 }
 #pragma endregion
@@ -163,7 +173,16 @@ bool CMoveObject::CheckCollision(SRect _nextRect)
 			// if collision return true
 			return true;
 
+		 else
+		{
+			OnCollisionEnter(pObject);
+		}
+
 	// if no collision with any object return false
 	return false;
 }
+
+
+
+
 #pragma endregion
