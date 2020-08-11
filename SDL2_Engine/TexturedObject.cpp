@@ -29,6 +29,9 @@ void CTexturedObject::Update(float _deltaSeconds)
 // render every frame
 void CTexturedObject::Render()
 {
+	// return if object shouldnt be rendered
+	if (!m_render)
+		return;
 	// render texture at rect with angle, source rect and in world or screen space
 	RENDERER->RenderTexture(m_pTexture, &m_rect, m_angle, &m_srcRect, m_inWorld, m_mirror);
 }
