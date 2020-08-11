@@ -115,19 +115,32 @@ string LoadWorldStringFromImage(const char* _pFile)
 /// </summary>
 void LoadWorldFromString()
 {
-	
-	// 100 x 25
-		// 0 / black = background
-		// X / white = clouds
-		// V / blue = way
-		// I / green = dirt
-		// S / yellow = player start
-		// E / red = enemy
-		//string world = LoadWorldStringFromFile(GetAssetPath("Config/World.txt").c_str());
-	string world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
+	string world = "";
+
+	// 0 = air
+	// # = wall
+	// I = collectible
+	// S = player start
+	// E = enemy
+	// X = exitzone
+	// \n = delimiter 
+	//PLS DONT DELETE
+	world += "#########################################################################\n";
+	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
+	world += "#000E0000000000000000000000000000000000E000000000000000E0000000000E00000#\n";
+	world += "#00000000000000000000000000000E000000000000000000000000E0000000E00000000#\n";
+	world += "#000000000E0000000000000000000000000000000000000E000EE000000000E00000000#\n";
+	world += "#0S000000000000000000000000000000000000000000000000000000000E000000000X0#\n";
+	world += "#000000000000000000000000000000E0000000000000E0E00000E00000E000000000000#\n";
+	world += "#000000000000000000000000000000000000000000000000000000000000000E000EE00#\n";
+	world += "#00000000000000000000000000000000000000000000000EE0000E0000000E000000000#\n";
+	world += "#00000000000000000000000E00000000000000E0000000000000000000000000000E000#\n";
+	world += "#########################################################################";
+
+	//string world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
 
 	// width and height counter
-	int width = 0, height = 0;
+	int width = -1, height = 0;
 
 	// atlas texture of world
 	CTexture* pTexture = TTM->GetTexture("Texture/World/T_World.png");
@@ -183,32 +196,18 @@ void LoadWorldFromString()
 				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
-
-			pPlayer->SetSpeed(200.0f);
-			pPlayer->SetColType(ECollisionType::DYNAMIC);
-			pPlayer->SetTag("Player");
-			pPlayer->SetDamage(50);
-
-			CTM->AddPersistentObject(pPlayer);
+			CTM->AddSceneObject(pPlayer);
 			continue; // check next char
 		}
 
 		if (world[i] == 'E') // if char indicates an enemy
 		{
 			// create enemy
-
 			GEnemy* pEnemy = new GEnemy(
 				"Texture/Character/Enemy/T_Enemy.png",
 				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
-
-			// set speed, collision type, activate gravity, add to content and set tag
-			pEnemy->SetSpeed(100.0f);
-			pEnemy->SetColType(ECollisionType::DYNAMIC);
-			pEnemy->SetTag("Enemy");
-			pEnemy->SetDamage(0.1);
-
 			CTM->AddSceneObject(pEnemy);
 			continue; // check next char
 		}

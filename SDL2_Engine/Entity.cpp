@@ -15,7 +15,7 @@ void GEntity::TakeDamage(float _damage, GEntity* _defender)
 	_defender->SetHealth(_defender->GetHealth() - _damage);
 }
 
-void GEntity::CheckIfDead()
+void GEntity::CheckIfDead() // purpose of the method?
 {
 
 }

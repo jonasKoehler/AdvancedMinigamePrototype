@@ -8,11 +8,13 @@ public:
 
 	virtual ~GEntity() {}
 
-	inline float GetHealth() { return m_health; }
-	void SetHealth(float _health);
-	void SetDamage(float _damage);
+	//missing update and render
 
-	void TakeDamage(float _damage, GEntity* _defender);
+	inline float GetHealth() { return m_health; }
+	void SetHealth(float _health); 
+	void SetDamage(float _damage); // not needed, no outside class should be able to set the damage
+	// missing gethealth
+	void TakeDamage(float _damage, GEntity* _defender); // why defender? entity that calls the method should recieve the damage logic wise
 	//Protected Vars
 protected:
 	float m_health = 100;

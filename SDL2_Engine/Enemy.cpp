@@ -10,7 +10,7 @@ void GEnemy::Update(float _deltaSeconds)
 {
 	CheckIfDead();
 	MoveToPlayer();
-	CMoveObject::Update(_deltaSeconds);
+	CMoveObject::Update(_deltaSeconds); // call update of direct parent: entity
 }
 
 // render every frame
@@ -33,7 +33,7 @@ void GEnemy::CheckIfDead()
 void GEnemy::MoveToPlayer()
 {
 	//Find the Player and his Position
-	for (CObject* pObject : CTM->GetPersistentObjects())
+	for (CObject* pObject : CTM->GetSceneObjects()) // dont search a (very large) list every frame, use a pointer reference of the players position vector, or whole player class instead
 	{
 		// if its not an enemy continue to next object
 		if (pObject->GetTag() != "Player")

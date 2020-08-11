@@ -34,6 +34,8 @@ public:
 	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : GEntity(_pFile, _size, _pos)
 	{
 		UpdateStats(GUpgradeManager::GetInstance()->GetPlayerStats());
+		SetColType(ECollisionType::DYNAMIC);
+		SetTag("Player");
 
 		m_pHitzoneTexture = new CTexturedObject(_pFile, SVector2(), SVector2());
 		m_pHitzoneTexture->SetRect(m_Hitzone);
