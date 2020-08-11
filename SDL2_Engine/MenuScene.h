@@ -2,6 +2,7 @@
 
 #pragma region engine include
 #include "Scene.h"
+#include "Canvas.h"
 #pragma endregion
 
 /// <summary>

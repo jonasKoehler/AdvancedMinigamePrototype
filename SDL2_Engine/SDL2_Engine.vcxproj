@@ -212,6 +212,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Canvas.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ContentManagement.h" />

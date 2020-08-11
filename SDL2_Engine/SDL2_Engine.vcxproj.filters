@@ -187,6 +187,9 @@
     <ClInclude Include="EUpgrades.h">
       <Filter>Game\UpgradeManager</Filter>
     </ClInclude>
+    <ClInclude Include="Canvas.h">
+      <Filter>Engine\Canvas</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -296,6 +299,9 @@
     </Filter>
     <Filter Include="Game\UpgradeManager">
       <UniqueIdentifier>{b6ab21e8-06f5-4c0c-902c-c5928d3dee1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Canvas">
+      <UniqueIdentifier>{6c3373cb-0acf-4d3a-9f92-af1bed49d113}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
