@@ -1,12 +1,19 @@
 #pragma once
-
 #pragma region engine include
 #include "Entity.h"
 #include "Animation.h"
 #include "Sound.h"
 #pragma endregion
 
+#pragma region game includes
 #include "Config.h"
+#include "UpgradeManager.h"
+#pragma endregion
+
+#pragma region std includes
+#include <map>
+using namespace std;
+#pragma endregion
 
 class GEnemy;
 
@@ -26,8 +33,7 @@ public:
 	/// <param name="_pos">position of player</param>
 	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : GEntity(_pFile, _size, _pos)
 	{
-		m_Hitzone.w = m_AttackRange;
-		m_Hitzone.h = m_AttackRange;
+		UpdateStats(GUpgradeManager::GetInstance()->GetPlayerStats());
 
 		m_pHitzoneTexture = new CTexturedObject(_pFile, SVector2(), SVector2());
 		m_pHitzoneTexture->SetRect(m_Hitzone);
@@ -52,7 +58,6 @@ public:
 
 		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
 		m_pAttack = new CAnimation(framePositionInTexture, animationFrameSize, 1 / (m_AttacksPerSecond * 1.5), 4, false);
-
 
 		m_pBasicAttackSound = new CSound("Sound/Effects/spray.wav");
 
@@ -93,8 +98,7 @@ private:
 	void BasicAttack();  // by Jonas
 	void ReachExit(); // by Lukas
 	void CheckIfDead() override; //by Lukas
-	
-
+	void UpdateStats(map<EUpgrades, float> _PlayerStats); // by Jonas
 #pragma endregion
 
 
@@ -103,9 +107,7 @@ private:
 	int m_Angle = 0; // the angle between the cursor and player position
 	SRect m_Hitzone = SRect(); // rect that determines if an enemy is in attack range
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
-	float m_AttackCooldown = 1.0f; // one second attack cooldown
-	int m_AttackRange = 30; // attack range in pixels
-	
+	float m_AttackCooldown = 1.0f; // one second attack cooldown	
 
 	float m_AccelerationRate = 5.0f; // increases acceleration per sec (multiply with deltaTime)
 	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)

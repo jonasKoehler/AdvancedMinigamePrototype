@@ -226,7 +226,6 @@ void GPlayer::BasicAttack()
 	}
 }
 
-
 void GPlayer::ReachExit()
 {
 	GAME->m_Won = true;
@@ -243,5 +242,14 @@ void GPlayer::CheckIfDead()
 		ENGINE->ChangeScene(new GEndScene());
 
 	}
+}
+
+void GPlayer::UpdateStats(map<EUpgrades, float> _PlayerStats)
+{
+	m_speed = _PlayerStats[EUpgrades::MovementSpeed];
+	m_damage = _PlayerStats[EUpgrades::Damage];
+	m_AttacksPerSecond = _PlayerStats[EUpgrades::AttackSpeed];
+	m_Hitzone.w = _PlayerStats[EUpgrades::AttackRange];
+	m_Hitzone.h = _PlayerStats[EUpgrades::AttackRange];
 }
 #pragma endregion

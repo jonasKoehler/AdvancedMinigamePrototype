@@ -11,6 +11,7 @@ class GUpgradeManager // by Jonas
 	~GUpgradeManager() {}
 
 #pragma region static singleton reference
+public:
 	inline static GUpgradeManager* GetInstance()
 	{
 		static GUpgradeManager* pUpgradeManager = new GUpgradeManager();

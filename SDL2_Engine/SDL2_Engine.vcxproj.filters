@@ -184,8 +184,8 @@
     <ClInclude Include="UpgradeManager.h">
       <Filter>Game\UpgradeManager</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStats.h">
-      <Filter>Game\Object\Entity\Player</Filter>
+    <ClInclude Include="EUpgrades.h">
+      <Filter>Game\UpgradeManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
