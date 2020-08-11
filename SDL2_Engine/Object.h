@@ -75,8 +75,9 @@ public:
 	/// <param name="_pos">position to add to object</param>
 	inline void AddPosition(SVector2 _pos) { m_position += _pos; }
 
+	inline void SetRenderingIndicator(bool _render) { m_render = _render; }
 
-
+	inline bool GetRenderingIndicator() { return m_render; }
 #pragma endregion
 
 #pragma region public function
@@ -107,6 +108,11 @@ protected:
 	/// higher values are closer to the camera
 	/// </summary>
 	int m_layer = 0;
+
+	/// <summary>
+	/// bool that determines if the object should be rendered
+	/// </summary>
+	bool m_render = true;
 #pragma endregion
 
 #pragma region protected variable

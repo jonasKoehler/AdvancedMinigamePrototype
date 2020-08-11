@@ -46,17 +46,27 @@ void GMenuScene::Update(float _deltaSeconds)
 {
 	// if mouse left clicked check every ui objects
 	if (CInput::GetMouseButtonDown(0))
-		for (CObject* pObject : CTM->GetUiObjects())
+	{
+		for (CObject* pObject : CTM->GetUiObjects()) {
 			// if current object is textured object
 			if (dynamic_cast<CTexturedObject*>(pObject))
+			{
 				// check collision with current object rect and mouse position as 1x1 rect
 				if (RectRectCollision(((CTexturedObject*)(pObject))->GetRect(), SRect(1, 1, CInput::GetMousePosition().X, CInput::GetMousePosition().Y)))
+				{
+					// breakout when the object is not visible, thus inactive
+					if (!pObject->GetRenderingIndicator())
+						break;
 					// if hit object has start tag change scene to main scene
 					if (pObject->GetTag() == "Start")
 						ENGINE->ChangeScene(new GMainScene());
 					// if hit object has quit tag quit game
 					else if (pObject->GetTag() == "Quit")
 						GAME->Quit();
+				}
+			}
+		}
+	}
 }
 
 // render every frame
