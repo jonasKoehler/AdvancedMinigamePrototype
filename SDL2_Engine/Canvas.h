@@ -10,16 +10,19 @@ using namespace std;
 #pragma once
 class CCanvas // by Jonas
 {
+#pragma region constructor / destructor
+public:
 	CCanvas() {}
 
 	~CCanvas() {}
+#pragma endregion
 
 public:
 	inline void SetVisible(bool _toggle)
 	{
 		for (CObject* pChild : m_Children)
 		{
-			// set rendering of child to toggle
+			pChild->SetRenderingIndicator(_toggle);
 		}
 	}
 
