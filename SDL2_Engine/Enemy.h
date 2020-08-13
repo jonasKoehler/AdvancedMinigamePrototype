@@ -17,7 +17,7 @@ class GPlayer;
 class GEnemy : public GEntity
 {
 public:
-#pragma region constructor
+#pragma region constructor / destructor
 	/// <summary>
 	/// constructor
 	/// </summary>
@@ -31,9 +31,7 @@ public:
 		SetTag("Enemy");
 		m_damage = 10;
 	};
-#pragma endregion
 
-#pragma region destructor
 	/// <summary>
 	/// destructor
 	/// </summary>
@@ -51,15 +49,13 @@ public:
 	/// render every frame
 	/// </summary>
 	virtual	void Render() override;
-	
+#pragma endregion
 
+#pragma region protected funtions
 protected:
-
 	void CheckIfDead() override;
 	void MoveToPlayer();
 	void OnCollisionEnter(CObject* pObject) override;
-
-
 #pragma endregion
 
 protected:

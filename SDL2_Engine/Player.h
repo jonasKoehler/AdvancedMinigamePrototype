@@ -101,6 +101,7 @@ private:
 	void ReachExit(); // by Lukas
 	void CheckIfDead() override; //by Lukas
 	void UpdateStats(map<EUpgrades, float> _PlayerStats); // by Jonas
+	void TakeDamage(float _damage) override; // by Jonas
 #pragma endregion
 
 
@@ -110,6 +111,8 @@ private:
 	SRect m_Hitzone = SRect(); // rect that determines if an enemy is in attack range
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown	
+
+	int m_IsInvincible = 0; // milliseconds of invincibility after getting hit
 
 	float m_AccelerationRate = 5.0f; // increases acceleration per sec (multiply with deltaTime)
 	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)

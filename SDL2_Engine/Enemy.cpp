@@ -77,9 +77,7 @@ void GEnemy::OnCollisionEnter(CObject* pObject)
 {
 	if (pObject->GetTag() == "Player")
 	{
-		TakeDamage(m_damage, (GPlayer*)pObject);
+		((GEntity*)pObject)->TakeDamage(m_damage);
 	}
 }
-
-
 #pragma endregion
