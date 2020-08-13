@@ -17,6 +17,8 @@ class CTextObject : public CTexturedObject
 {
 public:
 #pragma region constructor
+	CTextObject() {}
+
 	/// <summary>
 	/// constructor
 	/// </summary>
