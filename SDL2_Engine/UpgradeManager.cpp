@@ -52,11 +52,11 @@ void GUpgradeManager::BuyUpgrade(EUpgrades _upgrade)
 	switch (_upgrade)
 	{
 	case EUpgrades::AttackSpeed:
-		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade];
+		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade] + 1;
 		m_PlayerStats[_upgrade] *= 1.25f;
 		break;
 	case EUpgrades::Damage:
-		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade];
+		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade] + 1;
 		m_PlayerStats[_upgrade] += 18.75f;
 		break;
 	case EUpgrades::MovementSpeed:
