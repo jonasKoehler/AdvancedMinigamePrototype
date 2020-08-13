@@ -34,8 +34,12 @@ public:
 	// returns the level of a given upgrade type
 	inline int GetUpgradeLevel(EUpgrades _upgrade) { return m_UpgradeLevel[_upgrade]; }
 
+	// returns the max level of a given upgrade type
+	inline int GetUpgradeMaxLevel(EUpgrades _upgrade) { return m_UpgradeMaxLevel[_upgrade]; }
+
 	// return the number of collected upgrade points
 	inline int GetUpgradePointCount() { return m_UpgradePointCount; }
+
 
 	void BuyUpgrade(EUpgrades _upgrade);
 #pragma endregion
