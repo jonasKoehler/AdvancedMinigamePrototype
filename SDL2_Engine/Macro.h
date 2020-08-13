@@ -13,7 +13,7 @@ using namespace std;
 #define SCREEN_HEIGHT 720
 #define PIXEL_IN_METER 64
 #define GRAVITY 9.81f // m/s^2
-#define DRAW_DEBUG true
+#define DRAW_DEBUG false
 #pragma endregion
 
 #pragma region function macro
