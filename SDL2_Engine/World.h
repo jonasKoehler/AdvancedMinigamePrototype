@@ -125,17 +125,17 @@ void LoadWorldFromString()
 	// X = exitzone
 	// \n = delimiter 
 	//PLS DONT DELETE
-	world += "#########################################################################\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#000E0000000000000000000000000000000000E000000000000000E0000000000E00000#\n";
-	world += "#00000000000000000000000000000E000000000000000000000000E0000000E00000000#\n";
-	world += "#000000000E0000000000000000000000000000000000000E000EE000000000E00000000#\n";
-	world += "#0S000000000000000000000000000000000000000000000000000000000E000000000X0#\n";
-	world += "#000000000000000000000000000000E0000000000000E0E00000E00000E000000000000#\n";
-	world += "#000000000000000000000000000000000000000000000000000000000000000E000EE00#\n";
-	world += "#00000000000000000000000000000000000000000000000EE0000E0000000E000000000#\n";
-	world += "#00000000000000000000000E00000000000000E0000000000000000000000000000E000#\n";
-	world += "#########################################################################";
+	world += "1UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU2\n";
+	world += "L00000000000000000000000000000000000000000000000000000000000000000000000R\n";
+	world += "L000E0000000000000000000000000000000000E000000000000000E0000000000E00000R\n";
+	world += "L00000000000000000000000000000E000000000000000000000000E0000000E00000000R\n";
+	world += "L000000000E0000000000000000000000000000000000000E000EE000000000E00000000R\n";
+	world += "L0S000000000000000000000000000000000000000000000000000000000E000000000X0R\n";
+	world += "L000000000000000000000000000000E0000000000000E0E00000E00000E000000000000R\n";
+	world += "L000000000000000000000000000000000000000000000000000000000000000E000EE00R\n";
+	world += "L00000000000000000000000000000000000000000000000EE0000E0000000E000000000R\n";
+	world += "L00000000000000000000000E00000000000000E0000000000000000000000000000E000R\n";
+	world += "3DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD4";
 
 	//string world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
 
@@ -151,11 +151,6 @@ void LoadWorldFromString()
 		SVector2()
 	);
 
-	// create background and render on screen
-	pObj->SetSrcRect(SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight, 0, 3 * GConfig::s_WorldBlockSourceHeight));
-	pObj->SetInWorld(false);
-	pObj->SetTexture(pTexture);
-	CTM->AddSceneObject(pObj);
 
 
 	// atlas texture of world
@@ -163,12 +158,6 @@ void LoadWorldFromString()
 
 	// create textured object
 	CTexturedObject* pWorldObject = new CTexturedObject("", SVector2());
-
-	// create background and render on screen
-	pWorldObject->SetSrcRect(SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight, GConfig::s_WorldBlockSourceWidth, 0));
-	pWorldObject->SetInWorld(false);
-	pWorldObject->SetTexture(pGameTilemap);
-	CTM->AddSceneObject(pWorldObject);
 
 	// check every char
 	for (int i = 0; i < world.length(); i++)
@@ -184,8 +173,6 @@ void LoadWorldFromString()
 		// increase width
 		width++;
 
-		if (world[i] == '0')
-			continue; // skip air
 
 		if (world[i] == 'S') // if char indicates the player
 		{
@@ -244,11 +231,68 @@ void LoadWorldFromString()
 		// switch current char
 		switch (world[i])
 		{
-		case '#':
+		case '0':
+		{
+			pNewWorldTile->SetColType(ECollisionType::NONE); // walls have static collision
+			srcRect.x = 0;
+			srcRect.y = 3 * GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case 'U':
 		{
 			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
 			srcRect.x = 0;
 			srcRect.y = 0;
+			break;
+		}
+		case 'D':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			srcRect.x = GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 0;
+			break;
+
+		}
+		case 'L':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			srcRect.x = 2 * GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 0;
+			break;
+		}
+		case 'R':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			srcRect.x = 3 * GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 0;
+			break;
+		}
+		case '1':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			srcRect.x = 0;
+			srcRect.y = 2*  GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case '2':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			srcRect.x = 2 * GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case '3':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			srcRect.x = GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case '4':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			srcRect.x = 3 * GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
 		default:
