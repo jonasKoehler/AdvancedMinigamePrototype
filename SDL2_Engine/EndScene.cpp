@@ -14,7 +14,7 @@ void GEndScene::Init()
 	// When the Game is won
 	if (GAME->m_Won == true)
 	{
-		CTextObject* pWon = new CTextObject("You won!", GAME->GetMarioFont(), SVector2(228.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(0, 255, 0));
+		CTextObject* pWon = new CTextObject("You won!", GAME->GetFont(), SVector2(228.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(0, 255, 0));
 		pWon->SetInWorld(false);
 		CTM->AddUiObject(pWon);
 	}
@@ -22,19 +22,19 @@ void GEndScene::Init()
 	// When the Game is lose
 	if (GAME->m_Won == false)
 	{
-		CTextObject* pWon = new CTextObject("Oh No! You died!", GAME->GetMarioFont(), SVector2(228.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(255,0, 0));
+		CTextObject* pWon = new CTextObject("Oh No! You died!", GAME->GetFont(), SVector2(228.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(255,0, 0));
 		pWon->SetInWorld(false);
 		CTM->AddUiObject(pWon);
 	}
 
 	//create restart text
-	CTextObject* pRestart = new CTextObject("Restart", GAME->GetMarioFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 480.0f), SColor(255, 0, 0));
+	CTextObject* pRestart = new CTextObject("Restart", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 480.0f), SColor(255, 0, 0));
 	pRestart->SetInWorld(false);
 	pRestart->SetTag("Restart");
 	CTM->AddUiObject(pRestart);
 
 	// create quit text
-	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetMarioFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 680.0f), SColor(255, 0, 0));
+	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 680.0f), SColor(255, 0, 0));
 	pQuit->SetInWorld(false);
 	pQuit->SetTag("Quit");
 	CTM->AddUiObject(pQuit);
