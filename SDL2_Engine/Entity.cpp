@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include <math.h>
 
 void GEntity::SetHealth(float _health)
 {
@@ -10,9 +11,9 @@ void GEntity::SetDamage(float _damage)
 	m_damage = _damage;
 }
 
-void GEntity::TakeDamage(float _damage, GEntity* _defender)
+void GEntity::TakeDamage(float _damage)
 {
-	_defender->SetHealth(_defender->GetHealth() - _damage);
+	m_health -= _damage;
 }
 
 void GEntity::CheckIfDead() // purpose of the method?

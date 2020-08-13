@@ -12,7 +12,6 @@
 #include "Enemy.h"
 #include "Game.h"
 #include "EndScene.h"
-
 #pragma endregion
 
 #pragma region other includes
