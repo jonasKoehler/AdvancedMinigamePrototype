@@ -18,6 +18,9 @@ void GGame::Init()
 	// create mario font
 	m_pMarioFont = new CFont("Font/F_Mario.ttf", 72);
 
+	// create Menu Font
+	m_pMenuFont = new CFont("Font/F_Menufont.ttf", 72);
+
 	// set mouse texture and default visible
 	ENGINE->SetMouseVisible(true);
 	
