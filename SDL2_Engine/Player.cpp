@@ -217,10 +217,10 @@ void GPlayer::BasicAttack()
 			continue;
 
 		// if collision with range rect and current object rect
-		if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
+		if (RectRectCollision(m_Hitzone, ((GEntity*)pObject)->GetRect()))
 		{
-			//if collision enter, the take Damage funktion is running			
-			TakeDamage(m_damage, (GEnemy*)pObject);
+			//if collision enter, the take Damage funktion is called			
+			((GEntity*)pObject)->TakeDamage(m_damage);
 		}
 	}
 }

@@ -77,7 +77,7 @@ void GEnemy::OnCollisionEnter(CObject* pObject)
 {
 	if (pObject->GetTag() == "Player")
 	{
-		TakeDamage(m_damage, (GPlayer*)pObject);
+		((GPlayer*)pObject)->TakeDamage(m_damage);
 	}
 }
 
