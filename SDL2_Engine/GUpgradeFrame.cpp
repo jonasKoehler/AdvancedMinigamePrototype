@@ -13,10 +13,10 @@ GUpgradeFrame::GUpgradeFrame(SVector2 _position, EUpgrades _upgradeType)
 {
 	m_position = _position;
 	m_UpgradeType = _upgradeType;
-	m_FrameRect.x = _position.X;
-	m_FrameRect.y = _position.Y;
-	m_FrameRect.h = 200;
 	m_FrameRect.w = 200;
+	m_FrameRect.h = 200;
+	m_FrameRect.x = _position.X - m_FrameRect.w * 0.5f;
+	m_FrameRect.y = _position.Y - m_FrameRect.h * 0.5f;
 
 	m_Frame = CTexturedObject
 	(
