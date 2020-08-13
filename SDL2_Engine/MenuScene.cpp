@@ -1,6 +1,8 @@
 #pragma region engine include
 #include "ContentManagement.h"
 #include "TextureManagement.h"
+#include "UpgradeFrame.h"
+#include "EUpgrades.h"
 #include "TextObject.h"
 #include "Music.h"
 #include "Input.h"
@@ -18,17 +20,17 @@
 // initialize scene
 void GMenuScene::Init()
 {
-	CTextObject* pTitle = new CTextObject("Covid Operations", GAME->GetMarioFont(), SVector2(428.0f, 32.0f), SVector2(512.0f, 56.0f), SColor(255, 0, 0));
+	CTextObject* pTitle = new CTextObject("Covid Operations", GAME->GetFont(), SVector2(428.0f, 32.0f), SVector2(512.0f, 56.0f), SColor(255, 0, 0));
 	pTitle->SetInWorld(false);
 	CTM->AddUiObject(pTitle);
 	// create start text
-	CTextObject* pStart = new CTextObject("Start Game", GAME->GetMarioFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(255, 0, 0));
+	CTextObject* pStart = new CTextObject("Start Game", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(255, 0, 0));
 	pStart->SetInWorld(false);
 	pStart->SetTag("Start");
 	CTM->AddUiObject(pStart);
 
 	// create quit text
-	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetMarioFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 480.0f), SColor(255, 0, 0));
+	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 480.0f), SColor(255, 0, 0));
 	pQuit->SetInWorld(false);
 	pQuit->SetTag("Quit");
 	CTM->AddUiObject(pQuit);

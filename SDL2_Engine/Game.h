@@ -42,7 +42,7 @@ public:
 	/// get mario font
 	/// </summary>
 	/// <returns>mario font reference</returns>
-	inline CFont* GetMarioFont() { return m_pMarioFont; }
+	inline CFont* GetFont() { return m_pFont; }
 #pragma endregion
 
 #pragma region public function
@@ -62,6 +62,6 @@ private:
 	/// <summary>
 	/// mario font
 	/// </summary>
-	CFont* m_pMarioFont = nullptr;
+	CFont* m_pFont = nullptr;
 #pragma endregion
 };

@@ -41,7 +41,7 @@ void GUpgradeManager::Init()
 
 void GUpgradeManager::BuyUpgrade(EUpgrades _upgrade)
 {
-	// check if upgrade can be bought: must not have reached max level and must have sufficient upgrade points
+	// check if upgrade can be bought: must have sufficient upgrade points and not reach max level
 	if (m_UpgradePrice[_upgrade] > m_UpgradePointCount || m_UpgradeLevel[_upgrade] == m_UpgradeMaxLevel[_upgrade])
 		return;
 
@@ -52,11 +52,11 @@ void GUpgradeManager::BuyUpgrade(EUpgrades _upgrade)
 	switch (_upgrade)
 	{
 	case EUpgrades::AttackSpeed:
-		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade];
+		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade] + 1;
 		m_PlayerStats[_upgrade] *= 1.25f;
 		break;
 	case EUpgrades::Damage:
-		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade];
+		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade] + 1;
 		m_PlayerStats[_upgrade] += 18.75f;
 		break;
 	case EUpgrades::MovementSpeed:
@@ -67,5 +67,10 @@ void GUpgradeManager::BuyUpgrade(EUpgrades _upgrade)
 		break;
 	default:
 		break;
+	}
+
+	if (m_UpgradeLevel[_upgrade] == m_UpgradeMaxLevel[_upgrade]) // check if max level has been reached
+	{
+		m_UpgradePrice[_upgrade] = 0; // set price to 0 as additional indicator
 	}
 }
