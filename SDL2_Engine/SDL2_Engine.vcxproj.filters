@@ -77,6 +77,9 @@
     <ClCompile Include="UpgradeManager.cpp">
       <Filter>Game\UpgradeManager</Filter>
     </ClCompile>
+    <ClCompile Include="GUpgradeFrame.cpp">
+      <Filter>Game\UI\UpgradeFrame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -190,6 +193,9 @@
     <ClInclude Include="Canvas.h">
       <Filter>Engine\Canvas</Filter>
     </ClInclude>
+    <ClInclude Include="UpgradeFrame.h">
+      <Filter>Game\UI\UpgradeFrame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -302,6 +308,12 @@
     </Filter>
     <Filter Include="Engine\Canvas">
       <UniqueIdentifier>{6c3373cb-0acf-4d3a-9f92-af1bed49d113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI">
+      <UniqueIdentifier>{af721b55-6450-4ffe-853b-0ac22212ccbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\UpgradeFrame">
+      <UniqueIdentifier>{2969ce7a-ccf2-4288-af08-5967616bd223}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
