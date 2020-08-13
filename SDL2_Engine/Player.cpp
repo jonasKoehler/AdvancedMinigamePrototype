@@ -29,6 +29,23 @@ void GPlayer::Update(float _deltaSeconds)
 
 	Move(_deltaSeconds);
 
+	// if player was hit
+	if (m_IsInvincible >= 0)
+	{
+		m_IsInvincible = std::fmax(0, m_IsInvincible - _deltaSeconds * 1000);
+
+		if (m_IsInvincible % 100 < 10)
+		{
+			m_render = !m_render;
+		}
+
+		if (m_IsInvincible == 0)
+		{
+			m_render = true;
+			m_IsInvincible = -1;
+		}
+	}
+
 	if (m_AttackCooldown < 1.0f)
 	{
 		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
@@ -42,6 +59,7 @@ void GPlayer::Update(float _deltaSeconds)
 		m_pAttack->Start();
 		// add attack sound
 	}
+
 	for (CObject* pObject : m_colObject)
 	{
 		if (pObject->GetTag() == "Exit")
@@ -52,6 +70,7 @@ void GPlayer::Update(float _deltaSeconds)
 			}
 		}
 	}
+
 	CheckIfDead();
 	RENDERER->SetCamera(m_position); // set camera position to player position
 	CMoveObject::Update(_deltaSeconds); // update parent
@@ -158,7 +177,7 @@ void GPlayer::Move(float _deltaSeconds)
 		m_movement.Y -= m_AccelerationRate * _deltaSeconds; // subtract to move up on screen
 		m_movement.Y = std::fmax(m_movement.Y, -1.0f); // cannot exceed highest acceleration of -1 for y up
 	}
-	else if(m_movement.Y < 0) // enter if player was accelerated upwards
+	else if (m_movement.Y < 0) // enter if player was accelerated upwards
 	{
 		m_movement.Y += m_DecelerationRate * _deltaSeconds; // decelerate
 		m_movement.Y = std::fmin(m_movement.Y, 0.0f); // until 0 is reached
@@ -250,5 +269,16 @@ void GPlayer::UpdateStats(map<EUpgrades, float> _PlayerStats)
 	m_AttacksPerSecond = _PlayerStats[EUpgrades::AttackSpeed];
 	m_Hitzone.w = _PlayerStats[EUpgrades::AttackRange];
 	m_Hitzone.h = _PlayerStats[EUpgrades::AttackRange];
+}
+
+void GPlayer::TakeDamage(float _damage)
+{
+	if (m_IsInvincible > 0)
+	{
+		return;
+	}
+
+	m_health -= _damage;
+	m_IsInvincible = 1000;
 }
 #pragma endregion
