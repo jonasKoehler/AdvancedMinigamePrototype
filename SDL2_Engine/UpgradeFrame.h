@@ -31,6 +31,7 @@ public:
 	void OnClick();
 	void SetIcon(const char* _filePath);
 	void SetDescription(string _description);
+	inline SRect GetRect() { return m_FrameRect; }
 #pragma endregion
 
 #pragma region private variables
