@@ -15,7 +15,8 @@
 #include "Player.h"
 #pragma endregion
 
-#pragma region public override function
+// all Upgrade related code was done by Jonas
+
 // initialize scene
 void GMainScene::Init()
 {
@@ -140,4 +141,3 @@ void GMainScene::Clean()
 	CTM->CleanUiObjects();
 	CTM->CleanSceneObjects();
 }
-#pragma endregion

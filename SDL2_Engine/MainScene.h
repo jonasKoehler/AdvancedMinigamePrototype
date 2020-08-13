@@ -43,6 +43,9 @@ public:
 	/// </summary>
 	virtual void Clean() override;
 #pragma endregion
+
+#pragma region private variables
+private:
 	CMusic* m_pMusic = nullptr;
 	CCanvas m_UpgradeMenu = CCanvas();
 	bool m_UpgradeMenuVisibility = false;
@@ -52,4 +55,5 @@ public:
 	GUpgradeFrame* m_pSpeedUpgrade = nullptr;
 	GUpgradeFrame* m_pLaserUpgrade = nullptr;
 	GUpgradeFrame* m_pRangeUpgrade = nullptr;
+#pragma endregion
 };
