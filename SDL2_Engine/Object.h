@@ -75,7 +75,7 @@ public:
 	/// <param name="_pos">position to add to object</param>
 	inline void AddPosition(SVector2 _pos) { m_position += _pos; }
 
-	inline void SetRenderingIndicator(bool _render) { m_render = _render; }
+	inline virtual void SetRenderingIndicator(bool _render) { m_render = _render; }
 
 	inline bool GetRenderingIndicator() { return m_render; }
 #pragma endregion
