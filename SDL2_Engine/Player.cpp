@@ -262,13 +262,14 @@ void GPlayer::CheckIfDead()
 	}
 }
 
-void GPlayer::UpdateStats(map<EUpgrades, float> _PlayerStats)
+void GPlayer::UpdateStats()
 {
-	m_speed = _PlayerStats[EUpgrades::MovementSpeed];
-	m_damage = _PlayerStats[EUpgrades::Damage];
-	m_AttacksPerSecond = _PlayerStats[EUpgrades::AttackSpeed];
-	m_Hitzone.w = _PlayerStats[EUpgrades::AttackRange];
-	m_Hitzone.h = _PlayerStats[EUpgrades::AttackRange];
+	map<EUpgrades, float> playerStats = GUpgradeManager::GetInstance()->GetPlayerStats();
+	m_speed = playerStats[EUpgrades::MovementSpeed];
+	m_damage = playerStats[EUpgrades::Damage];
+	m_AttacksPerSecond = playerStats[EUpgrades::AttackSpeed];
+	m_Hitzone.w = playerStats[EUpgrades::AttackRange];
+	m_Hitzone.h = playerStats[EUpgrades::AttackRange];
 }
 
 void GPlayer::TakeDamage(float _damage)

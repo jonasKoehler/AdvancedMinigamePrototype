@@ -33,7 +33,7 @@ public:
 	/// <param name="_pos">position of player</param>
 	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : GEntity(_pFile, _size, _pos)
 	{
-		UpdateStats(GUpgradeManager::GetInstance()->GetPlayerStats());
+		UpdateStats();
 		SetColType(ECollisionType::DYNAMIC);
 		SetTag("Player");
 
@@ -81,7 +81,7 @@ public:
 	}
 #pragma endregion
 
-#pragma region public override function
+#pragma region public functions
 	/// <summary>
 	/// update every frame
 	/// </summary>
@@ -93,6 +93,7 @@ public:
 	/// </summary>
 	virtual	void Render() override;
 
+	void UpdateStats(); // by Jonas
 #pragma region private functions
 private:
 	void Rotate(); // by Jonas
@@ -100,7 +101,6 @@ private:
 	void BasicAttack();  // by Jonas
 	void ReachExit(); // by Lukas
 	void CheckIfDead() override; //by Lukas
-	void UpdateStats(map<EUpgrades, float> _PlayerStats); // by Jonas
 	void TakeDamage(float _damage) override; // by Jonas
 #pragma endregion
 
