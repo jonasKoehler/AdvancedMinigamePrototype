@@ -5,6 +5,8 @@
 #include "Music.h"
 #pragma endregion
 
+class GUpgradeFrame;
+
 /// <summary>
 /// main game scene class
 /// </summary>
@@ -40,5 +42,12 @@ public:
 	/// </summary>
 	virtual void Clean() override;
 #pragma endregion
-	CMusic* p_Music = nullptr;
+	CMusic* m_pMusic = nullptr;
+	CCanvas m_UpgradeMenu = CCanvas();
+	bool m_UpgradeMenuVisibility = false;
+	GUpgradeFrame* m_pAttackSpeedUpgrade = nullptr;
+	GUpgradeFrame* m_pDamageUpgrade = nullptr;
+	GUpgradeFrame* m_pSpeedUpgrade = nullptr;
+	GUpgradeFrame* m_pLaserUpgrade = nullptr;
+	GUpgradeFrame* m_pRangeUpgrade = nullptr;
 };
