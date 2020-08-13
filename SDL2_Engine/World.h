@@ -64,9 +64,10 @@ string LoadWorldStringFromFile(const char* _pFile)
 /// </summary>
 /// <param name="_pFile">image file to load from</param>
 /// <returns>world as string</returns>
-string LoadWorldStringFromImage(const char* _pFile)
+string LoadWorldStringFromImage(const char* _pFile) 
 {
 	// text to return
+	//by Lukas
 	string text;
 
 	// load surface from file
@@ -84,21 +85,64 @@ string LoadWorldStringFromImage(const char* _pFile)
 		uint8_t b = pPixel[2];
 
 		// check values and add depending char
-		if (r == 0 && g == 0 && b == 0)
+		//Bottom
+		if (r == 255 && g == 255 && b == 255)
 			text += '0';
-		else if (r == 255 && g == 255 && b == 255)
-			text += 'X';
-		else if (r == 0 && g == 0 && b == 255)
-			text += 'V';
-		else if (r == 0 && g == 255 && b == 0)
-			text += 'I';
+		//Player
 		else if (r == 255 && g == 255 && b == 0)
 			text += 'S';
+		//Exitzone
+		else if (r == 255 && g == 0 && b == 255)
+			text += 'X';
+		//Enemy
 		else if (r == 255 && g == 0 && b == 0)
 			text += 'E';
+		//Left Wall
+		else if (r == 100 && g == 255 && b == 140)
+			text += 'L';
+		//Right Wall
+		else if (r == 0 && g == 50 && b == 20)
+			text += 'R';
+		//Ceiling
+		else if (r == 150 && g == 0 && b == 150)
+			text += 'U';
+		//Upgradpoint
+		else if (r == 150 && g == 100 && b == 50)
+			text += 'V';
+		//Bottom Wall
+		else if (r == 255 && g == 150 && b == 255)
+			text += 'D';
+		//Left Up Corner Inside
+		else if (r == 0 && g == 250 && b == 250)
+			text += '1';
+		//Left Bottom Corner Inside
+		else if (r == 10 && g == 50 && b == 100)
+			text += '2';
+		//Right Up Corner Inside
+		else if (r == 0 && g == 0 && b == 255)
+			text += '3';
+		//Right Bottom Corner Inside
+		else if (r == 130 && g == 130 && b == 170)
+			text += '4';
+		//Left Up Corner Outside
+		else if (r == 80 && g == 70 && b == 240)
+			text += '5';
+		//Left Bottom Corner Outside
+		else if (r == 0 && g == 0 && b == 70)
+			text += '6';
+		//Right Up Corner Outside
+		else if (r == 0 && g == 125 && b == 125)
+			text += '7'; 
+		//Right Bottom Corner Outside
+		else if (r == 50 && g == 50 && b == 80)
+			text += '8';
+		else if (r == 0 && g == 0 && b == 0)
+			text += '#';
+
 
 		// increase pixel by format
 		pPixel += pWorld->format->BytesPerPixel;
+		
 
 		// if end of line add new line char
 		if ((i + 1) % pWorld->w == 0)
@@ -115,54 +159,26 @@ string LoadWorldStringFromImage(const char* _pFile)
 /// </summary>
 void LoadWorldFromString()
 {
-	string world = "";
 
-	// 0 = air
-	// # = wall
-	// I = collectible
-	// S = player start
-	// E = enemy
-	// X = exitzone
-	// \n = delimiter 
-	//PLS DONT DELETE
-	world += "1UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU2\n";
-	world += "L00000000000000000000000000000000000000000000000000000000000000000000000R\n";
-	world += "L000E0000000000000000000000000000000000E000000000000000E0000000000E00000R\n";
-	world += "L00000000000000000000000000000E000000000000000000000000E0000000E00000000R\n";
-	world += "L000000000E0000000000000000000000000000000000000E000EE000000000E00000000R\n";
-	world += "L0S000000000000000000000000000000000000000000000000000000000E000000000X0R\n";
-	world += "L000000000000000000000000000000E0000000000000E0E00000E00000E000000000000R\n";
-	world += "L000000000000000000000000000000000000000000000000000000000000000E000EE00R\n";
-	world += "L00000000000000000000000000000000000000000000000EE0000E0000000E000000000R\n";
-	world += "L00000000000000000000000E00000000000000E0000000000000000000000000000E000R\n";
-	world += "3DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD4";
+	string world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
 
-	//string world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
-
+	LOG(world);
 	// width and height counter
 	int width = -1, height = 0;
 
 	// atlas texture of world
-	CTexture* pTexture = TTM->GetTexture("Texture/World/T_World.png");
-
-	// create textured object
-	CTexturedObject* pObj = new CTexturedObject(
-		"",
-		SVector2()
-	);
-
-
-
-	// atlas texture of world
 	CTexture* pGameTilemap = new CTexture("Texture/World/T_World.png");
-
-	// create textured object
-	CTexturedObject* pWorldObject = new CTexturedObject("", SVector2());
 
 	// check every char
 	for (int i = 0; i < world.length(); i++)
 	{
 		// if current char is new line
+
+		if (world[i] == '0')
+		{
+			width++;
+			continue;
+		}
 		if (world[i] == '\n')
 		{
 			height++; // increase height
@@ -183,6 +199,7 @@ void LoadWorldFromString()
 				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
+			pPlayer->SetLayer(5);
 			CTM->AddSceneObject(pPlayer);
 			continue; // check next char
 		}
@@ -195,6 +212,7 @@ void LoadWorldFromString()
 				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
+			pEnemy->SetLayer(5);
 			CTM->AddSceneObject(pEnemy);
 			continue; // check next char
 		}
@@ -210,6 +228,22 @@ void LoadWorldFromString()
 			pExitzone->SetColType(ECollisionType::STATIC);
 			pExitzone->SetTag("Exit");
 			CTM->AddSceneObject(pExitzone);
+
+			continue; // check next char
+		}
+
+
+		if (world[i] == 'V') // if char indicates an Upgradepoint
+		{
+			// create Exitzone
+			GExitzone* pUpgradepoint = new GExitzone(
+				"Texture/Exit/T_Exit.png",
+				SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
+				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
+			);
+			pUpgradepoint->SetColType(ECollisionType::STATIC);
+			pUpgradepoint->SetTag("Upgradpoint");
+			CTM->AddSceneObject(pUpgradepoint);
 
 			continue; // check next char
 		}
@@ -231,73 +265,102 @@ void LoadWorldFromString()
 		// switch current char
 		switch (world[i])
 		{
-		case '0':
+		case '#': //Bottom
 		{
-			pNewWorldTile->SetColType(ECollisionType::NONE); // walls have static collision
+			pNewWorldTile->SetColType(ECollisionType::NONE); 
 			srcRect.x = 0;
-			srcRect.y = 3 * GConfig::s_WorldBlockSourceHeight;
+			srcRect.y = 4 * GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
-		case 'U':
+		case 'U': //Ceiling
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			pNewWorldTile->SetColType(ECollisionType::STATIC); 
 			srcRect.x = 0;
 			srcRect.y = 0;
 			break;
 		}
-		case 'D':
+		case 'D': //Bottom Wall
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			pNewWorldTile->SetColType(ECollisionType::STATIC); 
 			srcRect.x = GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 0;
 			break;
 
 		}
-		case 'L':
+		case 'L': //Left Wall
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			pNewWorldTile->SetColType(ECollisionType::STATIC); 
 			srcRect.x = 2 * GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 0;
 			break;
 		}
-		case 'R':
+		case 'R': //Right Wall
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			pNewWorldTile->SetColType(ECollisionType::STATIC); 
 			srcRect.x = 3 * GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 0;
 			break;
 		}
-		case '1':
+		case '1': // Left Up Corner
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = 0;
 			srcRect.y = 2*  GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
-		case '2':
+		case '2': //Left Down Corner
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
-			srcRect.x = 2 * GConfig::s_WorldBlockSourceWidth;
-			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
-			break;
-		}
-		case '3':
-		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
-		case '4':
+		case '3': //Right Up Corner
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); // walls have static collision
+			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			srcRect.x = 2 * GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case '4': //Right Down Corner
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); 
 			srcRect.x = 3 * GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case '5':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
+			srcRect.x = 3 * GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 3 * GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case '6':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			srcRect.x =0;
+			srcRect.y = 3 * GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case '7':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
+			srcRect.x = 2 * GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 3 * GConfig::s_WorldBlockSourceHeight;
+			break;
+		}
+		case '8':
+		{
+			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			srcRect.x = GConfig::s_WorldBlockSourceWidth ;
+			srcRect.y = 3* GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
 		default:
 			break;
 		}
+
 
 		pNewWorldTile->SetSrcRect(srcRect); // set sec rect
 
