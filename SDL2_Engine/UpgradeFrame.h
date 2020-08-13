@@ -19,12 +19,7 @@ class GUpgradeFrame : public CObject // by Jonas
 public:
 	GUpgradeFrame(SVector2 _position, EUpgrades _upgradeType);
 
-	~GUpgradeFrame()
-	{
-		delete m_Description;
-		delete m_UpgradeCost;
-		delete m_UpgradeLevel;
-	}
+	~GUpgradeFrame() {}
 #pragma endregion
 
 #pragma region public methods
