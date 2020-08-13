@@ -19,55 +19,68 @@ void GMainScene::Init()
 {
 	// load world
 	LoadWorldFromString();
+
+	// load music
 	m_pMusic = new CMusic("Sound/Music/music.wav");
 	m_pMusic->Play(true);
 
 	// upgrade menu
+	int upgradeFrameWidth = 200;
+	int upgradeframeDistance = (SCREEN_WIDTH - (int)EUpgrades::MAX * upgradeFrameWidth) / ((int)EUpgrades::MAX + 1); // calculate the distance between each tile to have a centered layout
+
 	CTextObject* updatemenuTitle = new CTextObject
 	(
 		"Upgrades",
 		GAME->GetFont(),
 		SVector2(400, 80),
-		SVector2(300, 60),
+		SVector2(upgradeframeDistance + 200, 220),
 		SColor(255, 255, 255, 255)
 	);
 	updatemenuTitle->SetInWorld(false);
 
-	m_pAttackSpeedUpgrade = new GUpgradeFrame(SVector2(100, 360), EUpgrades::AttackSpeed);
-	m_pAttackSpeedUpgrade->SetDescription("Attackspeed +20%");
-	m_pAttackSpeedUpgrade->SetIcon("Texture/UI/Upgrades/T_AttackSpeed.png");
-	
-	m_pDamageUpgrade = new GUpgradeFrame(SVector2(320, 360), EUpgrades::Damage);
-	m_pDamageUpgrade->SetDescription("Attack Damage +20%");
-	m_pDamageUpgrade->SetIcon("Texture/UI/Upgrades/T_AttackPower.png");
-	
-	m_pRangeUpgrade = new GUpgradeFrame(SVector2(540, 360), EUpgrades::AttackRange);
-	m_pRangeUpgrade->SetDescription("Range +4");
-	m_pRangeUpgrade->SetIcon("");
-	
-	m_pSpeedUpgrade = new GUpgradeFrame(SVector2(760, 360), EUpgrades::MovementSpeed);
-	m_pSpeedUpgrade->SetDescription("Movementspeed +20%");
-	m_pSpeedUpgrade->SetIcon("Texture/UI/Upgrades/T_MovementSpeed.png");
-	
-	m_pLaserUpgrade = new GUpgradeFrame(SVector2(980, 360), EUpgrades::SpecialAttack);
-	m_pLaserUpgrade->SetDescription("Unlocks the UV-Laser");
-	m_pLaserUpgrade->SetIcon("Texture/UI/Upgrades/T_LaserUpgrade.png");
-
-	CTM->AddUiObject(m_pAttackSpeedUpgrade);
-	CTM->AddUiObject(m_pDamageUpgrade);
-	CTM->AddUiObject(m_pRangeUpgrade);
-	CTM->AddUiObject(m_pSpeedUpgrade);
-	CTM->AddUiObject(m_pLaserUpgrade);
 	CTM->AddUiObject(updatemenuTitle);
-
 	m_UpgradeMenu.AddObject(updatemenuTitle);
-	m_UpgradeMenu.AddObject(m_pAttackSpeedUpgrade);
-	m_UpgradeMenu.AddObject(m_pDamageUpgrade);
-	m_UpgradeMenu.AddObject(m_pRangeUpgrade);
-	m_UpgradeMenu.AddObject(m_pSpeedUpgrade);
-	m_UpgradeMenu.AddObject(m_pLaserUpgrade);
 
-	m_UpgradeMenu.SetVisible(false);
+	for (int i = 0; i < (int)EUpgrades::MAX; i++)
+	{
+		GUpgradeFrame* pTempFrame = new GUpgradeFrame(SVector2(upgradeframeDistance * (i+1) + upgradeFrameWidth * i + upgradeFrameWidth * 0.5, 360), (EUpgrades)i);
+		CTM->AddUiObject(pTempFrame);
+		m_UpgradeMenu.AddObject(pTempFrame);
+
+		// determine the upgrade type and set icon and description accordingly. assign the tempPointer of the scope to the specific member pointer
+		switch ((EUpgrades)i)
+		{
+		case EUpgrades::AttackSpeed:
+			pTempFrame->SetDescription("Attackspeed +20%");
+			pTempFrame->SetIcon("Texture/UI/Upgrades/T_AttackSpeed.png");
+			m_pAttackSpeedUpgrade = pTempFrame;
+			break;
+		case EUpgrades::Damage:
+			pTempFrame->SetDescription("Attack Damage +20%");
+			pTempFrame->SetIcon("Texture/UI/Upgrades/T_AttackPower.png");
+			m_pDamageUpgrade = pTempFrame;
+			break;
+		case EUpgrades::MovementSpeed:
+			pTempFrame->SetDescription("Movementspeed +20%");
+			pTempFrame->SetIcon("Texture/UI/Upgrades/T_MovementSpeed.png");
+			m_pSpeedUpgrade = pTempFrame;
+			break;
+		case EUpgrades::AttackRange:
+			pTempFrame->SetDescription("Range +4");
+			pTempFrame->SetIcon("");
+			m_pRangeUpgrade = pTempFrame;
+			break;
+		case EUpgrades::SpecialAttack:
+			pTempFrame->SetDescription("Unlocks the UV-Laser");
+			pTempFrame->SetIcon("Texture/UI/Upgrades/T_LaserUpgrade.png");
+			m_pLaserUpgrade = pTempFrame;
+			break;
+		default:
+			break;
+		}
+	}
+
+	m_UpgradeMenu.SetVisible(false); // hide upgrade menu on start
 }
 
 // update every frame
