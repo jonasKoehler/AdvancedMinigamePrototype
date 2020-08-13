@@ -6,6 +6,7 @@
 #pragma endregion
 
 class GUpgradeFrame;
+class GPlayer;
 
 /// <summary>
 /// main game scene class
@@ -45,6 +46,7 @@ public:
 	CMusic* m_pMusic = nullptr;
 	CCanvas m_UpgradeMenu = CCanvas();
 	bool m_UpgradeMenuVisibility = false;
+	GPlayer* m_pPlayer = nullptr;
 	GUpgradeFrame* m_pAttackSpeedUpgrade = nullptr;
 	GUpgradeFrame* m_pDamageUpgrade = nullptr;
 	GUpgradeFrame* m_pSpeedUpgrade = nullptr;

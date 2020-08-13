@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "ContentManagement.h"
 #include "TextObject.h"
+#include "Physic.h"
 #pragma endregion
 
 #pragma region game include
@@ -11,6 +12,7 @@
 #include "MenuScene.h"
 #include "UpgradeFrame.h"
 #include "UpgradeManager.h"
+#include "Player.h"
 #pragma endregion
 
 #pragma region public override function
@@ -23,6 +25,16 @@ void GMainScene::Init()
 	// load music
 	m_pMusic = new CMusic("Sound/Music/music.wav");
 	m_pMusic->Play(true);
+
+	// get player reference
+	for (CObject* pObject : CTM->GetSceneObjects()) // search all scene objects
+	{
+		if (pObject->GetTag() == "Player") // player is found
+		{
+			m_pPlayer = (GPlayer*)pObject; // get the reference
+			break;
+		}
+	}
 
 	// upgrade menu
 	int upgradeFrameWidth = 200;
@@ -51,7 +63,7 @@ void GMainScene::Init()
 		switch ((EUpgrades)i)
 		{
 		case EUpgrades::AttackSpeed:
-			pTempFrame->SetDescription("Attackspeed +20%");
+			pTempFrame->SetDescription("Attackspeed +25%");
 			pTempFrame->SetIcon("Texture/UI/Upgrades/T_AttackSpeed.png");
 			m_pAttackSpeedUpgrade = pTempFrame;
 			break;
@@ -61,7 +73,7 @@ void GMainScene::Init()
 			m_pDamageUpgrade = pTempFrame;
 			break;
 		case EUpgrades::MovementSpeed:
-			pTempFrame->SetDescription("Movementspeed +20%");
+			pTempFrame->SetDescription("Movementspeed +5%");
 			pTempFrame->SetIcon("Texture/UI/Upgrades/T_MovementSpeed.png");
 			m_pSpeedUpgrade = pTempFrame;
 			break;
@@ -95,6 +107,23 @@ void GMainScene::Update(float _deltaSeconds)
 	{
 		m_UpgradeMenuVisibility = !m_UpgradeMenuVisibility;
 		m_UpgradeMenu.SetVisible(m_UpgradeMenuVisibility);
+		m_pPlayer->UpdateStats();
+	}
+
+	if (CInput::GetMouseButtonDown(0) && m_UpgradeMenu.IsSetVisible())
+	{
+		for (CObject* pObject : m_UpgradeMenu.GetChildren())
+		{
+			if (dynamic_cast<GUpgradeFrame*>(pObject))
+			{
+				GUpgradeFrame* pTemp = (GUpgradeFrame*)pObject;
+				SRect mouse = SRect(1, 1, CInput::GetMousePosition().X, CInput::GetMousePosition().Y);
+				if (RectRectCollision(pTemp->GetRect(), mouse))
+				{
+					pTemp->OnClick();
+				}
+			}
+		}
 	}
 }
 
@@ -108,10 +137,7 @@ void GMainScene::Render()
 void GMainScene::Clean()
 {
 	delete m_pMusic;
-	delete m_pRangeUpgrade;
-	delete m_pAttackSpeedUpgrade;
-	delete m_pSpeedUpgrade;
-	delete m_pLaserUpgrade;
-	delete m_pDamageUpgrade;
+	CTM->CleanUiObjects();
+	CTM->CleanSceneObjects();
 }
 #pragma endregion
