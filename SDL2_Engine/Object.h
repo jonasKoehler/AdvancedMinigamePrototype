@@ -75,12 +75,11 @@ public:
 	/// <param name="_pos">position to add to object</param>
 	inline void AddPosition(SVector2 _pos) { m_position += _pos; }
 
-	inline virtual void SetRenderingIndicator(bool _render) { m_render = _render; }
 
 	inline bool GetRenderingIndicator() { return m_render; }
 #pragma endregion
 
-#pragma region public function
+#pragma region public virtual function
 	/// <summary>
 	/// update every frame
 	/// </summary>
@@ -94,7 +93,8 @@ public:
 
 	virtual void OnCollisionEnter(CObject* pObject) {};
 
-#pragma endregion= 0
+	inline virtual void SetRenderingIndicator(bool _render) { m_render = _render; }
+#pragma endregion
 
 protected:
 #pragma region protected primitive variable
