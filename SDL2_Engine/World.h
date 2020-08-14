@@ -64,10 +64,9 @@ string LoadWorldStringFromFile(const char* _pFile)
 /// </summary>
 /// <param name="_pFile">image file to load from</param>
 /// <returns>world as string</returns>
-string LoadWorldStringFromImage(const char* _pFile) 
+string LoadWorldStringFromImage(const char* _pFile) // by Lukas
 {
 	// text to return
-	//by Lukas
 	string text;
 
 	// load surface from file
@@ -159,10 +158,22 @@ string LoadWorldStringFromImage(const char* _pFile)
 /// </summary>
 void LoadWorldFromString()
 {
+	string world = "";
+	world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
 
-	string world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
+	// Keep for testing
+	/*world += "#########################################################################\n";
+	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
+	world += "#00000000000000000E00000000000000000000000000000000000000000000000000000#\n";
+	world += "#000000000000000000000000000000000000000000000000E0000000000000000000000#\n";
+	world += "#000000000000000000000000000000000000000000000000000000E0000000000000000#\n";
+	world += "#0000000000000000000000000000000000S000000000000000000000000000000000000#\n";
+	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
+	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
+	world += "#00000000000000E000000000000000000000000000000000000000000E0000000000000#\n";
+	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
+	world += "#########################################################################";*/
 
-	LOG(world);
 	// width and height counter
 	int width = -1, height = 0;
 
@@ -196,10 +207,9 @@ void LoadWorldFromString()
 			GPlayer* pPlayer = new GPlayer
 			(
 				"Texture/Character/Player/T_Player.png",
-				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
+				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerTotalHeight),
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
-			pPlayer->SetLayer(5);
 			CTM->AddSceneObject(pPlayer);
 			continue; // check next char
 		}
@@ -209,10 +219,9 @@ void LoadWorldFromString()
 			// create enemy
 			GEnemy* pEnemy = new GEnemy(
 				"Texture/Character/Enemy/T_Enemy.png",
-				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerHeight),
+				SVector2(GConfig::s_EnemyWidth, GConfig::s_EnemyHeight),
 				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
 			);
-			pEnemy->SetLayer(5);
 			CTM->AddSceneObject(pEnemy);
 			continue; // check next char
 		}
@@ -360,7 +369,6 @@ void LoadWorldFromString()
 		default:
 			break;
 		}
-
 
 		pNewWorldTile->SetSrcRect(srcRect); // set sec rect
 

@@ -21,9 +21,14 @@ int GConfig::s_WorldBlockHeight = 0;
 int GConfig::s_WorldBlockSourceWidth = 0;
 int GConfig::s_WorldBlockSourceHeight = 0;
 int GConfig::s_PlayerWidth = 0;
-int GConfig::s_PlayerHeight = 0;
+int GConfig::s_PlayerTotalHeight = 0;
+int GConfig::s_PlayerTopHeight = 0;
+int GConfig::s_PlayerBottomHeight = 0;
 int GConfig::s_PlayerSrcWidth = 0;
-int GConfig::s_PlayerSrcHeight = 0;
+int GConfig::s_PlayerTopSrcHeight = 0;
+int GConfig::s_PlayerBottomSrcHeight = 0;
+int GConfig::s_EnemyWidth = 0;
+int GConfig::s_EnemyHeight = 0;
 #pragma endregion
 
 #pragma region public function
@@ -75,12 +80,22 @@ void GConfig::LoadConfig()
 			s_WorldBlockSourceHeight = atoi(value.c_str());
 		else if (name == "PlayerWidth")
 			s_PlayerWidth = atoi(value.c_str());
-		else if (name == "PlayerHeight")
-			s_PlayerHeight = atoi(value.c_str());
+		else if (name == "PlayerTotalHeight")
+			s_PlayerTotalHeight = atoi(value.c_str());
+		else if (name == "PlayerTopHeight")
+			s_PlayerTopHeight = atoi(value.c_str());
+		else if (name == "PlayerBottomHeight")
+			s_PlayerBottomHeight = atoi(value.c_str());
 		else if (name == "PlayerSrcWidth")
 			s_PlayerSrcWidth = atoi(value.c_str());
-		else if (name == "PlayerSrcHeight")
-			s_PlayerSrcHeight = atoi(value.c_str());
+		else if (name == "PlayerTopSrcHeight")
+			s_PlayerTopSrcHeight = atoi(value.c_str());
+		else if (name == "PlayerBottomSrcHeight")
+			s_PlayerBottomSrcHeight = atoi(value.c_str());
+		else if (name == "EnemyWidth")
+			s_EnemyWidth = atoi(value.c_str());
+		else if (name == "EnemyHeight")
+			s_EnemyHeight = atoi(value.c_str());
 	}
 }
 #pragma endregion

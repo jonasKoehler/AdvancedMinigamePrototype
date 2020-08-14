@@ -26,7 +26,7 @@ void GUpgradeManager::Init()
 		case EUpgrades::AttackRange:
 			m_UpgradePrice[(EUpgrades)i] = 1;
 			m_UpgradeMaxLevel[(EUpgrades)i] = 5;
-			m_PlayerStats[(EUpgrades)i] = 30.0f; // range in pixel
+			m_PlayerStats[(EUpgrades)i] = 50.0f; // range in pixel
 			break;
 		case EUpgrades::SpecialAttack:
 			m_UpgradePrice[(EUpgrades)i] = 5;

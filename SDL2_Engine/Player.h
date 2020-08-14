@@ -17,9 +17,32 @@ using namespace std;
 
 class GEnemy;
 
-/// <summary>
-/// player class
-/// </summary>
+enum class EPlayerWalkDirection
+{
+	Right,
+	Left,
+	Down,
+	Up,
+	UpLeft,
+	DownRight,
+	UpRight,
+	DownLeft,
+	MAX
+};
+
+enum class EPlayerLookDirection
+{
+	Down,
+	Up,
+	Right,
+	Left,
+	DownRight,
+	UpRight,
+	DownLeft,
+	UpLeft,
+	MAX
+};
+
 class GPlayer : public GEntity
 {
 public:
@@ -31,7 +54,7 @@ public:
 	/// <param name="_pFileName">texture relative file path</param>
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of player</param>
-	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : GEntity(_pFile, _size, _pos)
+	GPlayer(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : GEntity("", _size, _pos)
 	{
 		UpdateStats();
 		SetColType(ECollisionType::DYNAMIC);
@@ -39,30 +62,49 @@ public:
 
 		m_pHitzoneTexture = new CTexturedObject(_pFile, SVector2(), SVector2());
 		m_pHitzoneTexture->SetRect(m_Hitzone);
-		m_pHitzoneTexture->SetSrcRect(SRect(32, 32, 32, 160));
+		m_pHitzoneTexture->SetSrcRect(SRect(0, 330, 0, 5656));
 
-		SVector2 animationFrameSize = SVector2(GConfig::s_PlayerSrcWidth, GConfig::s_PlayerSrcHeight);
-		SVector2 framePositionInTexture = SVector2(0, 0);
-		m_pLookRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
-		m_pCurrentAnimation = m_pLookRight;
+		m_pUpperBody = new CTexturedObject
+		(
+			_pFile, 
+			SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerTopHeight),
+			_pos
+		);
 
-		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pLookUpwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		m_pLowerBody = new CTexturedObject
+		(
+			_pFile,
+			SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerBottomHeight),
+			_pos
+		);
 
-		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pLookDownwards = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		for (int i = 0; i < (int)EPlayerLookDirection::MAX; i++)
+		{
+			m_LookDirectionSrcRects[(EPlayerLookDirection)i] = SRect(GConfig::s_PlayerSrcWidth, GConfig::s_PlayerTopSrcHeight, i * GConfig::s_PlayerSrcWidth, 0);
+		}
 
-		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pLookUpRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
+		for (int i = 0; i < (int)EPlayerWalkDirection::MAX; i++)
+		{
+			m_WalkAnimations[(EPlayerWalkDirection)i] = new CAnimation
+			(
+				SVector2(0, GConfig::s_PlayerTopSrcHeight + i * GConfig::s_PlayerBottomSrcHeight),
+				SVector2(GConfig::s_PlayerSrcWidth, GConfig::s_PlayerBottomSrcHeight),
+				1,
+				3,
+				true
+			);
+		}
 
-		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pLookDownRight = new CAnimation(framePositionInTexture, animationFrameSize, 1, 4);
-
-		framePositionInTexture.Y += animationFrameSize.Y; // next row of frames
-		m_pAttack = new CAnimation(framePositionInTexture, animationFrameSize, 1 / (m_AttacksPerSecond * 1.5), 4, false);
+		m_pAttack = new CAnimation
+		(
+			SVector2(-330, 5656), 
+			SVector2(330, 307), 
+			0.1, 
+			2, 
+			false
+		);
 
 		m_pBasicAttackSound = new CSound("Sound/Effects/spray.wav");
-
 	}
 #pragma endregion
 
@@ -72,12 +114,10 @@ public:
 	/// </summary>
 	virtual ~GPlayer()
 	{
-		delete m_pLookDownRight;
-		delete m_pLookUpRight;
-		delete m_pLookRight;
-		delete m_pLookDownwards;
-		delete m_pLookUpwards;
-		delete m_pHitzoneTexture;
+		delete m_pBasicAttackSound;
+		delete m_pAttack;
+		delete m_pLowerBody;
+		delete m_pUpperBody;
 	}
 #pragma endregion
 
@@ -118,16 +158,14 @@ private:
 	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)
 
 	CTexturedObject* m_pHitzoneTexture = nullptr;
-	/*
-	*	Animation Pointer
-	*/
-	CAnimation* m_pCurrentAnimation = nullptr;
-	CAnimation* m_pLookUpwards = nullptr;
-	CAnimation* m_pLookDownwards = nullptr;
-	CAnimation* m_pLookRight = nullptr;
-	CAnimation* m_pLookUpRight = nullptr;
-	CAnimation* m_pLookDownRight = nullptr;
+	CTexturedObject* m_pUpperBody = nullptr;
+	CTexturedObject* m_pLowerBody = nullptr;
+
 	CAnimation* m_pAttack = nullptr;
+	CAnimation* m_pCurrentWalkAnimation = nullptr;
+
+	map<EPlayerLookDirection, SRect> m_LookDirectionSrcRects;
+	map<EPlayerWalkDirection, CAnimation*> m_WalkAnimations;
 	/*
 	*	Sound Pointer
 	*/

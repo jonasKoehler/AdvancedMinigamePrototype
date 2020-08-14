@@ -25,10 +25,9 @@ void GPlayer::Update(float _deltaSeconds)
 	Rotate();
 
 	m_pHitzoneTexture->Update(_deltaSeconds); // update hitzone after changes in Rotate()
-	m_pCurrentAnimation->Update(_deltaSeconds); // update current animation after changes in Rotate()
+	m_pCurrentWalkAnimation->Update(_deltaSeconds); // update current animation after changes in Rotate()
 
 	Move(_deltaSeconds);
-
 	// if player was hit
 	if (m_IsInvincible >= 0)
 	{
@@ -71,6 +70,14 @@ void GPlayer::Update(float _deltaSeconds)
 		}
 	}
 
+	m_pUpperBody->SetRenderingIndicator(m_render);
+	m_pUpperBody->SetPosition(SVector2(m_position.X, m_position.Y - GConfig::s_PlayerBottomHeight * 0.5));
+	m_pUpperBody->Update(_deltaSeconds);
+
+	m_pLowerBody->SetRenderingIndicator(m_render);
+	m_pLowerBody->SetPosition(SVector2(m_position.X, m_position.Y + GConfig::s_PlayerTopHeight * 0.5));
+	m_pLowerBody->Update(_deltaSeconds);
+
 	CheckIfDead();
 	RENDERER->SetCamera(m_position); // set camera position to player position
 	CMoveObject::Update(_deltaSeconds); // update parent
@@ -78,14 +85,14 @@ void GPlayer::Update(float _deltaSeconds)
 
 void GPlayer::Render()
 {
-	m_srcRect = m_pCurrentAnimation->GetNewSourceRect(); // set player source rect by current animation
+	m_pLowerBody->SetSrcRect(m_pCurrentWalkAnimation->GetNewSourceRect()); // set player source rect by current animation
 	m_pHitzoneTexture->SetSrcRect(m_pAttack->GetNewSourceRect()); // set hitzone animation src rect
 
 	m_pHitzoneTexture->Render();
+	m_pUpperBody->Render();
+	m_pLowerBody->Render();
 	CTexturedObject::Render(); // render parent
 }
-
-
 #pragma endregion
 
 #pragma region private functions
@@ -114,7 +121,7 @@ void GPlayer::Rotate()
 
 	// calculate new hitzone rect position sin() und cos(), pi/180 = degree to radiant conversion since cos & sin use radiants in c++
 	int hitzonePosX = m_position.X + (cos(angle * M_PI / 180) * (GConfig::s_PlayerWidth * 0.5 + m_Hitzone.w * 0.5));
-	int hitzonePosY = m_position.Y - (sin(angle * M_PI / 180) * (GConfig::s_PlayerHeight * 0.5 + m_Hitzone.h * 0.5));
+	int hitzonePosY = m_position.Y - (sin(angle * M_PI / 180) * (GConfig::s_PlayerTotalHeight * 0.5 + m_Hitzone.h * 0.5));
 
 	m_Hitzone.x = hitzonePosX - m_Hitzone.w * 0.5f;
 	m_Hitzone.y = hitzonePosY - m_Hitzone.h * 0.5f;
@@ -129,41 +136,57 @@ void GPlayer::Rotate()
 	{
 	case 0:
 	case 360:
-	case 180:
 	{
-		m_pCurrentAnimation = m_pLookRight;
+		m_pCurrentWalkAnimation = m_WalkAnimations[EPlayerWalkDirection::Right];
+		m_pUpperBody->SetSrcRect(m_LookDirectionSrcRects[EPlayerLookDirection::Right]);
 		break;
 	}
+
 	case 45:
-	case 135:
 	{
-		m_pCurrentAnimation = m_pLookUpRight;
-		break;
-	}
-	case 225:
-	case 315:
-	{
-		m_pCurrentAnimation = m_pLookDownRight;
+		m_pCurrentWalkAnimation = m_WalkAnimations[EPlayerWalkDirection::UpRight];
+		m_pUpperBody->SetSrcRect(m_LookDirectionSrcRects[EPlayerLookDirection::UpRight]);
 		break;
 	}
 	case 90:
 	{
-		m_pCurrentAnimation = m_pLookUpwards;
+		m_pCurrentWalkAnimation = m_WalkAnimations[EPlayerWalkDirection::Up];
+		m_pUpperBody->SetSrcRect(m_LookDirectionSrcRects[EPlayerLookDirection::Up]);
+		break;
+	}
+	case 135:
+	{
+		m_pCurrentWalkAnimation = m_WalkAnimations[EPlayerWalkDirection::UpLeft];
+		m_pUpperBody->SetSrcRect(m_LookDirectionSrcRects[EPlayerLookDirection::UpLeft]);
+		break;
+	}
+	case 180:
+	{
+		m_pCurrentWalkAnimation = m_WalkAnimations[EPlayerWalkDirection::Left];
+		m_pUpperBody->SetSrcRect(m_LookDirectionSrcRects[EPlayerLookDirection::Left]);
+		break;
+	}
+	case 225:
+	{
+		m_pCurrentWalkAnimation = m_WalkAnimations[EPlayerWalkDirection::DownLeft];
+		m_pUpperBody->SetSrcRect(m_LookDirectionSrcRects[EPlayerLookDirection::DownLeft]);
 		break;
 	}
 	case 270:
 	{
-		m_pCurrentAnimation = m_pLookDownwards;
+		m_pCurrentWalkAnimation = m_WalkAnimations[EPlayerWalkDirection::Down];
+		m_pUpperBody->SetSrcRect(m_LookDirectionSrcRects[EPlayerLookDirection::Down]);
 		break;
 	}
-	default:
+	case 315:
+	{
+		m_pCurrentWalkAnimation = m_WalkAnimations[EPlayerWalkDirection::DownRight];
+		m_pUpperBody->SetSrcRect(m_LookDirectionSrcRects[EPlayerLookDirection::DownRight]);
 		break;
 	}
 
-	// determine flippping of animation on X axis
-	if (angle > 90 && angle < 270)
-	{
-		m_mirror.X = true;
+	default:
+		break;
 	}
 }
 
@@ -258,7 +281,6 @@ void GPlayer::CheckIfDead()
 		GAME->m_Won = false;
 		CTM->RemoveObject(this);
 		ENGINE->ChangeScene(new GEndScene());
-
 	}
 }
 
