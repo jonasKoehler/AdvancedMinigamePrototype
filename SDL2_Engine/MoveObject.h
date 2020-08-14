@@ -25,7 +25,10 @@ public:
 	/// <param name="_pFileName">texture relative file path</param>
 	/// <param name="_size">size of texture</param>
 	/// <param name="_pos">position of object</param>
-	CMoveObject(const char* _pFileName, SVector2 _size, SVector2 _pos = SVector2()) : CTexturedObject(_pFileName, _size, _pos) {}
+	CMoveObject(const char* _pFileName, SVector2 _size, SVector2 _pos = SVector2()) : CTexturedObject(_pFileName, _size, _pos) 
+	{
+		SetLayer(5);
+	}
 #pragma endregion
 
 #pragma region destructor
