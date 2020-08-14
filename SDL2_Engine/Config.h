@@ -19,8 +19,13 @@ public:
 	static int s_WorldBlockSourceWidth;
 	static int s_WorldBlockSourceHeight;
 	static int s_PlayerWidth;
-	static int s_PlayerHeight;
+	static int s_PlayerTotalHeight;
+	static int s_PlayerTopHeight;
+	static int s_PlayerBottomHeight;
 	static int s_PlayerSrcWidth;
-	static int s_PlayerSrcHeight;
+	static int s_PlayerTopSrcHeight;
+	static int s_PlayerBottomSrcHeight;
+	static int s_EnemyWidth;
+	static int s_EnemyHeight;
 #pragma endregion
 };
