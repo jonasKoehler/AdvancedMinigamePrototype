@@ -115,9 +115,11 @@ public:
 	virtual ~GPlayer()
 	{
 		delete m_pBasicAttackSound;
+		m_WalkAnimations.clear(); // clear map, invalidating all pointers
 		delete m_pAttack;
 		delete m_pLowerBody;
 		delete m_pUpperBody;
+		delete m_pHitzoneTexture;
 	}
 #pragma endregion
 
@@ -157,19 +159,17 @@ private:
 	float m_AccelerationRate = 5.0f; // increases acceleration per sec (multiply with deltaTime)
 	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)
 
-	CTexturedObject* m_pHitzoneTexture = nullptr;
-	CTexturedObject* m_pUpperBody = nullptr;
-	CTexturedObject* m_pLowerBody = nullptr;
+	CTexturedObject* m_pHitzoneTexture = nullptr; // texture rect for attackzone
+	CTexturedObject* m_pUpperBody = nullptr; // texture rect for upperbody
+	CTexturedObject* m_pLowerBody = nullptr; // texture rect for legs
 
-	CAnimation* m_pAttack = nullptr;
-	CAnimation* m_pCurrentWalkAnimation = nullptr;
+	CAnimation* m_pAttack = nullptr; // attack animation pointer
+	CAnimation* m_pCurrentWalkAnimation = nullptr; // current walk animation pointer
 
-	map<EPlayerLookDirection, SRect> m_LookDirectionSrcRects;
-	map<EPlayerWalkDirection, CAnimation*> m_WalkAnimations;
-	/*
-	*	Sound Pointer
-	*/
-	CSound* m_pBasicAttackSound = nullptr;
+	map<EPlayerLookDirection, SRect> m_LookDirectionSrcRects; // map containing the source rects for each look direction
+	map<EPlayerWalkDirection, CAnimation*> m_WalkAnimations; // map containing animations for all walk directions
+
+	CSound* m_pBasicAttackSound = nullptr; // attack sound pointer
 #pragma endregion
 
 };

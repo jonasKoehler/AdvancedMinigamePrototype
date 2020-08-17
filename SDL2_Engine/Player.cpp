@@ -28,7 +28,8 @@ void GPlayer::Update(float _deltaSeconds)
 	m_pCurrentWalkAnimation->Update(_deltaSeconds); // update current animation after changes in Rotate()
 
 	Move(_deltaSeconds);
-	// if player was hit
+
+	// invincibility animation if player was hit
 	if (m_IsInvincible >= 0)
 	{
 		m_IsInvincible = std::fmax(0, m_IsInvincible - _deltaSeconds * 1000);
@@ -127,11 +128,9 @@ void GPlayer::Rotate()
 	m_Hitzone.y = hitzonePosY - m_Hitzone.h * 0.5f;
 
 	m_pHitzoneTexture->SetPosition(SVector2(hitzonePosX, hitzonePosY));
-	m_pHitzoneTexture->SetAngle(angle);
+	m_pHitzoneTexture->SetAngle(angle * -1); // *-1 to make it rotate counter clockwise
 
-	// neue currentAnimation anhand des winkels ermitteln
-	m_mirror.X = false;
-	m_mirror.Y = false;
+	// new look direction based on angle
 	switch ((int)angle)
 	{
 	case 0:
