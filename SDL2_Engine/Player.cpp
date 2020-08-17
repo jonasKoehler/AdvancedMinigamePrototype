@@ -22,15 +22,20 @@
 #pragma region public override function
 void GPlayer::Update(float _deltaSeconds)
 {
+	// if player died update animation and skip rest of update
 	if (m_ChangeSceneCountdownOnDeath > 0)
 	{
 		m_ChangeSceneCountdownOnDeath -= _deltaSeconds;
-		if (m_ChangeSceneCountdownOnDeath <= 0.1)
+
+		if (m_ChangeSceneCountdownOnDeath <= 0.1) // scene change and cleanup when timer expired
 		{
 			GAME->m_Won = false;
 			CTM->RemoveObject(this);
 			ENGINE->ChangeScene(new GEndScene());
 		}
+
+		m_pDeath->Update(_deltaSeconds);
+
 		return;
 	}
 
