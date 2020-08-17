@@ -22,6 +22,22 @@
 #pragma region public override function
 void GPlayer::Update(float _deltaSeconds)
 {
+	// if player died update animation and skip rest of update
+	if (m_ChangeSceneCountdownOnDeath > 0)
+	{
+		m_ChangeSceneCountdownOnDeath -= _deltaSeconds;
+
+		if (m_ChangeSceneCountdownOnDeath <= 0.1) // scene change and cleanup when timer expired
+		{
+			GAME->m_Won = false;
+			CTM->RemoveObject(this);
+			ENGINE->ChangeScene(new GEndScene());
+		}
+
+		m_pDeath->Update(_deltaSeconds);
+		return;
+	}
+
 	Rotate();
 
 	m_pHitzoneTexture->Update(_deltaSeconds); // update hitzone after changes in Rotate()
@@ -46,6 +62,7 @@ void GPlayer::Update(float _deltaSeconds)
 		}
 	}
 
+	// attack cooldown
 	if (m_AttackCooldown < 1.0f)
 	{
 		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
@@ -57,10 +74,9 @@ void GPlayer::Update(float _deltaSeconds)
 	{
 		BasicAttack();
 		m_pAttack->Start();
-		// add attack sound
 	}
 
-	for (CObject* pObject : m_colObject)
+	for (CObject* pObject : m_colObject) // @ Lukas: move this logic to the exit zone class
 	{
 		if (pObject->GetTag() == "Exit")
 		{
@@ -79,7 +95,19 @@ void GPlayer::Update(float _deltaSeconds)
 	m_pLowerBody->SetPosition(SVector2(m_position.X, m_position.Y + GConfig::s_PlayerTopHeight * 0.5));
 	m_pLowerBody->Update(_deltaSeconds);
 
-	CheckIfDead();
+	// on death logic
+	if (m_health <= 0)
+	{
+		m_render = false; // disable rendering of active player textures
+		m_pLowerBody->SetRenderingIndicator(m_render);
+		m_pUpperBody->SetRenderingIndicator(m_render);
+		m_pDeathRect->SetRenderingIndicator(true); // enable rendering of death animation rect
+		m_pDeathRect->SetPosition(m_position); // update position
+		m_pDeathRect->Update(_deltaSeconds); // call update to actually update the position
+		m_pDeath->Start(); // play the animation
+		m_ChangeSceneCountdownOnDeath = 1.5f; // timer set to animation length
+	}
+
 	RENDERER->SetCamera(m_position); // set camera position to player position
 	CMoveObject::Update(_deltaSeconds); // update parent
 }
@@ -88,8 +116,10 @@ void GPlayer::Render()
 {
 	m_pLowerBody->SetSrcRect(m_pCurrentWalkAnimation->GetNewSourceRect()); // set player source rect by current animation
 	m_pHitzoneTexture->SetSrcRect(m_pAttack->GetNewSourceRect()); // set hitzone animation src rect
+	m_pDeathRect->SetSrcRect(m_pDeath->GetNewSourceRect()); // get new src rect of death animation
 
 	m_pHitzoneTexture->Render();
+	m_pDeathRect->Render();
 	m_pUpperBody->Render();
 	m_pLowerBody->Render();
 	CTexturedObject::Render(); // render parent
