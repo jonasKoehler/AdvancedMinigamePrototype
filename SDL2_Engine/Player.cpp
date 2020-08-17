@@ -35,7 +35,6 @@ void GPlayer::Update(float _deltaSeconds)
 		}
 
 		m_pDeath->Update(_deltaSeconds);
-
 		return;
 	}
 
@@ -99,10 +98,14 @@ void GPlayer::Update(float _deltaSeconds)
 	// on death logic
 	if (m_health <= 0)
 	{
-		m_render = false;
-		m_pDeathRect->SetRenderingIndicator(true);
-		m_pDeath->Start();
-		m_ChangeSceneCountdownOnDeath = 1.8f; // timer set to animation length
+		m_render = false; // disable rendering of active player textures
+		m_pLowerBody->SetRenderingIndicator(m_render);
+		m_pUpperBody->SetRenderingIndicator(m_render);
+		m_pDeathRect->SetRenderingIndicator(true); // enable rendering of death animation rect
+		m_pDeathRect->SetPosition(m_position); // update position
+		m_pDeathRect->Update(_deltaSeconds); // call update to actually update the position
+		m_pDeath->Start(); // play the animation
+		m_ChangeSceneCountdownOnDeath = 1.5f; // timer set to animation length
 	}
 
 	RENDERER->SetCamera(m_position); // set camera position to player position

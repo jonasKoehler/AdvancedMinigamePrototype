@@ -102,6 +102,7 @@ public:
 			_pos
 		);
 		m_pDeathRect->SetRenderingIndicator(false);
+		m_pDeathRect->SetInWorld(true);
 
 		m_pDeath = new CAnimation
 		(
