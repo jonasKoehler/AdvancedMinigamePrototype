@@ -133,7 +133,9 @@ public:
 	{
 		delete m_pBasicAttackSound;
 		m_WalkAnimations.clear(); // clear map, invalidating all pointers
+		delete m_pDeath;
 		delete m_pAttack;
+		delete m_pDeathRect;
 		delete m_pLowerBody;
 		delete m_pUpperBody;
 		delete m_pHitzoneTexture;
