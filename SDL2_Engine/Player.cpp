@@ -22,6 +22,18 @@
 #pragma region public override function
 void GPlayer::Update(float _deltaSeconds)
 {
+	if (m_ChangeSceneCountdownOnDeath > 0)
+	{
+		m_ChangeSceneCountdownOnDeath -= _deltaSeconds;
+		if (m_ChangeSceneCountdownOnDeath <= 0.1)
+		{
+			GAME->m_Won = false;
+			CTM->RemoveObject(this);
+			ENGINE->ChangeScene(new GEndScene());
+		}
+		return;
+	}
+
 	Rotate();
 
 	m_pHitzoneTexture->Update(_deltaSeconds); // update hitzone after changes in Rotate()
@@ -46,6 +58,7 @@ void GPlayer::Update(float _deltaSeconds)
 		}
 	}
 
+	// attack cooldown
 	if (m_AttackCooldown < 1.0f)
 	{
 		m_AttackCooldown += _deltaSeconds * m_AttacksPerSecond; // attackspeed 
@@ -57,10 +70,9 @@ void GPlayer::Update(float _deltaSeconds)
 	{
 		BasicAttack();
 		m_pAttack->Start();
-		// add attack sound
 	}
 
-	for (CObject* pObject : m_colObject)
+	for (CObject* pObject : m_colObject) // @ Lukas: move this logic to the exit zone class
 	{
 		if (pObject->GetTag() == "Exit")
 		{
@@ -79,7 +91,15 @@ void GPlayer::Update(float _deltaSeconds)
 	m_pLowerBody->SetPosition(SVector2(m_position.X, m_position.Y + GConfig::s_PlayerTopHeight * 0.5));
 	m_pLowerBody->Update(_deltaSeconds);
 
-	CheckIfDead();
+	// on death logic
+	if (m_health <= 0)
+	{
+		m_render = false;
+		m_pDeathRect->SetRenderingIndicator(true);
+		m_pDeath->Start();
+		m_ChangeSceneCountdownOnDeath = 1.8f; // timer set to animation length
+	}
+
 	RENDERER->SetCamera(m_position); // set camera position to player position
 	CMoveObject::Update(_deltaSeconds); // update parent
 }
@@ -88,8 +108,10 @@ void GPlayer::Render()
 {
 	m_pLowerBody->SetSrcRect(m_pCurrentWalkAnimation->GetNewSourceRect()); // set player source rect by current animation
 	m_pHitzoneTexture->SetSrcRect(m_pAttack->GetNewSourceRect()); // set hitzone animation src rect
+	m_pDeathRect->SetSrcRect(m_pDeath->GetNewSourceRect()); // get new src rect of death animation
 
 	m_pHitzoneTexture->Render();
+	m_pDeathRect->Render();
 	m_pUpperBody->Render();
 	m_pLowerBody->Render();
 	CTexturedObject::Render(); // render parent

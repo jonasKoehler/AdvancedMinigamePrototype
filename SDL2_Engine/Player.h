@@ -66,7 +66,7 @@ public:
 
 		m_pUpperBody = new CTexturedObject
 		(
-			_pFile, 
+			_pFile,
 			SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerTopHeight),
 			_pos
 		);
@@ -95,12 +95,29 @@ public:
 			);
 		}
 
+		m_pDeathRect = new CTexturedObject
+		(
+			"Texture/Character/Player/T_PlayerDeath.png",
+			SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerTotalHeight),
+			_pos
+		);
+		m_pDeathRect->SetRenderingIndicator(false);
+
+		m_pDeath = new CAnimation
+		(
+			SVector2(),
+			SVector2(1230, 2016),
+			1.5,
+			7,
+			false
+		);
+
 		m_pAttack = new CAnimation
 		(
-			SVector2(-330, 5656), 
-			SVector2(330, 307), 
-			0.1, 
-			2, 
+			SVector2(-330, 5656),
+			SVector2(330, 307),
+			0.1,
+			2,
 			false
 		);
 
@@ -155,6 +172,7 @@ private:
 	float m_AttackCooldown = 1.0f; // one second attack cooldown	
 
 	int m_IsInvincible = 0; // milliseconds of invincibility after getting hit
+	float m_ChangeSceneCountdownOnDeath = 0; // seconds after player dies until scene change
 
 	float m_AccelerationRate = 5.0f; // increases acceleration per sec (multiply with deltaTime)
 	float m_DecelerationRate = 5.0f; // decreases acceleration per sec (multiply with deltaTime)
@@ -162,9 +180,11 @@ private:
 	CTexturedObject* m_pHitzoneTexture = nullptr; // texture rect for attackzone
 	CTexturedObject* m_pUpperBody = nullptr; // texture rect for upperbody
 	CTexturedObject* m_pLowerBody = nullptr; // texture rect for legs
+	CTexturedObject* m_pDeathRect = nullptr; // texture rect for death animation
 
 	CAnimation* m_pAttack = nullptr; // attack animation pointer
 	CAnimation* m_pCurrentWalkAnimation = nullptr; // current walk animation pointer
+	CAnimation* m_pDeath = nullptr; // death animation
 
 	map<EPlayerLookDirection, SRect> m_LookDirectionSrcRects; // map containing the source rects for each look direction
 	map<EPlayerWalkDirection, CAnimation*> m_WalkAnimations; // map containing animations for all walk directions
