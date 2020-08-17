@@ -20,28 +20,15 @@
 // initialize scene
 void GMenuScene::Init()
 {
-<<<<<<< HEAD
+	//Create Title
 	CTextObject* pTitle = new CTextObject("Covid Operations", GAME->GetFont(), SVector2(428.0f, 32.0f), SVector2(512.0f, 56.0f), SColor(255, 0, 0));
 	pTitle->SetInWorld(false);
 	CTM->AddUiObject(pTitle);
-	// create start text
-	CTextObject* pStart = new CTextObject("Start Game", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(255, 0, 0));
-=======
 
 	//Create Backround 
-#pragma region Background
-	CTexture* pBackgroundTexture = new CTexture("Texture/Menu/T_Mainmenu.png");
-	
-	CTexturedObject* pBackground = new CTexturedObject(
-		"",
-		SVector2()
-	);
-	pBackground->SetTexture(pBackgroundTexture);
+	CTexturedObject* pBackground = new CTexturedObject("Texture/Menu/T_Mainmenu.png", SVector2());
 	CTM->AddSceneObject(pBackground);
-
-#pragma endregion
 	
-
 	//Button Backround
 	CTexturedObject* pStartBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(12.0f, -70.0f));
 	CTM->AddUiObject(pStartBackground);
@@ -50,17 +37,12 @@ void GMenuScene::Init()
 
 	// create start text
 	CTextObject* pStart = new CTextObject("Start Game", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(652.0f, 300.0f), SColor(255, 0, 0));
->>>>>>> b106dcf9a09264f72990a0542719cee969ac0614
 	pStart->SetInWorld(false);
 	pStart->SetTag("Start");
 	CTM->AddUiObject(pStart);
 
 	// create quit text
-<<<<<<< HEAD
-	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 480.0f), SColor(255, 0, 0));
-=======
 	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(652.0f, 400.0f), SColor(255, 0, 0));
->>>>>>> b106dcf9a09264f72990a0542719cee969ac0614
 	pQuit->SetInWorld(false);
 	pQuit->SetTag("Quit");
 	CTM->AddUiObject(pQuit);
