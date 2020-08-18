@@ -28,7 +28,7 @@ void GMainScene::Init()
 	m_pMusic->Play(true);
 
 	// get player reference
-	for (CObject* pObject : CTM->GetSceneObjects()) // search all scene objects
+	for (CObject* pObject : CTM->GetPersistentObjects()) // search all scene objects
 	{
 		if (pObject->GetTag() == "Player") // player is found
 		{
@@ -140,4 +140,5 @@ void GMainScene::Clean()
 	delete m_pMusic;
 	CTM->CleanUiObjects();
 	CTM->CleanSceneObjects();
+	CTM->CleanPersistentObjects();
 }

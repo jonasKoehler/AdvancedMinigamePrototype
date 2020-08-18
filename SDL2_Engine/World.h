@@ -21,10 +21,11 @@
 #pragma endregion
 
 #pragma region using
+#include <random>
 using namespace std;
 #pragma endregion
 
-#pragma region function
+#pragma region functions
 /// <summary>
 /// load world string from txt file
 /// </summary>
@@ -84,7 +85,7 @@ string LoadWorldStringFromImage(const char* _pFile) // by Lukas
 		uint8_t b = pPixel[2];
 
 		// check values and add depending char
-		//Bottom
+		//Void
 		if (r == 255 && g == 255 && b == 255)
 			text += '0';
 		//Player
@@ -110,7 +111,7 @@ string LoadWorldStringFromImage(const char* _pFile) // by Lukas
 			text += 'V';
 		//Bottom Wall
 		else if (r == 255 && g == 150 && b == 255)
-			text += 'D';
+			text += 'B';
 		//Left Up Corner Inside
 		else if (r == 0 && g == 250 && b == 250)
 			text += '1';
@@ -131,17 +132,16 @@ string LoadWorldStringFromImage(const char* _pFile) // by Lukas
 			text += '6';
 		//Right Up Corner Outside
 		else if (r == 0 && g == 125 && b == 125)
-			text += '7'; 
+			text += '7';
 		//Right Bottom Corner Outside
 		else if (r == 50 && g == 50 && b == 80)
 			text += '8';
+		//Floor
 		else if (r == 0 && g == 0 && b == 0)
 			text += '#';
 
-
 		// increase pixel by format
 		pPixel += pWorld->format->BytesPerPixel;
-		
 
 		// if end of line add new line char
 		if ((i + 1) % pWorld->w == 0)
@@ -153,6 +153,44 @@ string LoadWorldStringFromImage(const char* _pFile) // by Lukas
 	return text;
 }
 
+void GenerateFloorDetail(CTexture* _pWorldTexture, SVector2 _worldPos)
+{
+	int rnd = rand() % 1001; // random number between 0 and 1000
+
+	if (rnd >= 20) // 2% chance to create a detail tile
+		return;
+
+	CTexturedObject* pDetailTile = new CTexturedObject
+	(
+		"",
+		SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
+		_worldPos
+	);
+	pDetailTile->SetTexture(_pWorldTexture); // set tilemap as texture
+	pDetailTile->SetColType(ECollisionType::NONE); // set col type of floor
+	pDetailTile->SetLayer(1); // set layer one higher than regular floor
+
+	SRect srcRect = SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight); // source rect by config values
+	srcRect.x = GConfig::s_WorldBlockSourceWidth; // x of first floor detail frame in texture
+	srcRect.y = 4 * GConfig::s_WorldBlockSourceHeight; // y of first floor detail frame in texture
+
+	if (rnd >= 15)
+	{
+		srcRect.x += GConfig::s_WorldBlockSourceWidth;
+	}
+	else if (rnd >= 10)
+	{
+		srcRect.x += GConfig::s_WorldBlockSourceWidth * 2;
+	}
+	else if (rnd >= 5)
+	{
+		srcRect.y += GConfig::s_WorldBlockSourceHeight;
+	}
+
+	pDetailTile->SetSrcRect(srcRect); // set srcRect
+	CTM->AddSceneObject(pDetailTile); // add to CTM
+}
+
 /// <summary>
 /// load world from string
 /// </summary>
@@ -162,17 +200,17 @@ void LoadWorldFromString()
 	world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
 
 	// Keep for testing
-	/*world += "#########################################################################\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000000E00000000000000000000000000000000000000000000000000000#\n";
-	world += "#000000000000000000000000000000000000000000000000E0000000000000000000000#\n";
-	world += "#000000000000000000000000000000000000000000000000000000E0000000000000000#\n";
-	world += "#0000000000000000000000000000000000S000000000000000000000000000000000000#\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#00000000000000E000000000000000000000000000000000000000000E0000000000000#\n";
-	world += "#00000000000000000000000000000000000000000000000000000000000000000000000#\n";
-	world += "#########################################################################";*/
+	//world += "1UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU3\n";
+	//world += "L######################################################E################R\n";
+	//world += "L###########E###########################################################R\n";
+	//world += "L##########################E########E###################################R\n";
+	//world += "L###########################################E###########################R\n";
+	//world += "L#S##################################E#####E############E###########X###R\n";
+	//world += "L#######################################################################R\n";
+	//world += "L##############################################E########################R\n";
+	//world += "L############E#####################E########################E###########R\n";
+	//world += "L##########E############################################################R\n";
+	//world += "2BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB4";
 
 	// width and height counter
 	int width = -1, height = 0;
@@ -183,114 +221,107 @@ void LoadWorldFromString()
 	// check every char
 	for (int i = 0; i < world.length(); i++)
 	{
-		// if current char is new line
-
-		if (world[i] == '0')
+		if (world[i] == '0') // skip empty space
 		{
 			width++;
 			continue;
 		}
+
 		if (world[i] == '\n')
 		{
-			height++; // increase height
+			height++; // increase height on new line
 			width = -1; // reset width
-			continue; // start new loop
+			continue;
 		}
 
 		// increase width
 		width++;
+		SVector2 worldPos = SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight);
 
+		// create tile and set it to floor srcRect as base
+		CTexturedObject* pNewWorldTile = new CTexturedObject
+		(
+			"",
+			SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
+			worldPos
+		);
+		pNewWorldTile->SetTexture(pGameTilemap); // set tilemap as texture
+		pNewWorldTile->SetColType(ECollisionType::NONE); // set col type of floor
 
-		if (world[i] == 'S') // if char indicates the player
+		SRect srcRect = SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight); // source rect by config values
+		srcRect.x = 0; // x of floor frame in texture
+		srcRect.y = 4 * GConfig::s_WorldBlockSourceHeight; // y of floor frame in texture
+
+		pNewWorldTile->SetSrcRect(srcRect); // set srcRect
+		CTM->AddSceneObject(pNewWorldTile); // add to CTM
+
+		// switch current char
+		switch (world[i])
+		{
+		case '#':
+		{
+			//GenerateFloorDetail(pGameTilemap, worldPos);
+			break;
+		}
+		case 'E': //Enemy
+		{
+			// create enemy
+			GEnemy* pEnemy = new GEnemy(
+				"Texture/Character/Enemy/T_Enemy.png",
+				SVector2(GConfig::s_EnemyWidth, GConfig::s_EnemyHeight),
+				worldPos
+			);
+			CTM->AddPersistentObject(pEnemy);
+			break;
+		}
+		case 'S': //Player
 		{
 			// create player
 			GPlayer* pPlayer = new GPlayer
 			(
 				"Texture/Character/Player/T_Player.png",
 				SVector2(GConfig::s_PlayerWidth, GConfig::s_PlayerTotalHeight),
-				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
+				worldPos
 			);
-			CTM->AddSceneObject(pPlayer);
-			continue; // check next char
+			CTM->AddPersistentObject(pPlayer);
+			break;
 		}
-
-		if (world[i] == 'E') // if char indicates an enemy
-		{
-			// create enemy
-			GEnemy* pEnemy = new GEnemy(
-				"Texture/Character/Enemy/T_Enemy.png",
-				SVector2(GConfig::s_EnemyWidth, GConfig::s_EnemyHeight),
-				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
-			);
-			CTM->AddSceneObject(pEnemy);
-			continue; // check next char
-		}
-
-		if (world[i] == 'X') // if char indicates the exit
+		case 'X': //Exit
 		{
 			// create Exitzone
 			GExitzone* pExitzone = new GExitzone(
 				"Texture/Exit/T_Exit.png",
 				SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
-				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
+				worldPos
 			);
 			pExitzone->SetColType(ECollisionType::STATIC);
 			pExitzone->SetTag("Exit");
-			CTM->AddSceneObject(pExitzone);
-
-			continue; // check next char
+			CTM->AddPersistentObject(pExitzone);
+			break;
 		}
-
-
-		if (world[i] == 'V') // if char indicates an Upgradepoint
+		case 'V': //UpgradePoint
 		{
-			// create Exitzone
+			// create UpgradePoint
 			GExitzone* pUpgradepoint = new GExitzone(
 				"Texture/Exit/T_Exit.png",
 				SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
-				SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
+				worldPos
 			);
 			pUpgradepoint->SetColType(ECollisionType::STATIC);
 			pUpgradepoint->SetTag("Upgradpoint");
-			CTM->AddSceneObject(pUpgradepoint);
-
-			continue; // check next char
-		}
-
-		// when this is reached the char is meant to be a TexturedObject
-		// create textured object
-		CTexturedObject* pNewWorldTile = new CTexturedObject
-		(
-			"",
-			SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
-			SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight)
-		);
-
-		pNewWorldTile->SetTexture(pGameTilemap); // set tilemap as texture
-		pNewWorldTile->SetColType(ECollisionType::NONE); // world tiles have no collision by default
-
-		SRect srcRect = SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight); // source rect by config values
-
-		// switch current char
-		switch (world[i])
-		{
-		case '#': //Bottom
-		{
-			pNewWorldTile->SetColType(ECollisionType::NONE); 
-			srcRect.x = 0;
-			srcRect.y = 4 * GConfig::s_WorldBlockSourceHeight;
+			CTM->AddPersistentObject(pUpgradepoint);
 			break;
 		}
-		case 'U': //Ceiling
+		case 'U': //Top Wall
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = 0;
 			srcRect.y = 0;
 			break;
 		}
-		case 'D': //Bottom Wall
+		case 'B': //Bottom Wall
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 0;
 			break;
@@ -298,23 +329,23 @@ void LoadWorldFromString()
 		}
 		case 'L': //Left Wall
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = 2 * GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 0;
 			break;
 		}
 		case 'R': //Right Wall
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = 3 * GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 0;
 			break;
 		}
-		case '1': // Left Up Corner
+		case '1': //Left Up Corner
 		{
 			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = 0;
-			srcRect.y = 2*  GConfig::s_WorldBlockSourceHeight;
+			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
 		case '2': //Left Down Corner
@@ -326,14 +357,14 @@ void LoadWorldFromString()
 		}
 		case '3': //Right Up Corner
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = 2 * GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
 		case '4': //Right Down Corner
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); 
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
 			srcRect.x = 3 * GConfig::s_WorldBlockSourceWidth;
 			srcRect.y = 2 * GConfig::s_WorldBlockSourceHeight;
 			break;
@@ -347,8 +378,8 @@ void LoadWorldFromString()
 		}
 		case '6':
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); 
-			srcRect.x =0;
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
+			srcRect.x = 0;
 			srcRect.y = 3 * GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
@@ -361,18 +392,16 @@ void LoadWorldFromString()
 		}
 		case '8':
 		{
-			pNewWorldTile->SetColType(ECollisionType::STATIC); 
-			srcRect.x = GConfig::s_WorldBlockSourceWidth ;
-			srcRect.y = 3* GConfig::s_WorldBlockSourceHeight;
+			pNewWorldTile->SetColType(ECollisionType::STATIC);
+			srcRect.x = GConfig::s_WorldBlockSourceWidth;
+			srcRect.y = 3 * GConfig::s_WorldBlockSourceHeight;
 			break;
 		}
 		default:
 			break;
 		}
 
-		pNewWorldTile->SetSrcRect(srcRect); // set sec rect
-
-		CTM->AddSceneObject(pNewWorldTile); // add to CTM
+		pNewWorldTile->SetSrcRect(srcRect); // set srcRect
 	}
 }
 #pragma endregion

@@ -281,7 +281,7 @@ void GPlayer::BasicAttack()
 	m_pBasicAttackSound->Play();
 
 	//check every scene object
-	for (CObject* pObject : CTM->GetSceneObjects())
+	for (CObject* pObject : CTM->GetPersistentObjects())
 	{
 		// if its not an enemy continue to next object
 		if (pObject->GetTag() != "Enemy")

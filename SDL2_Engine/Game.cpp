@@ -7,11 +7,14 @@
 #pragma region game include
 #include "Game.h"
 #pragma endregion
-
+#include <time.h>
 #pragma region public function
 // initialize game
 void GGame::Init()
 {
+	// seed for rng
+	srand(time(0));
+
 	// load config
 	GConfig::LoadConfig();
 

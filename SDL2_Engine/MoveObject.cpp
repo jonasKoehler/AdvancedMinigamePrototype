@@ -156,20 +156,19 @@ void CMoveObject::SetColObjects()
 // check collision with possible objects
 bool CMoveObject::CheckCollision(SRect _nextRect)
 {
+	bool hadCollision = false;
 	// check every collision object
 	for (CTexturedObject* pObject : m_colObject)
+	{
 		// check collision with current object
 		if (RectRectCollision(_nextRect, pObject->GetRect()))
 		{
 			// if collision return true
 			OnCollisionEnter(pObject);
-			return true;
+			hadCollision = true;
 		}
+	}
 	// if no collision with any object return false
-	return false;
+	return hadCollision;
 }
-
-
-
-
 #pragma endregion
