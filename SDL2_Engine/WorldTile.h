@@ -21,11 +21,7 @@ public:
 
 	void Update(float _deltaSeconds) override;
 
-	inline void SetDetailObject(CTexturedObject* _detail) 
-	{
-		m_pDetail = _detail; 
-		m_pDetail->SetLayer(m_layer + 1);
-	}
+	inline void SetDetailObject(CTexturedObject* _detail) { m_pDetail = _detail; }
 #pragma endregion
 
 #pragma region private member variables

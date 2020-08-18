@@ -2,10 +2,10 @@
 
 void GWorldTile::Render()
 {
+	CTexturedObject::Render();
+	
 	if (m_pDetail)
 		m_pDetail->Render();
-
-	CTexturedObject::Render();
 }
 
 void GWorldTile::Update(float _deltaSeconds)

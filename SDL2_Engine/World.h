@@ -18,6 +18,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Exitzone.h"
+#include "WorldTile.h"
 #pragma endregion
 
 #pragma region using
@@ -153,18 +154,22 @@ string LoadWorldStringFromImage(const char* _pFile) // by Lukas
 	return text;
 }
 
-void GenerateFloorDetail(CTexture* _pWorldTexture, SVector2 _worldPos)
+void GenerateFloorDetail(GWorldTile* _pWorldTile, CTexture* _pWorldTexture) // by Jonas
 {
 	int rnd = rand() % 1001; // random number between 0 and 1000
 
-	if (rnd >= 20) // 2% chance to create a detail tile
+	int detailVariants = 4; // number of detail object variants
+	int baseChance = 20; // 2% to place a detail object
+	int chancePerDetail = baseChance / detailVariants;
+
+	if (rnd >= baseChance) // return when base chance is exceeded
 		return;
 
 	CTexturedObject* pDetailTile = new CTexturedObject
 	(
 		"",
 		SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
-		_worldPos
+		SVector2()
 	);
 	pDetailTile->SetTexture(_pWorldTexture); // set tilemap as texture
 	pDetailTile->SetColType(ECollisionType::NONE); // set col type of floor
@@ -174,21 +179,22 @@ void GenerateFloorDetail(CTexture* _pWorldTexture, SVector2 _worldPos)
 	srcRect.x = GConfig::s_WorldBlockSourceWidth; // x of first floor detail frame in texture
 	srcRect.y = 4 * GConfig::s_WorldBlockSourceHeight; // y of first floor detail frame in texture
 
-	if (rnd >= 15)
+	if (rnd >= chancePerDetail * 3)
 	{
 		srcRect.x += GConfig::s_WorldBlockSourceWidth;
 	}
-	else if (rnd >= 10)
+	else if (rnd >= chancePerDetail * 2)
 	{
 		srcRect.x += GConfig::s_WorldBlockSourceWidth * 2;
 	}
-	else if (rnd >= 5)
+	else if (rnd >= chancePerDetail * 1)
 	{
-		srcRect.y += GConfig::s_WorldBlockSourceHeight;
+		srcRect.y += GConfig::s_WorldBlockSourceHeight; // this is why a for loop couldnt work, the detail frames are not in one line in the tilemap
 	}
+	// else if (rnd >= 0) is unnecessary
 
 	pDetailTile->SetSrcRect(srcRect); // set srcRect
-	CTM->AddSceneObject(pDetailTile); // add to CTM
+	_pWorldTile->SetDetailObject(pDetailTile);
 }
 
 /// <summary>
@@ -236,10 +242,11 @@ void LoadWorldFromString()
 
 		// increase width
 		width++;
+		// calculate world position of new objects
 		SVector2 worldPos = SVector2(width * GConfig::s_WorldBlockWidth, height * GConfig::s_WorldBlockHeight);
 
 		// create tile and set it to floor srcRect as base
-		CTexturedObject* pNewWorldTile = new CTexturedObject
+		GWorldTile* pNewWorldTile = new GWorldTile
 		(
 			"",
 			SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
@@ -258,9 +265,9 @@ void LoadWorldFromString()
 		// switch current char
 		switch (world[i])
 		{
-		case '#':
+		case '#': // Floor
 		{
-			//GenerateFloorDetail(pGameTilemap, worldPos);
+			GenerateFloorDetail(pNewWorldTile, pGameTilemap);
 			break;
 		}
 		case 'E': //Enemy

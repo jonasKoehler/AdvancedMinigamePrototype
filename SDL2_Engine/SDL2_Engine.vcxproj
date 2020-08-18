@@ -210,6 +210,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClCompile Include="TextureManagement.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="UpgradeManager.cpp" />
+    <ClCompile Include="WorldTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -250,6 +251,7 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClInclude Include="UpgradeManager.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
