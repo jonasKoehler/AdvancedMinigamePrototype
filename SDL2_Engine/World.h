@@ -197,20 +197,20 @@ void GenerateFloorDetail(CTexture* _pWorldTexture, SVector2 _worldPos)
 void LoadWorldFromString()
 {
 	string world = "";
-	//world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
+	world = LoadWorldStringFromImage(GetAssetPath("Config/World.png").c_str());
 
 	// Keep for testing
-	world += "1UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU3\n";
-	world += "L######################################################E################R\n";
-	world += "L###########E###########################################################R\n";
-	world += "L##########################E########E###################################R\n";
-	world += "L###########################################E###########################R\n";
-	world += "L#S##################################E#####E############E###########X###R\n";
-	world += "L#######################################################################R\n";
-	world += "L##############################################E########################R\n";
-	world += "L############E#####################E########################E###########R\n";
-	world += "L##########E############################################################R\n";
-	world += "2BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB4";
+	//world += "1UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU3\n";
+	//world += "L######################################################E################R\n";
+	//world += "L###########E###########################################################R\n";
+	//world += "L##########################E########E###################################R\n";
+	//world += "L###########################################E###########################R\n";
+	//world += "L#S##################################E#####E############E###########X###R\n";
+	//world += "L#######################################################################R\n";
+	//world += "L##############################################E########################R\n";
+	//world += "L############E#####################E########################E###########R\n";
+	//world += "L##########E############################################################R\n";
+	//world += "2BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB4";
 
 	// width and height counter
 	int width = -1, height = 0;
@@ -260,7 +260,7 @@ void LoadWorldFromString()
 		{
 		case '#':
 		{
-			GenerateFloorDetail(pGameTilemap, worldPos);
+			//GenerateFloorDetail(pGameTilemap, worldPos);
 			break;
 		}
 		case 'E': //Enemy
