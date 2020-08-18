@@ -108,7 +108,7 @@ public:
 		(
 			SVector2(),
 			SVector2(1230, 2016),
-			1.5,
+			3,
 			7,
 			false
 		);

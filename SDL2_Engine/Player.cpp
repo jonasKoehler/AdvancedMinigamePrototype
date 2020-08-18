@@ -105,7 +105,7 @@ void GPlayer::Update(float _deltaSeconds)
 		m_pDeathRect->SetPosition(m_position); // update position
 		m_pDeathRect->Update(_deltaSeconds); // call update to actually update the position
 		m_pDeath->Start(); // play the animation
-		m_ChangeSceneCountdownOnDeath = 1.5f; // timer set to animation length
+		m_ChangeSceneCountdownOnDeath = 3; // timer set to animation length
 	}
 
 	RENDERER->SetCamera(m_position); // set camera position to player position
