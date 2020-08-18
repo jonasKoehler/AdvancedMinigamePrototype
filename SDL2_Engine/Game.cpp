@@ -7,7 +7,11 @@
 #pragma region game include
 #include "Game.h"
 #pragma endregion
+
+#pragma region std includes
 #include <time.h>
+#pragma endregion
+
 #pragma region public function
 // initialize game
 void GGame::Init()
@@ -18,15 +22,15 @@ void GGame::Init()
 	// load config
 	GConfig::LoadConfig();
 
-	// create mario font
-	m_pFont = new CFont("Font/F_Mario.ttf", 72);
+	// create base font
+	m_pFont = new CFont("Font/F_Arial.ttf", 72);
 
 	// create Menu Font
 	m_pMenuFont = new CFont("Font/F_Menufont.ttf", 72);
 
 	// set mouse texture and default visible
 	ENGINE->SetMouseVisible(true);
-	
+
 	// load menu scene
 	ENGINE->ChangeScene(new GMenuScene());
 }
