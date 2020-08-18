@@ -21,6 +21,7 @@
 #pragma endregion
 
 #pragma region using
+#include <random>
 using namespace std;
 #pragma endregion
 
@@ -152,9 +153,42 @@ string LoadWorldStringFromImage(const char* _pFile) // by Lukas
 	return text;
 }
 
-void GenerateFloorDetail(CTexture* _worldTexture, SVector2 _worldPos)
+void GenerateFloorDetail(CTexture* _pWorldTexture, SVector2 _worldPos)
 {
+	int rnd = rand() % 1001; // random number between 0 and 1000
 
+	if (rnd >= 20) // 2% chance to create a detail tile
+		return;
+
+	CTexturedObject* pDetailTile = new CTexturedObject
+	(
+		"",
+		SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
+		_worldPos
+	);
+	pDetailTile->SetTexture(_pWorldTexture); // set tilemap as texture
+	pDetailTile->SetColType(ECollisionType::NONE); // set col type of floor
+	pDetailTile->SetLayer(1); // set layer one higher than regular floor
+
+	SRect srcRect = SRect(GConfig::s_WorldBlockSourceWidth, GConfig::s_WorldBlockSourceHeight); // source rect by config values
+	srcRect.x = GConfig::s_WorldBlockSourceWidth; // x of first floor detail frame in texture
+	srcRect.y = 4 * GConfig::s_WorldBlockSourceHeight; // y of first floor detail frame in texture
+
+	if (rnd >= 15)
+	{
+		srcRect.x += GConfig::s_WorldBlockSourceWidth;
+	}
+	else if (rnd >= 10)
+	{
+		srcRect.x += GConfig::s_WorldBlockSourceWidth * 2;
+	}
+	else if (rnd >= 5)
+	{
+		srcRect.y += GConfig::s_WorldBlockSourceHeight;
+	}
+
+	pDetailTile->SetSrcRect(srcRect); // set srcRect
+	CTM->AddSceneObject(pDetailTile); // add to CTM
 }
 
 /// <summary>
@@ -224,7 +258,11 @@ void LoadWorldFromString()
 		// switch current char
 		switch (world[i])
 		{
-		case '#': break;
+		case '#':
+		{
+			GenerateFloorDetail(pGameTilemap, worldPos);
+			break;
+		}
 		case 'E': //Enemy
 		{
 			// create enemy
