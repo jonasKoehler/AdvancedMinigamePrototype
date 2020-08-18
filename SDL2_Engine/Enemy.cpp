@@ -20,8 +20,6 @@ void GEnemy::Render()
 	CMoveObject::Render();
 }
 
-//Search for the Position and then Move to Player
-
 void GEnemy::CheckIfDead()
 {
 	if (m_health <= 0)
@@ -32,42 +30,46 @@ void GEnemy::CheckIfDead()
 
 void GEnemy::MoveToPlayer()
 {
-	//Find the Player and his Position
-	for (CObject* pObject : CTM->GetSceneObjects()) // dont search a (very large) list every frame, use a pointer reference of the players position vector, or whole player class instead
+	if (!m_playerpos)
 	{
-		// if its not an enemy continue to next object
-		if (pObject->GetTag() != "Player")
-			continue;
-		else
+		//Find the Player and his Position
+		for (CObject* pObject : CTM->GetPersistentObjects())
 		{
-			m_playerpos = pObject->GetPosition();
+			// if its not an enemy continue to next object
+			if (pObject->GetTag() != "Player")
+				continue;
+			else
+			{
+				m_playerpos = pObject->GetPositionPointer();
+			}
 		}
+		return; // do nothing if playerpos is nullpointer
 	}
 
 	//Check Position X and Walks to this Position
-	if (m_position.X >= m_playerpos.X)
+	if (m_position.X >= m_playerpos->X)
 	{
 		m_movement.X = -1.0f; //Walks to his Position
 	}
-	if (m_position.X <= m_playerpos.X)
+	if (m_position.X <= m_playerpos->X)
 	{
 		m_movement.X = 1.0f;
 	}
-	if (m_position.X == m_playerpos.X)
+	if (m_position.X == m_playerpos->X)
 	{
 		m_movement.X = 0;
 	}
 
 	//Check Position Y and Walks to this Position
-	if (m_position.Y >= m_playerpos.Y)
+	if (m_position.Y >= m_playerpos->Y)
 	{
 		m_movement.Y = -1.0f;
 	}
-	if (m_position.Y <= m_playerpos.Y)
+	if (m_position.Y <= m_playerpos->Y)
 	{
 		m_movement.Y = 1.0f;
 	}
-	if (m_position.Y == m_playerpos.Y)
+	if (m_position.Y == m_playerpos->Y)
 	{
 		m_movement.Y = 0;
 	}
