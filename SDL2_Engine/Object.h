@@ -62,6 +62,7 @@ public:
 	/// </summary>
 	/// <returns>position of object</returns>
 	inline SVector2 GetPosition() { return m_position; }
+	inline SVector2* GetPositionPointer() { return &m_position; }
 
 	/// <summary>
 	/// set position
