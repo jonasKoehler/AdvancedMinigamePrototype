@@ -4,6 +4,7 @@
 #include "ContentManagement.h"
 #include "Input.h"
 #include "Physic.h"
+#include "Macro.h"
 #include "MainScene.h"
 
 #pragma region pulic override function
@@ -14,7 +15,7 @@ void GEndScene::Init()
 	// When the Game is won
 	if (GAME->m_Won == true)
 	{
-		CTextObject* pWon = new CTextObject("You won!", GAME->GetFont(), SVector2(228.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(0, 255, 0));
+		CTextObject* pWon = new CTextObject("You won!", GAME->GetFont(), SVector2(300.0f, 50.0f), SVector2(SCREEN_WIDTH * 0.5, 200.0f), SColor(0, 255, 0));
 		pWon->SetInWorld(false);
 		CTM->AddUiObject(pWon);
 	}
@@ -22,19 +23,19 @@ void GEndScene::Init()
 	// When the Game is lose
 	if (GAME->m_Won == false)
 	{
-		CTextObject* pWon = new CTextObject("Oh No! You died!", GAME->GetFont(), SVector2(228.0f, 32.0f), SVector2(512.0f, 256.0f), SColor(255,0, 0));
+		CTextObject* pWon = new CTextObject("Oh No! You died!", GAME->GetFont(), SVector2(300.0f, 50.0f), SVector2(SCREEN_WIDTH * 0.5, 200.0f), SColor(255,0, 0));
 		pWon->SetInWorld(false);
 		CTM->AddUiObject(pWon);
 	}
 
 	//create restart text
-	CTextObject* pRestart = new CTextObject("Restart", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 480.0f), SColor(255, 0, 0));
+	CTextObject* pRestart = new CTextObject("Restart", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(SCREEN_WIDTH * 0.5, 380.0f), SColor(255, 0, 0));
 	pRestart->SetInWorld(false);
 	pRestart->SetTag("Restart");
 	CTM->AddUiObject(pRestart);
 
 	// create quit text
-	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(512.0f, 680.0f), SColor(255, 0, 0));
+	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetFont(), SVector2(128.0f, 32.0f), SVector2(SCREEN_WIDTH * 0.5, 430.0f), SColor(255, 0, 0));
 	pQuit->SetInWorld(false);
 	pQuit->SetTag("Quit");
 	CTM->AddUiObject(pQuit);
@@ -66,6 +67,6 @@ void GEndScene::Render()
 // clean up scene
 void GEndScene::Clean()
 {
-	CTM->CleanUiObjects();
+
 }
 #pragma endregion

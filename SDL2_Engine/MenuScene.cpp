@@ -7,6 +7,7 @@
 #include "Music.h"
 #include "Input.h"
 #include "Physic.h"
+#include "Macro.h"
 #pragma endregion
 
 #pragma region game include
@@ -20,29 +21,26 @@
 // initialize scene
 void GMenuScene::Init()
 {
-	//Create Title
-	CTextObject* pTitle = new CTextObject("Covid Operations", GAME->GetFont(), SVector2(428.0f, 32.0f), SVector2(512.0f, 56.0f), SColor(255, 0, 0));
-	pTitle->SetInWorld(false);
-	CTM->AddUiObject(pTitle);
-
 	//Create Backround 
 	CTexturedObject* pBackground = new CTexturedObject("Texture/Menu/T_Mainmenu.png", SVector2());
 	CTM->AddSceneObject(pBackground);
 
 	//Button Backround
-	CTexturedObject* pStartBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(12.0f, -70.0f));
+	CTexturedObject* pStartBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(SCREEN_WIDTH * 0.5, 300));
+	pStartBackground->SetInWorld(false);
 	CTM->AddUiObject(pStartBackground);
-	CTexturedObject* pQuitBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(12.0f, 30.0f));
+	CTexturedObject* pQuitBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(SCREEN_WIDTH * 0.5, 400));
+	pQuitBackground->SetInWorld(false);
 	CTM->AddUiObject(pQuitBackground);
 
 	// create start text
-	CTextObject* pStart = new CTextObject("Start Game", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(652.0f, 300.0f), SColor(255, 0, 0));
+	CTextObject* pStart = new CTextObject("Start Game", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(SCREEN_WIDTH * 0.5, 300), SColor(255, 0, 0));
 	pStart->SetInWorld(false);
 	pStart->SetTag("Start");
 	CTM->AddUiObject(pStart);
 
 	// create quit text
-	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(652.0f, 400.0f), SColor(255, 0, 0));
+	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(SCREEN_WIDTH * 0.5, 400), SColor(255, 0, 0));
 	pQuit->SetInWorld(false);
 	pQuit->SetTag("Quit");
 	CTM->AddUiObject(pQuit);
@@ -92,6 +90,6 @@ void GMenuScene::Render()
 // clean up scene
 void GMenuScene::Clean()
 {
-	CTM->CleanUiObjects();
+
 }
 #pragma endregion
