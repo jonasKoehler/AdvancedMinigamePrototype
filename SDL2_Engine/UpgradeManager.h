@@ -51,7 +51,7 @@ private:
 	map<EUpgrades, int> m_UpgradeLevel;
 	map<EUpgrades, int> m_UpgradeMaxLevel;
 
-	int m_UpgradePointCount = 0;
+	int m_UpgradePointCount = 50;
 #pragma endregion
 
 };
