@@ -66,6 +66,6 @@ void GEndScene::Render()
 // clean up scene
 void GEndScene::Clean()
 {
-
+	CTM->CleanUiObjects();
 }
 #pragma endregion

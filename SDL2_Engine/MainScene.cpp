@@ -140,4 +140,5 @@ void GMainScene::Clean()
 	delete m_pMusic;
 	CTM->CleanUiObjects();
 	CTM->CleanSceneObjects();
+	CTM->CleanPersistentObjects();
 }

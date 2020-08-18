@@ -28,7 +28,7 @@ void GMenuScene::Init()
 	//Create Backround 
 	CTexturedObject* pBackground = new CTexturedObject("Texture/Menu/T_Mainmenu.png", SVector2());
 	CTM->AddSceneObject(pBackground);
-	
+
 	//Button Backround
 	CTexturedObject* pStartBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(12.0f, -70.0f));
 	CTM->AddUiObject(pStartBackground);
@@ -92,6 +92,6 @@ void GMenuScene::Render()
 // clean up scene
 void GMenuScene::Clean()
 {
-
+	CTM->CleanUiObjects();
 }
 #pragma endregion
