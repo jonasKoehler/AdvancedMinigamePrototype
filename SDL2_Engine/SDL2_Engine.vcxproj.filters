@@ -80,6 +80,9 @@
     <ClCompile Include="GUpgradeFrame.cpp">
       <Filter>Game\UI\UpgradeFrame</Filter>
     </ClCompile>
+    <ClCompile Include="WorldTile.cpp">
+      <Filter>Game\Object\WorldTile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -195,6 +198,9 @@
     </ClInclude>
     <ClInclude Include="UpgradeFrame.h">
       <Filter>Game\UI\UpgradeFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldTile.h">
+      <Filter>Game\Object\WorldTile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +320,9 @@
     </Filter>
     <Filter Include="Game\UI\UpgradeFrame">
       <UniqueIdentifier>{2969ce7a-ccf2-4288-af08-5967616bd223}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\WorldTile">
+      <UniqueIdentifier>{bd4ba667-c342-4aa0-8c96-83b7a0017ffd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
