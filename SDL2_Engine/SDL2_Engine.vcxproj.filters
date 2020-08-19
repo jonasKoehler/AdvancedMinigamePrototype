@@ -83,6 +83,9 @@
     <ClCompile Include="WorldTile.cpp">
       <Filter>Game\Object\WorldTile</Filter>
     </ClCompile>
+    <ClCompile Include="WobbleAnimation.cpp">
+      <Filter>Engine\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -201,6 +204,9 @@
     </ClInclude>
     <ClInclude Include="WorldTile.h">
       <Filter>Game\Object\WorldTile</Filter>
+    </ClInclude>
+    <ClInclude Include="WobbleAnimation.h">
+      <Filter>Engine\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 #pragma region engine include
 #include "Entity.h"
-#include "Animation.h"
+#include "WobbleAnimation.h"
 #pragma endregion
 
 /// <summary>
@@ -23,6 +23,9 @@ public:
 		SetSpeed(50);
 		SetTag("Enemy");
 		m_damage = 10;
+
+		m_animation.InitHorizontal(20, 0, 2);
+		m_animation.InitVertical(10, 10, 1);
 	};
 
 	/// <summary>
@@ -54,5 +57,6 @@ private:
 private:
 #pragma region private variablea
 	SVector2* m_playerpos = nullptr; // reference to position of the player !DO NOT DELETE!
+	CWobbleAnimation m_animation = CWobbleAnimation(&m_rect);
 #pragma endregion
 };

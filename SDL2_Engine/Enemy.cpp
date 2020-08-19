@@ -10,6 +10,7 @@ void GEnemy::Update(float _deltaSeconds)
 {
 	CheckIfDead();
 	MoveToPlayer();
+	m_animation.Update(_deltaSeconds);
 	CMoveObject::Update(_deltaSeconds); // call update of direct parent: entity
 }
 
