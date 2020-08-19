@@ -86,6 +86,9 @@
     <ClCompile Include="WobbleAnimation.cpp">
       <Filter>Engine\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="Upgradepoint.cpp">
+      <Filter>Game\Object\Upgradepoints</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -208,6 +211,9 @@
     <ClInclude Include="WobbleAnimation.h">
       <Filter>Engine\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Upgradepoint.h">
+      <Filter>Game\Object\Upgradepoints</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -329,6 +335,9 @@
     </Filter>
     <Filter Include="Game\Object\WorldTile">
       <UniqueIdentifier>{bd4ba667-c342-4aa0-8c96-83b7a0017ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Upgradepoints">
+      <UniqueIdentifier>{9328b38e-7202-4051-bed8-923a80f41d1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

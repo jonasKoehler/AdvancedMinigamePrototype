@@ -16,6 +16,8 @@
 
 #pragma region other includes
 #include <math.h>
+
+GUpgradeManager Upgrademanager;
 #pragma endregion
 
 
@@ -76,13 +78,24 @@ void GPlayer::Update(float _deltaSeconds)
 		m_pAttack->Start();
 	}
 
-	for (CObject* pObject : m_colObject) // @ Lukas: move this logic to the exit zone class
+	for (CObject* pObject : m_colObject) 
 	{
 		if (pObject->GetTag() == "Exit")
 		{
 			if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
 			{
 				ReachExit();
+			}
+		}
+	}
+	for (CObject* pObject : m_colObject) 
+	{
+		if (pObject->GetTag() == "Upgradepoint")
+		{
+			if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
+			{			
+				Upgrademanager.SetUpgradePointCount(m_Upgradepoints++);
+				CTM->RemoveObject(pObject);
 			}
 		}
 	}

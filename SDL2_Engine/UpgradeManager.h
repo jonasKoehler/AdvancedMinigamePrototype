@@ -6,6 +6,7 @@ using namespace std;
 #pragma once
 class GUpgradeManager // by Jonas
 {
+public:
 	GUpgradeManager() { Init(); }
 
 	~GUpgradeManager() {}
@@ -39,6 +40,11 @@ public:
 
 	// return the number of collected upgrade points
 	inline int GetUpgradePointCount() { return m_UpgradePointCount; }
+
+	inline void SetUpgradePointCount(int _upgradepoint)
+	{
+		m_UpgradePointCount = _upgradepoint;
+	}
 
 
 	void BuyUpgrade(EUpgrades _upgrade);

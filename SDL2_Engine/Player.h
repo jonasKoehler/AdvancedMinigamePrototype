@@ -174,6 +174,7 @@ private:
 	float m_AttacksPerSecond = 1.5f; // the number of times the player can attack in a second
 	float m_AttackCooldown = 1.0f; // one second attack cooldown	
 
+	int m_Upgradepoints;
 	int m_IsInvincible = 0; // milliseconds of invincibility after getting hit
 	float m_ChangeSceneCountdownOnDeath = 0; // seconds after player dies until scene change
 
