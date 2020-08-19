@@ -11,7 +11,11 @@ class CWobbleAnimation // by Jonas
 {
 #pragma region constructor / destructor
 public:
-	CWobbleAnimation() {}
+	CWobbleAnimation(SRect* _rect) 
+	{
+		m_pAnimationRect = _rect;
+		m_baseRect = *_rect;
+	}
 
 	~CWobbleAnimation() {}
 #pragma endregion
@@ -35,16 +39,6 @@ public:
 	/// <param name="_squeeze">Squeeze intensity</param>
 	/// <param name="_speed">Wobble Speed</param>
 	void InitHorizontal(float _stretch, float _squeeze, int _speed);
-
-	/// <summary>
-	/// Sets the Animation Rect
-	/// </summary>
-	/// <param name="_rect"></param>
-	inline void SetAnimationRect(SRect* _rect) 
-	{
-		m_pAnimationRect = _rect;
-		m_baseRect = *_rect;
-	}
 
 	/// <summary>
 	/// Stops the animation and resets the rect
