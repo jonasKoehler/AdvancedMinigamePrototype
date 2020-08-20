@@ -122,7 +122,7 @@ public:
 			false
 		);
 
-		m_pBasicAttackSound = new CSound("Sound/Effects/spray.wav");
+		m_pBasicAttackSound = new CSound("Sound/Effects/S_Spray.wav");
 	}
 #pragma endregion
 

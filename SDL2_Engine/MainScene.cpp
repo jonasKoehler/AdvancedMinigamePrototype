@@ -43,7 +43,7 @@ void GMainScene::Init()
 
 
 	// load music
-	m_pMusic = new CMusic("Sound/Music/music.wav");
+	m_pMusic = new CMusic("Sound/Music/M_Music.wav");
 	m_pMusic->Play(true);
 
 	// get player reference
