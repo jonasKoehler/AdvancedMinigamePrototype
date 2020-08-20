@@ -15,7 +15,7 @@ public:
 		m_pUpgradePointNumber->SetInWorld(false);
 	}
 
-	~GUpgradeIcon()
+	virtual ~GUpgradeIcon()
 	{
 		delete m_pUpgradePointNumber;
 	}
@@ -33,6 +33,5 @@ private:
 	int m_previousUPCount = 0;
 	CTextObject* m_pUpgradePointNumber = nullptr;
 #pragma endregion
-
 };
 

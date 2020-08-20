@@ -13,7 +13,7 @@ public:
 		m_pPickUpSound = new CSound("Sound/Effects/S_Collect.wav");
 	}
 
-	~GUpgradepoint()
+	virtual ~GUpgradepoint()
 	{
 		delete m_pPickUpSound;
 	}
@@ -26,7 +26,7 @@ public:
 #pragma endregion
 
 #pragma region private member variables
-	CTexturedObject* m_pPlayer = nullptr;
+	CTexturedObject* m_pPlayer = nullptr; // reference on Player in CTM
 	CSound* m_pPickUpSound = nullptr;
 	float m_DeathTimer = 5.0f; // timer in seconds for object deletion
 #pragma endregion

@@ -22,7 +22,7 @@ public:
 #pragma endregion
 
 #pragma region private member variables
-	CTexturedObject* m_pPlayer = nullptr;
+	CTexturedObject* m_pPlayer = nullptr; // reference on player in CTM
 #pragma endregion
 };
 

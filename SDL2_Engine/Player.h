@@ -125,7 +125,12 @@ public:
 	virtual ~GPlayer()
 	{
 		delete m_pBasicAttackSound;
-		m_WalkAnimations.clear(); // clear map, invalidating all pointers
+		// deleting WalkAnimationPointers
+		while (m_WalkAnimations.size())
+		{
+			delete m_WalkAnimations.begin()->second;
+			m_WalkAnimations.erase(m_WalkAnimations.begin());
+		}
 		delete m_pDeath;
 		delete m_pAttack;
 		delete m_pDeathRect;

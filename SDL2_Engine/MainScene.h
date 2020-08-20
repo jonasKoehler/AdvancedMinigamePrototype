@@ -49,6 +49,8 @@ private:
 	CMusic* m_pMusic = nullptr;
 	CCanvas m_UpgradeMenu = CCanvas();
 	bool m_UpgradeMenuVisibility = false;
+
+	// pointers that are in CTM
 	GPlayer* m_pPlayer = nullptr;
 	GUpgradeFrame* m_pAttackSpeedUpgrade = nullptr;
 	GUpgradeFrame* m_pDamageUpgrade = nullptr;

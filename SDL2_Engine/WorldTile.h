@@ -9,7 +9,7 @@ public:
 
 	}
 
-	~GWorldTile()
+	virtual ~GWorldTile()
 	{
 		delete m_pDetail;
 	}
