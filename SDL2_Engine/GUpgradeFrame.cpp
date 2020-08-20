@@ -37,8 +37,8 @@ GUpgradeFrame::GUpgradeFrame(SVector2 _position, EUpgrades _upgradeType)
 		"",
 		GAME->GetFont(),
 		SVector2(190, 20),
-		SVector2(_position.X, _position.Y + 35),
-		SColor()
+		SVector2(_position.X, _position.Y + 33),
+		SColor(0, 0, 0, 255)
 	);
 
 	m_UpgradeCost = new CTextObject
@@ -47,7 +47,7 @@ GUpgradeFrame::GUpgradeFrame(SVector2 _position, EUpgrades _upgradeType)
 		GAME->GetFont(),
 		SVector2(40, 40),
 		SVector2(_position.X - 70, _position.Y + 70),
-		SColor()
+		SColor(0, 0, 0, 255)
 	);
 
 	string upgradelevel = to_string(GUpgradeManager::GetInstance()->GetUpgradeLevel(_upgradeType)) + "/" + to_string(GUpgradeManager::GetInstance()->GetUpgradeMaxLevel(_upgradeType));
@@ -57,7 +57,7 @@ GUpgradeFrame::GUpgradeFrame(SVector2 _position, EUpgrades _upgradeType)
 		GAME->GetFont(),
 		SVector2(60, 40),
 		SVector2(_position.X + 60, _position.Y + 70),
-		SColor()
+		SColor(0, 0, 0, 255)
 	);
 
 	// all child elements are ui objects and are not rendered in the world
