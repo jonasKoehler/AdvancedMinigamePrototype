@@ -302,7 +302,7 @@ void LoadWorldFromString()
 				SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
 				worldPos
 			);
-			pExitzone->SetColType(ECollisionType::STATIC);
+			pExitzone->SetColType(ECollisionType::NONE);
 			pExitzone->SetTag("Exit");
 			CTM->AddPersistentObject(pExitzone);
 			break;
