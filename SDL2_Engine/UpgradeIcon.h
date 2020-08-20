@@ -4,7 +4,7 @@
 #include "UpgradeManager.h"
 #include <string>
 
-class GUpgradeIcon : public CTexturedObject
+class GUpgradeIcon : public CTexturedObject // by Jonas
 {
 #pragma region constructor / destructor
 public:

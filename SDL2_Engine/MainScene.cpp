@@ -37,7 +37,7 @@ void GMainScene::Init()
 	HealthbarBorder->SetSrcRect(SVector2(600.0f * 2, 80.0f * 2));
 	CTM->AddUiObject(HealthbarBorder);
 
-	// UI UpgradeIcon by Lukas
+	// UI UpgradeIcon by Jonas
 	GUpgradeIcon* UpgradeIcon = new GUpgradeIcon(SVector2(104.0f, 104.0f), SVector2(1200, 100));
 	UpgradeIcon->SetInWorld(false);
 	CTM->AddUiObject(UpgradeIcon);
