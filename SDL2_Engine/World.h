@@ -315,7 +315,7 @@ void LoadWorldFromString()
 				SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
 				worldPos
 			);
-			pUpgradepoint->SetColType(ECollisionType::STATIC);
+			pUpgradepoint->SetColType(ECollisionType::NONE);
 			pUpgradepoint->SetTag("Upgradepoint");
 			CTM->AddPersistentObject(pUpgradepoint);
 			break;
