@@ -23,6 +23,13 @@ void GMainScene::Init()
 	// load world
 	LoadWorldFromString();
 
+
+	// UI UpgradeIcon
+	CTexturedObject* UpgradeIcon = new CTexturedObject("Texture/UI/IngameHUD/T_UpgradeIcon.png", SVector2(104.0f, 104.0f), SVector2(1200, 100));
+	UpgradeIcon->SetInWorld(false);
+	CTM->AddUiObject(UpgradeIcon);
+
+
 	// load music
 	m_pMusic = new CMusic("Sound/Music/music.wav");
 	m_pMusic->Play(true);

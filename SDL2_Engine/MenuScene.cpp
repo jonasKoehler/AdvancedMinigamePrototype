@@ -19,7 +19,7 @@
 
 #pragma region pulic override function
 // initialize scene
-void GMenuScene::Init()
+void GMenuScene::Init() //by Lukas
 {
 	//Create Backround 
 	CTexturedObject* pBackground = new CTexturedObject("Texture/Menu/T_Mainmenu.png", SVector2());
