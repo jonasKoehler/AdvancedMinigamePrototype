@@ -37,6 +37,8 @@ void GUpgradeManager::Init()
 			break;
 		}
 	}
+
+	m_pBuySound = new CSound("Sound/Effects/S_Upgrade.wav");
 }
 
 void GUpgradeManager::BuyUpgrade(EUpgrades _upgrade)
@@ -73,4 +75,6 @@ void GUpgradeManager::BuyUpgrade(EUpgrades _upgrade)
 	{
 		m_UpgradePrice[_upgrade] = 0; // set price to 0 as additional indicator
 	}
+
+	m_pBuySound->Play();
 }

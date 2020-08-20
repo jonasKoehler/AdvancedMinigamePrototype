@@ -1,4 +1,5 @@
 #include "EUpgrades.h"
+#include "Sound.h"
 #include <map>
 
 using namespace std;
@@ -9,7 +10,10 @@ class GUpgradeManager // by Jonas
 public:
 	GUpgradeManager() { Init(); }
 
-	~GUpgradeManager() {}
+	~GUpgradeManager() 
+	{
+		delete m_pBuySound;
+	}
 
 #pragma region static singleton reference
 public:
@@ -56,6 +60,7 @@ private:
 	map<EUpgrades, int> m_UpgradeMaxLevel;
 
 	int m_UpgradePointCount = 50;
+	CSound* m_pBuySound = nullptr;
 #pragma endregion
 
 };

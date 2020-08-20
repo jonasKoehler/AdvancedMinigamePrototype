@@ -28,7 +28,7 @@ public:
 #pragma region private member variables
 	CTexturedObject* m_pPlayer = nullptr;
 	CSound* m_pPickUpSound = nullptr;
-	float m_DeathTimer = 3.0f; // timer in seconds for object deletion
+	float m_DeathTimer = 5.0f; // timer in seconds for object deletion
 #pragma endregion
 };
 
