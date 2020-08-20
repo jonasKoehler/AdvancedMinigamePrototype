@@ -89,6 +89,9 @@
     <ClCompile Include="Upgradepoint.cpp">
       <Filter>Game\Object\Upgradepoints</Filter>
     </ClCompile>
+    <ClCompile Include="Healthbar.cpp">
+      <Filter>Game\Object\Healthbar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -214,6 +217,9 @@
     <ClInclude Include="Upgradepoint.h">
       <Filter>Game\Object\Upgradepoints</Filter>
     </ClInclude>
+    <ClInclude Include="Healthbar.h">
+      <Filter>Game\Object\Healthbar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -338,6 +344,9 @@
     </Filter>
     <Filter Include="Game\Object\Upgradepoints">
       <UniqueIdentifier>{9328b38e-7202-4051-bed8-923a80f41d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Healthbar">
+      <UniqueIdentifier>{7e1e9389-6be9-45e3-821e-bc508bcfe85a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
