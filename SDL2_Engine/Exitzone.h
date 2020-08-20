@@ -1,24 +1,28 @@
 #pragma once
-#include "Vector2.h"
-#include "Rect.h"
+#pragma region engine includes
 #include "TexturedObject.h"
-#include "Animation.h"
+#pragma endregion
 
-class CTexture;
-class CRenderer;
 
 class GExitzone :	public CTexturedObject
 {
-
+#pragma region constructor / destructor
 public:
-
 	GExitzone(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CTexturedObject(_pFile, _size, _pos)
-	{};
+	{}
 
-	virtual ~GExitzone() {}
+	virtual ~GExitzone() 
+	{}
+#pragma endregion
 
-	virtual void Render() override;
+#pragma region public member functions
+	void Render() override;
 
+	void Update(float _deltaSeconds) override;
+#pragma endregion
 
+#pragma region private member variables
+	CTexturedObject* m_pPlayer = nullptr;
+#pragma endregion
 };
 
