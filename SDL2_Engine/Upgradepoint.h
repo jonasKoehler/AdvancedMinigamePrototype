@@ -1,24 +1,34 @@
 #pragma once
-#include "Vector2.h"
-#include "Rect.h"
+#pragma region engine includes
 #include "TexturedObject.h"
-#include "Animation.h"
-
-class CTexture;
-class CRenderer;
+#include "Sound.h"
+#pragma endregion
 
 class GUpgradepoint : public CTexturedObject
 {
-
+#pragma region constructor / destructor
 public:
+	GUpgradepoint(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CTexturedObject(_pFile, _size, _pos) 
+	{
+		m_pPickUpSound = new CSound("Sound/Effects/S_Collect.wav");
+	}
 
-	GUpgradepoint(const char* _pFile, SVector2 _size, SVector2 _pos = SVector2()) : CTexturedObject(_pFile, _size, _pos)
-	{};
+	~GUpgradepoint()
+	{
+		delete m_pPickUpSound;
+	}
+#pragma endregion
 
-	virtual ~GUpgradepoint() {}
+#pragma region public member functions
+	void Render() override;
 
-	virtual void Render() override;
+	void Update(float _deltaSeconds) override;
+#pragma endregion
 
-
+#pragma region private member variables
+	CTexturedObject* m_pPlayer = nullptr;
+	CSound* m_pPickUpSound = nullptr;
+	float m_DeathTimer = 3.0f; // timer in seconds for object deletion
+#pragma endregion
 };
 
