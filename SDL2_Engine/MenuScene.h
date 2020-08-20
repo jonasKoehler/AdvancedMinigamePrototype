@@ -4,6 +4,7 @@
 #include "Canvas.h"
 #pragma endregion
 
+class CTexturedObject;
 /// <summary>
 /// menu class
 /// </summary>
@@ -39,4 +40,10 @@ public:
 	/// </summary>
 	virtual void Clean() override;
 #pragma endregion
+
+#pragma region private member variables
+	CTexturedObject* m_pTutorialImage = nullptr;
+	CCanvas m_ButtonCanvas;
+#pragma endregion
+
 };

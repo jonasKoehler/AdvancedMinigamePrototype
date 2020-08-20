@@ -25,12 +25,20 @@ void GMenuScene::Init()
 	CTexturedObject* pBackground = new CTexturedObject("Texture/Menu/T_Mainmenu.png", SVector2());
 	CTM->AddSceneObject(pBackground);
 
+	//Create Instructions Background
+	m_pTutorialImage = new CTexturedObject("Texture/Menu/T_Instructions.png", SVector2());
+	m_pTutorialImage->SetRenderingIndicator(false);
+	CTM->AddSceneObject(m_pTutorialImage);
+
 	//Button Backround
 	CTexturedObject* pStartBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(SCREEN_WIDTH * 0.5, 300));
+	CTexturedObject* pTutorialBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(SCREEN_WIDTH * 0.5, 400));
+	CTexturedObject* pQuitBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(SCREEN_WIDTH * 0.5, 500));
 	pStartBackground->SetInWorld(false);
-	CTM->AddUiObject(pStartBackground);
-	CTexturedObject* pQuitBackground = new CTexturedObject("Texture/Menu/T_Button.png", SVector2(228.0f, 62.0f), SVector2(SCREEN_WIDTH * 0.5, 400));
+	pTutorialBackground->SetInWorld(false);
 	pQuitBackground->SetInWorld(false);
+	CTM->AddUiObject(pStartBackground);
+	CTM->AddUiObject(pTutorialBackground);
 	CTM->AddUiObject(pQuitBackground);
 
 	// create start text
@@ -39,11 +47,25 @@ void GMenuScene::Init()
 	pStart->SetTag("Start");
 	CTM->AddUiObject(pStart);
 
+	// create tutorial text
+	CTextObject* pTutorial = new CTextObject("How to Play", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(SCREEN_WIDTH * 0.5, 400), SColor(255, 0, 0));
+	pTutorial->SetInWorld(false);
+	pTutorial->SetTag("Tutorial");
+	CTM->AddUiObject(pTutorial);
+
 	// create quit text
-	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(SCREEN_WIDTH * 0.5, 400), SColor(255, 0, 0));
+	CTextObject* pQuit = new CTextObject("Quit Game", GAME->GetMenuFont(), SVector2(128.0f, 32.0f), SVector2(SCREEN_WIDTH * 0.5, 500), SColor(255, 0, 0));
 	pQuit->SetInWorld(false);
 	pQuit->SetTag("Quit");
 	CTM->AddUiObject(pQuit);
+
+	// add button ui objects to canvas
+	m_ButtonCanvas.AddObject(pStartBackground);
+	m_ButtonCanvas.AddObject(pTutorialBackground);
+	m_ButtonCanvas.AddObject(pQuitBackground);
+	m_ButtonCanvas.AddObject(pStart);
+	m_ButtonCanvas.AddObject(pTutorial);
+	m_ButtonCanvas.AddObject(pQuit);
 
 	// set mouse and loading screen texture
 	ENGINE->SetMouseTexture(TTM->GetTexture("Texture/Mouse/T_Mouse.png"));
@@ -75,9 +97,20 @@ void GMenuScene::Update(float _deltaSeconds)
 					// if hit object has quit tag quit game
 					else if (pObject->GetTag() == "Quit")
 						GAME->Quit();
+					else if (pObject->GetTag() == "Tutorial")
+					{
+						m_pTutorialImage->SetRenderingIndicator(true);
+						m_ButtonCanvas.SetVisible(false);
+					}
 				}
 			}
 		}
+	}
+
+	if (CInput::GetKeyDown(SDL_SCANCODE_ESCAPE))
+	{
+		m_pTutorialImage->SetRenderingIndicator(false);
+		m_ButtonCanvas.SetVisible(true);
 	}
 }
 
