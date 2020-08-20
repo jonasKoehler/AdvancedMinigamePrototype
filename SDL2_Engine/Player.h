@@ -1,11 +1,11 @@
 #pragma once
 #pragma region engine include
-#include "Entity.h"
 #include "Animation.h"
 #include "Sound.h"
 #pragma endregion
 
 #pragma region game includes
+#include "Entity.h"
 #include "Config.h"
 #include "UpgradeManager.h"
 #pragma endregion
@@ -14,8 +14,6 @@
 #include <map>
 using namespace std;
 #pragma endregion
-
-class GEnemy;
 
 enum class EPlayerWalkDirection
 {
@@ -43,11 +41,10 @@ enum class EPlayerLookDirection
 	MAX
 };
 
-class GPlayer : public GEntity
+class GPlayer : public GEntity // by Jonas
 {
+#pragma region constructor / destructor
 public:
-
-#pragma region constructor
 	/// <summary>
 	/// constructor
 	/// </summary>
@@ -124,12 +121,7 @@ public:
 
 		m_pBasicAttackSound = new CSound("Sound/Effects/S_Spray.wav");
 	}
-#pragma endregion
 
-#pragma region destructor
-	/// <summary>
-	/// destructor
-	/// </summary>
 	virtual ~GPlayer()
 	{
 		delete m_pBasicAttackSound;
@@ -156,13 +148,13 @@ public:
 	virtual	void Render() override;
 
 	void UpdateStats(); // by Jonas
+#pragma endregion
+
 #pragma region private functions
 private:
 	void Rotate(); // by Jonas
 	void Move(float _deltaSeconds); // by Jonas
 	void BasicAttack();  // by Jonas
-	void ReachExit(); // by Lukas
-	void CheckIfDead() override; //by Lukas
 	void TakeDamage(float _damage) override; // by Jonas
 #pragma endregion
 
@@ -195,5 +187,4 @@ private:
 
 	CSound* m_pBasicAttackSound = nullptr; // attack sound pointer
 #pragma endregion
-
 };

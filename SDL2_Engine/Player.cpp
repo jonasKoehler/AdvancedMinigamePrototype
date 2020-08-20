@@ -1,25 +1,19 @@
 #pragma region engine include
 #include "Input.h"
-#include "Renderer.h"
-#include "ContentManagement.h"
-#include "Physic.h"
-#include "Macro.h"
-#include "Exitzone.h"
+#include "Renderer.h" // for the camera
+#include "Physic.h" // for collision in basic attack
+#include "Macro.h" 
 #pragma endregion
 
 #pragma region game include
 #include "Player.h"
-#include "Enemy.h"
 #include "Game.h"
 #include "EndScene.h"
 #pragma endregion
 
-#pragma region other includes
+#pragma region std includes
 #include <math.h>
-
-GUpgradeManager Upgrademanager;
 #pragma endregion
-
 
 #pragma region public override function
 void GPlayer::Update(float _deltaSeconds)
@@ -32,7 +26,6 @@ void GPlayer::Update(float _deltaSeconds)
 		if (m_ChangeSceneCountdownOnDeath <= 0.1) // scene change and cleanup when timer expired
 		{
 			GAME->m_Won = false;
-			CTM->RemoveObject(this);
 			ENGINE->ChangeScene(new GEndScene());
 		}
 
@@ -76,17 +69,6 @@ void GPlayer::Update(float _deltaSeconds)
 	{
 		BasicAttack();
 		m_pAttack->Start();
-	}
-
-	for (CObject* pObject : m_colObject) 
-	{
-		if (pObject->GetTag() == "Exit")
-		{
-			if (RectRectCollision(m_rect, ((CTexturedObject*)pObject)->GetRect()))
-			{
-				ReachExit();
-			}
-		}
 	}
 
 	m_pUpperBody->SetRenderingIndicator(m_render);
@@ -295,23 +277,6 @@ void GPlayer::BasicAttack()
 			//if collision enter, the take Damage funktion is called			
 			((GEntity*)pObject)->TakeDamage(m_damage);
 		}
-	}
-}
-
-void GPlayer::ReachExit()
-{
-	GAME->m_Won = true;
-	CTM->RemoveObject(this);
-	ENGINE->ChangeScene(new GEndScene());
-}
-
-void GPlayer::CheckIfDead()
-{
-	if (m_health <= 0)
-	{
-		GAME->m_Won = false;
-		CTM->RemoveObject(this);
-		ENGINE->ChangeScene(new GEndScene());
 	}
 }
 
