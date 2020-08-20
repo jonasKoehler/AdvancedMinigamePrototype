@@ -19,6 +19,7 @@
 #include "Enemy.h"
 #include "Exitzone.h"
 #include "WorldTile.h"
+#include "Upgradepoint.h"
 #pragma endregion
 
 #pragma region using
@@ -309,13 +310,13 @@ void LoadWorldFromString()
 		case 'V': //UpgradePoint
 		{
 			// create UpgradePoint
-			GExitzone* pUpgradepoint = new GExitzone(
-				"Texture/Exit/T_Exit.png",
+			GUpgradepoint* pUpgradepoint = new GUpgradepoint(
+				"Texture/Upgrade/T_Upgradepoint.png",
 				SVector2(GConfig::s_WorldBlockWidth, GConfig::s_WorldBlockHeight),
 				worldPos
 			);
 			pUpgradepoint->SetColType(ECollisionType::STATIC);
-			pUpgradepoint->SetTag("Upgradpoint");
+			pUpgradepoint->SetTag("Upgradepoint");
 			CTM->AddPersistentObject(pUpgradepoint);
 			break;
 		}

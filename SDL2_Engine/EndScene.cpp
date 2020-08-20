@@ -9,7 +9,7 @@
 
 #pragma region pulic override function
 // initialize scene
-void GEndScene::Init()
+void GEndScene::Init() //by Lukas
 {
 
 	// When the Game is won

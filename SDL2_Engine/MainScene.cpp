@@ -13,6 +13,7 @@
 #include "UpgradeFrame.h"
 #include "UpgradeManager.h"
 #include "Player.h"
+#include "Healthbar.h"
 #pragma endregion
 
 // all Upgrade related code was done by Jonas
@@ -22,6 +23,25 @@ void GMainScene::Init()
 {
 	// load world
 	LoadWorldFromString();
+	//byLukas
+
+	// UI Healthbar
+	GHealthbar* Healthbar = new GHealthbar("Texture/UI/IngameHUD/T_Healthbar.png", SVector2(300.0f, 40.0f), SVector2(200, 650));
+	Healthbar->SetInWorld(false);
+	Healthbar->SetSrcRect(SVector2(600.0f, 80.0f));
+	CTM->AddUiObject(Healthbar);
+
+	//UI HealthbarBorder
+	CTexturedObject* HealthbarBorder = new CTexturedObject("Texture/UI/IngameHUD/T_Healthbar.png", SVector2(300.0f, 40.0f), SVector2(200, 650));
+	HealthbarBorder->SetInWorld(false);
+	HealthbarBorder->SetSrcRect(SVector2(600.0f * 2, 80.0f * 2));
+	CTM->AddUiObject(HealthbarBorder);
+
+	// UI UpgradeIcon
+	CTexturedObject* UpgradeIcon = new CTexturedObject("Texture/UI/IngameHUD/T_UpgradeIcon.png", SVector2(104.0f, 104.0f), SVector2(1200, 100));
+	UpgradeIcon->SetInWorld(false);
+	CTM->AddUiObject(UpgradeIcon);
+
 
 	// load music
 	m_pMusic = new CMusic("Sound/Music/music.wav");

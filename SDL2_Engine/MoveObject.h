@@ -119,7 +119,7 @@ protected:
 	SVector2 m_movement = SVector2();
 #pragma endregion
 
-protected:
+public:
 #pragma region protected variable
 	/// <summary>
 	/// list with all possible objects to collide with in range
