@@ -88,17 +88,6 @@ void GPlayer::Update(float _deltaSeconds)
 			}
 		}
 	}
-	for (CObject* pObject : m_colObject) 
-	{
-		if (pObject->GetTag() == "Upgradepoint")
-		{
-			if (RectRectCollision(m_rect, ((CTexturedObject*)pObject)->GetRect()))
-			{			
-				Upgrademanager.SetUpgradePointCount(m_Upgradepoints++);
-				CTM->RemoveObject(pObject);
-			}
-		}
-	}
 
 	m_pUpperBody->SetRenderingIndicator(m_render);
 	m_pUpperBody->SetPosition(SVector2(m_position.X, m_position.Y - GConfig::s_PlayerBottomHeight * 0.5));
