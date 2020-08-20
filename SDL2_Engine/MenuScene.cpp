@@ -4,7 +4,6 @@
 #include "UpgradeFrame.h"
 #include "EUpgrades.h"
 #include "TextObject.h"
-#include "Music.h"
 #include "Input.h"
 #include "Physic.h"
 #include "Macro.h"
@@ -67,6 +66,10 @@ void GMenuScene::Init() //by Lukas
 	m_ButtonCanvas.AddObject(pTutorial);
 	m_ButtonCanvas.AddObject(pQuit);
 
+	// set music
+	m_pMenuTheme = new CMusic("Sound/Music/M_MenuMusic.wav");
+	m_pMenuTheme->Play(true);
+
 	// set mouse and loading screen texture
 	ENGINE->SetMouseTexture(TTM->GetTexture("Texture/Mouse/T_Mouse.png"));
 	ENGINE->SetLoadingScreen(TTM->GetTexture("Texture/Loading/T_Loading.png"));
@@ -123,6 +126,6 @@ void GMenuScene::Render()
 // clean up scene
 void GMenuScene::Clean()
 {
-
+	delete m_pMenuTheme;
 }
 #pragma endregion

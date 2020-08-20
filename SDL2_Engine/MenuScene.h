@@ -2,6 +2,7 @@
 #pragma region engine include
 #include "Scene.h"
 #include "Canvas.h"
+#include "Music.h"
 #pragma endregion
 
 class CTexturedObject;
@@ -43,6 +44,7 @@ public:
 
 #pragma region private member variables
 	CTexturedObject* m_pTutorialImage = nullptr;
+	CMusic* m_pMenuTheme = nullptr;
 	CCanvas m_ButtonCanvas;
 #pragma endregion
 
