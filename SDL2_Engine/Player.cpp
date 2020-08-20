@@ -82,7 +82,7 @@ void GPlayer::Update(float _deltaSeconds)
 	{
 		if (pObject->GetTag() == "Exit")
 		{
-			if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
+			if (RectRectCollision(m_rect, ((CTexturedObject*)pObject)->GetRect()))
 			{
 				ReachExit();
 			}
@@ -92,7 +92,7 @@ void GPlayer::Update(float _deltaSeconds)
 	{
 		if (pObject->GetTag() == "Upgradepoint")
 		{
-			if (RectRectCollision(m_Hitzone, ((CTexturedObject*)pObject)->GetRect()))
+			if (RectRectCollision(m_rect, ((CTexturedObject*)pObject)->GetRect()))
 			{			
 				Upgrademanager.SetUpgradePointCount(m_Upgradepoints++);
 				CTM->RemoveObject(pObject);
