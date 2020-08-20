@@ -14,6 +14,7 @@
 #include "UpgradeManager.h"
 #include "Player.h"
 #include "Healthbar.h"
+#include "UpgradeIcon.h"
 #pragma endregion
 
 // all Upgrade related code was done by Jonas
@@ -37,7 +38,7 @@ void GMainScene::Init()
 	CTM->AddUiObject(HealthbarBorder);
 
 	// UI UpgradeIcon by Lukas
-	CTexturedObject* UpgradeIcon = new CTexturedObject("Texture/UI/IngameHUD/T_UpgradeIcon.png", SVector2(104.0f, 104.0f), SVector2(1200, 100));
+	GUpgradeIcon* UpgradeIcon = new GUpgradeIcon(SVector2(104.0f, 104.0f), SVector2(1200, 100));
 	UpgradeIcon->SetInWorld(false);
 	CTM->AddUiObject(UpgradeIcon);
 
