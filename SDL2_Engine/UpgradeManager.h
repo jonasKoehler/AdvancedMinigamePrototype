@@ -41,10 +41,8 @@ public:
 	// return the number of collected upgrade points
 	inline int GetUpgradePointCount() { return m_UpgradePointCount; }
 
-	inline void SetUpgradePointCount(int _upgradepoint)
-	{
-		m_UpgradePointCount = _upgradepoint;
-	}
+	// add one upgradepoint to the UP count
+	inline void AddUpgradePoint() { m_UpgradePointCount++; }
 
 
 	void BuyUpgrade(EUpgrades _upgrade);
