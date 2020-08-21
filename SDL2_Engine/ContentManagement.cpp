@@ -67,7 +67,7 @@ void CContentManagement::Update(float _deltaSeconds)
 		if (m_moveObjects.size() > CTime::GetFPS())
 			// decrease collision timer
 			m_colTimer -= 0.2f / CTime::GetFPS();
-		
+
 		// if move objects not more than frames per second
 		else
 			// reset collision timer
@@ -133,7 +133,7 @@ void CContentManagement::SortObjects(CObject* _pObject)
 	// iterator and current list reference
 	list<CObject*>::iterator it;
 	list<CObject*>* pList = &m_sceneObjects;
-	
+
 	// check every list
 	for (int i = 0; i < 3; i++)
 	{
@@ -152,7 +152,7 @@ void CContentManagement::SortObjects(CObject* _pObject)
 				// add object at front of list
 				pList->push_front(_pObject);
 			}
-			
+
 			// if list not empty
 			else
 			{
@@ -164,13 +164,13 @@ void CContentManagement::SortObjects(CObject* _pObject)
 				{
 					// if objects layer is lower than current objects layer from list
 					if (_pObject->GetLayer() < (*insertIt)->GetLayer())
-						
+
 						// if current obeject is the front of the list
 						if (insertIt == pList->begin())
 							// add object at front of list
 							pList->push_front(_pObject);
 
-						// if current object is not at front os list
+					// if current object is not at front os list
 						else
 							// insert object before current object in list
 							pList->insert(insertIt, _pObject);
