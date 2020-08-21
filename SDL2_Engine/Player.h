@@ -120,6 +120,7 @@ public:
 		);
 
 		m_pBasicAttackSound = new CSound("Sound/Effects/S_Spray.wav");
+		m_pPlayer = this;
 	}
 
 	virtual ~GPlayer()
@@ -153,6 +154,11 @@ public:
 	virtual	void Render() override;
 
 	void UpdateStats(); // by Jonas
+
+	static GPlayer* GetInstance()
+	{
+		return m_pPlayer;
+	}
 #pragma endregion
 
 #pragma region private functions
@@ -191,5 +197,7 @@ private:
 	map<EPlayerWalkDirection, CAnimation*> m_WalkAnimations; // map containing animations for all walk directions
 
 	CSound* m_pBasicAttackSound = nullptr; // attack sound pointer
+
+	static GPlayer* m_pPlayer;
 #pragma endregion
 };

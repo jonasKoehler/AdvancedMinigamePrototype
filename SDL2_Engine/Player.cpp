@@ -15,6 +15,8 @@
 #include <math.h>
 #pragma endregion
 
+GPlayer* GPlayer::m_pPlayer = nullptr;
+
 #pragma region public override function
 void GPlayer::Update(float _deltaSeconds)
 {
@@ -27,6 +29,7 @@ void GPlayer::Update(float _deltaSeconds)
 		{
 			GAME->m_Won = false;
 			ENGINE->ChangeScene(new GEndScene());
+			return;
 		}
 
 		m_pDeath->Update(_deltaSeconds);
