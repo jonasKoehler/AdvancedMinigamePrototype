@@ -297,8 +297,15 @@ void CEngine::Update()
 	if (m_pScene)
 		m_pScene->Update(m_pTime->GetDeltaSeconds());
 
+	CScene* pScene = m_pScene;
+
 	// update content
 	m_pCTM->Update(m_pTime->GetDeltaSeconds());
+
+	if (m_pScene != pScene)
+	{
+		CTM->Update(0);
+	}
 }
 
 // render every frame
