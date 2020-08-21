@@ -142,6 +142,7 @@ public:
 #pragma endregion
 
 #pragma region public functions
+public:
 	/// <summary>
 	/// update every frame
 	/// </summary>

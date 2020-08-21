@@ -55,7 +55,7 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, float _angl
 	SRect dstRect = SRect();
 
 	// if destination rect valid and width or height zero
-	if (_pDstRect && (!_pDstRect->w || !_pDstRect->h))
+	if (_pDstRect && (!_pDstRect->w && !_pDstRect->h))
 		// set destination rect to nullptr to use whole screen
 		_pDstRect = nullptr;
 

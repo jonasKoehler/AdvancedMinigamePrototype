@@ -192,8 +192,8 @@ xcopy "$(SolutionDir)Library\SDL2_mixer\lib\$(PlatformShortname)\*.dll" "$(Solut
     <ClCompile Include="Exitzone.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GUpgradeFrame.cpp" />
     <ClCompile Include="Healthbar.cpp" />
+    <ClCompile Include="GUpgradeFrame.cpp" />
     <ClCompile Include="UpgradeIcon.cpp" />
     <ClCompile Include="Upgradepoint.cpp" />
     <ClCompile Include="Input.cpp" />
