@@ -26,16 +26,8 @@ void GMainScene::Init()
 	LoadWorldFromString();
 
 	// UI Healthbar by Lukas
-	GHealthbar* Healthbar = new GHealthbar("Texture/UI/IngameHUD/T_Healthbar.png", SVector2(300.0f, 40.0f), SVector2(200, 650));
-	Healthbar->SetInWorld(false);
-	Healthbar->SetSrcRect(SVector2(600.0f, 80.0f));
+	GHealthbar* Healthbar = new GHealthbar(SVector2(300.0f, 40.0f), SVector2(200, 650));
 	CTM->AddUiObject(Healthbar);
-
-	//UI HealthbarBorder by Lukas
-	CTexturedObject* HealthbarBorder = new CTexturedObject("Texture/UI/IngameHUD/T_Healthbar.png", SVector2(300.0f, 40.0f), SVector2(200, 650));
-	HealthbarBorder->SetInWorld(false);
-	HealthbarBorder->SetSrcRect(SVector2(600.0f * 2, 80.0f * 2));
-	CTM->AddUiObject(HealthbarBorder);
 
 	// UI UpgradeIcon by Jonas
 	GUpgradeIcon* UpgradeIcon = new GUpgradeIcon(SVector2(104.0f, 104.0f), SVector2(1200, 100));

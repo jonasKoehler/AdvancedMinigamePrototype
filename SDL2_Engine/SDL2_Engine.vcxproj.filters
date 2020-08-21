@@ -89,11 +89,11 @@
     <ClCompile Include="Upgradepoint.cpp">
       <Filter>Game\Object\Upgradepoints</Filter>
     </ClCompile>
-    <ClCompile Include="Healthbar.cpp">
-      <Filter>Game\Object\Healthbar</Filter>
-    </ClCompile>
     <ClCompile Include="UpgradeIcon.cpp">
       <Filter>Game\UI\UpgradeIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="Healthbar.cpp">
+      <Filter>Game\UI\Healthbar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,11 +220,11 @@
     <ClInclude Include="Upgradepoint.h">
       <Filter>Game\Object\Upgradepoints</Filter>
     </ClInclude>
-    <ClInclude Include="Healthbar.h">
-      <Filter>Game\Object\Healthbar</Filter>
-    </ClInclude>
     <ClInclude Include="UpgradeIcon.h">
       <Filter>Game\UI\UpgradeIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="Healthbar.h">
+      <Filter>Game\UI\Healthbar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -351,11 +351,11 @@
     <Filter Include="Game\Object\Upgradepoints">
       <UniqueIdentifier>{9328b38e-7202-4051-bed8-923a80f41d1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Object\Healthbar">
-      <UniqueIdentifier>{7e1e9389-6be9-45e3-821e-bc508bcfe85a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\UI\UpgradeIcon">
       <UniqueIdentifier>{87049ced-0392-4fa1-86d9-bec784ce8007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\Healthbar">
+      <UniqueIdentifier>{1d180c61-906a-4250-a82f-2f90ad1c5f0f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
