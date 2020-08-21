@@ -31,6 +31,9 @@ void GEnemy::CheckIfDead()
 
 void GEnemy::MoveToPlayer()
 {
+	m_movement.X = 0;
+	m_movement.Y = 0;
+
 	if (!m_playerpos)
 	{
 		//Find the Player and his Position
@@ -47,32 +50,32 @@ void GEnemy::MoveToPlayer()
 		return; // do nothing if playerpos is nullpointer
 	}
 
+	if (!m_Engaged)
+	{
+		SVector2 distance = *m_playerpos - m_position;
+		if (distance.SqrMagnitude() <= pow(m_DetectionRange, 2))
+			m_Engaged = true;
+		return;
+	}
+
 	//Check Position X and Walks to this Position
-	if (m_position.X >= m_playerpos->X)
+	if (m_position.X > m_playerpos->X)
 	{
 		m_movement.X = -1.0f; //Walks to his Position
 	}
-	if (m_position.X <= m_playerpos->X)
+	if (m_position.X < m_playerpos->X)
 	{
 		m_movement.X = 1.0f;
 	}
-	if (m_position.X == m_playerpos->X)
-	{
-		m_movement.X = 0;
-	}
 
 	//Check Position Y and Walks to this Position
-	if (m_position.Y >= m_playerpos->Y)
+	if (m_position.Y > m_playerpos->Y)
 	{
 		m_movement.Y = -1.0f;
 	}
-	if (m_position.Y <= m_playerpos->Y)
+	if (m_position.Y < m_playerpos->Y)
 	{
 		m_movement.Y = 1.0f;
-	}
-	if (m_position.Y == m_playerpos->Y)
-	{
-		m_movement.Y = 0;
 	}
 }
 

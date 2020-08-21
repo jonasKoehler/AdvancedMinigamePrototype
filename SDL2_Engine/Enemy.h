@@ -34,7 +34,7 @@ public:
 	virtual ~GEnemy() {}
 #pragma endregion
 
-#pragma region constructor / destructor
+#pragma region public functions
 	/// <summary>
 	/// update every frame
 	/// </summary>
@@ -54,9 +54,11 @@ private:
 	void OnCollisionEnter(CObject* pObject) override;
 #pragma endregion
 
-private:
 #pragma region private variablea
+private:
 	SVector2* m_playerpos = nullptr; // reference to position of the player !DO NOT DELETE!
 	CWobbleAnimation m_animation = CWobbleAnimation(&m_rect);
+	int m_DetectionRange = 500; // range in pixels which the enemy detects the player
+	bool m_Engaged = false; // determines if enemy walks towards player
 #pragma endregion
 };
