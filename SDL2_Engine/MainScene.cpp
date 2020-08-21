@@ -76,7 +76,7 @@ void GMainScene::Init()
 		switch ((EUpgrades)i)
 		{
 		case EUpgrades::AttackSpeed:
-			pTempFrame->SetDescription("Attackspeed +25%");
+			pTempFrame->SetDescription("Attackspeed +20%");
 			pTempFrame->SetIcon("Texture/UI/Upgrades/T_AttackSpeed.png");
 			m_pAttackSpeedUpgrade = pTempFrame;
 			break;
@@ -86,7 +86,7 @@ void GMainScene::Init()
 			m_pDamageUpgrade = pTempFrame;
 			break;
 		case EUpgrades::MovementSpeed:
-			pTempFrame->SetDescription("Movementspeed +5%");
+			pTempFrame->SetDescription("Movementspeed +10%");
 			pTempFrame->SetIcon("Texture/UI/Upgrades/T_MovementSpeed.png");
 			m_pSpeedUpgrade = pTempFrame;
 			break;

@@ -64,7 +64,7 @@ void GUpgradeManager::BuyUpgrade(EUpgrades _upgrade)
 		m_PlayerStats[_upgrade] += 18.75f;
 		break;
 	case EUpgrades::MovementSpeed:
-		m_PlayerStats[_upgrade] *= 1.05f;
+		m_PlayerStats[_upgrade] *= 1.1f;
 		break;
 	case EUpgrades::AttackRange:
 		m_PlayerStats[_upgrade] += 4;
