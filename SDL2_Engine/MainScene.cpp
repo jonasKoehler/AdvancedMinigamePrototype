@@ -150,6 +150,7 @@ void GMainScene::Render()
 // clean up scene
 void GMainScene::Clean()
 {
+	GUpgradeManager::GetInstance()->Reset(); // reset the UGM
 	delete m_pMusic;
-	CTM->CleanPersistentObjects();
+	CTM->CleanPersistentObjects(); // remove player, enemies, UPs, exit
 }

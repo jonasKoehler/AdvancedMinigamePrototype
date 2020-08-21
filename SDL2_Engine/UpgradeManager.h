@@ -48,7 +48,13 @@ public:
 	// add one upgradepoint to the UP count
 	inline void AddUpgradePoint() { m_UpgradePointCount++; }
 
+	// resets the UGM
+	inline void Reset() { Init(); }
 
+	/// <summary>
+	/// attempts the purchase of the specified upgrade type
+	/// </summary>
+	/// <param name="_upgrade">Upgrade Type</param>
 	void BuyUpgrade(EUpgrades _upgrade);
 #pragma endregion
 
@@ -59,7 +65,7 @@ private:
 	map<EUpgrades, int> m_UpgradeLevel;
 	map<EUpgrades, int> m_UpgradeMaxLevel;
 
-	int m_UpgradePointCount = 50;
+	int m_UpgradePointCount = 0;
 	CSound* m_pBuySound = nullptr;
 #pragma endregion
 

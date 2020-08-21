@@ -267,7 +267,7 @@ void GPlayer::BasicAttack()
 	m_AttackCooldown = 0.0f;
 	m_pBasicAttackSound->Play();
 
-	//check every scene object
+	//check every persistent object
 	for (CObject* pObject : CTM->GetPersistentObjects())
 	{
 		// if its not an enemy continue to next object

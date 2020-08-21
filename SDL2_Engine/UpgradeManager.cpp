@@ -2,6 +2,8 @@
 
 void GUpgradeManager::Init()
 {
+	m_UpgradePointCount = 0;
+
 	for (int i = 0; i < (int)EUpgrades::MAX; i++)
 	{
 		m_UpgradeLevel[(EUpgrades)i] = 0;
@@ -11,7 +13,7 @@ void GUpgradeManager::Init()
 		case EUpgrades::AttackSpeed:
 			m_UpgradePrice[(EUpgrades)i] = 1;
 			m_UpgradeMaxLevel[(EUpgrades)i] = 4;
-			m_PlayerStats[(EUpgrades)i] = 1.5f; // attacks per sec
+			m_PlayerStats[(EUpgrades)i] = 2.0f; // attacks per sec
 			break;
 		case EUpgrades::Damage:
 			m_UpgradePrice[(EUpgrades)i] = 1;
@@ -55,7 +57,7 @@ void GUpgradeManager::BuyUpgrade(EUpgrades _upgrade)
 	{
 	case EUpgrades::AttackSpeed:
 		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade] + 1;
-		m_PlayerStats[_upgrade] *= 1.25f;
+		m_PlayerStats[_upgrade] *= 1.2f;
 		break;
 	case EUpgrades::Damage:
 		m_UpgradePrice[_upgrade] = m_UpgradeLevel[_upgrade] + 1;
