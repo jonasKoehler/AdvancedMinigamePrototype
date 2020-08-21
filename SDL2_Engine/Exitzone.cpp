@@ -27,6 +27,7 @@ void GExitzone::Update(float _deltaSeconds)
 		{
 			GAME->m_Won = true;
 			ENGINE->ChangeScene(new GEndScene());
+			return;
 		}
 	}
 
