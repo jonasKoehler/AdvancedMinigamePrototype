@@ -96,7 +96,10 @@ void GMenuScene::Update(float _deltaSeconds)
 						break;
 					// if hit object has start tag change scene to main scene
 					if (pObject->GetTag() == "Start")
+					{
 						ENGINE->ChangeScene(new GMainScene());
+						return;
+					}
 					// if hit object has quit tag quit game
 					else if (pObject->GetTag() == "Quit")
 						GAME->Quit();
